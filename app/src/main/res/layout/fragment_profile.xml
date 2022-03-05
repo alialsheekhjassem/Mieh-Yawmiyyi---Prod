@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.magma.miyyiyawmiyyi.android.presentation.home.ui.profile.ProfileViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@drawable/bg_grey">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".presentation.home.ui.profile.ProfileFragment">
+
+            <TextView
+                android:id="@+id/txt_full_name"
+                style="@style/MaterialTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/vertical_20dp"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:text="@string/full_name"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/edt_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/MaterialEditTextStyle"
+                android:inputType="textPersonName"
+                android:padding="@dimen/spacing_large"
+                android:background="@drawable/bg_rounded"
+                android:hint="@string/enter_here"
+                android:textColorHint="@color/color_hint"
+                android:layout_marginTop="@dimen/spacing_default"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                app:layout_constraintTop_toBottomOf="@+id/txt_full_name"/>
+
+            <TextView
+                android:id="@+id/txt_phone"
+                style="@style/MaterialTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:text="@string/phone_number"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edt_full_name"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lyt_mobile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:layout_marginTop="@dimen/spacing_default"
+                android:layoutDirection="ltr"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_phone">
+
+                <com.hbb20.CountryCodePicker
+                    android:id="@+id/countryPicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginEnd="@dimen/spacing_default"
+                    app:ccpDialog_keyboardAutoPopup="false"
+                    app:ccpDialog_showFlag="true"
+                    app:ccp_autoDetectCountry="true"
+                    android:background="@drawable/bg_rounded"
+                    android:padding="@dimen/spacing_medium"
+                    app:ccp_contentColor="@color/color_hint"
+                    app:ccp_countryAutoDetectionPref="SIM_NETWORK_LOCALE"
+                    app:ccp_showFlag="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_textSize="@dimen/size_medium" />
+
+                <EditText
+                    android:id="@+id/edt_phone_number"
+                    style="@style/MaterialEditTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:autofillHints="@string/app_name"
+                    android:background="@drawable/bg_rounded"
+                    android:inputType="phone"
+                    android:textSize="@dimen/size_medium"
+                    android:hint="@string/enter_here"
+                    android:textColorHint="@color/color_hint"
+                    android:textColor="@color/colorPrimary"
+                    android:padding="@dimen/spacing_default"
+                    tools:ignore="LabelFor" />
+
+                <TextView
+                    style="@style/MaterialBoldTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/verify"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:background="@drawable/bg_rounded_primary"
+                    android:padding="@dimen/spacing_default"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <TextView
+                android:id="@+id/txt_birthdate_day"
+                style="@style/MaterialTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:text="@string/date_of_birth"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lyt_mobile"/>
+
+            <Spinner
+                android:id="@+id/spn_yob"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/yob"
+                android:background="@drawable/bg_rounded"
+                android:layout_marginTop="@dimen/spacing_default"
+                tools:listitem="@layout/item_yob_spinner_profile"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                app:layout_constraintTop_toBottomOf="@id/txt_birthdate_day"/>
+
+            <TextView
+                android:id="@+id/txt_location"
+                style="@style/MaterialTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:text="@string/location"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/spn_yob"/>
+
+            <TextView
+                android:id="@+id/spn_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/product_sans_bold"
+                android:paddingHorizontal="@dimen/spacing_large"
+                android:paddingVertical="@dimen/spacing_default"
+                android:gravity="center"
+                android:textColor="@color/color_hint"
+                android:textSize="@dimen/size_title"
+                android:text="Lebanon"
+                android:background="@drawable/bg_rounded"
+                android:layout_marginTop="@dimen/spacing_default"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                app:layout_constraintTop_toBottomOf="@id/txt_location" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_save"
+                style="@style/MaterialButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@string/save"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:paddingVertical="@dimen/spacing_default"
+                android:textSize="@dimen/size_title"
+                android:backgroundTint="@color/colorPrimary"
+                app:layout_constraintTop_toBottomOf="@+id/spn_location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="@dimen/spacing_navigation_top"
+                android:layout_marginBottom="@dimen/spacing_large"
+                android:src="@drawable/logo"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btn_save"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+</layout>

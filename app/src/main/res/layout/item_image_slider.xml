@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="imageUrl"
+            type="String" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view_slider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            image_url="@{imageUrl}"
+            android:scaleType="fitXY"
+            android:contentDescription="@string/app_name"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/image_height"
+            android:background="@drawable/bg_slider"
+            android:layout_gravity="bottom"/>
+
+    </FrameLayout>
+</layout>

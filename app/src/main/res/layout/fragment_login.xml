@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.magma.miyyiyawmiyyi.android.presentation.registration.login.LoginViewModel" />
+
+        <variable
+            name="fcmToken"
+            type="String" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_background">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_gift"
+            android:layout_width="@dimen/size_sale_header"
+            android:layout_height="@dimen/size_sale_header"
+            android:layout_marginHorizontal="@dimen/spacing_large"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatCount="30"
+            app:lottie_rawRes="@raw/lottie_happy_giftbox"
+            android:layout_marginVertical="@dimen/spacing_large"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@+id/lyt_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lyt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/lyt_mobile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_gift">
+
+        <TextView
+            android:id="@+id/txt_title"
+            style="@style/MaterialBoldTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginHorizontal="@dimen/spacing_default"
+            android:text="@string/welcome_to_100_yawmiyyi"
+            android:textColor="@color/dark_red"
+            android:textSize="@dimen/size_title"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_body"
+            style="@style/MaterialTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/spacing_default"
+            android:layout_marginHorizontal="@dimen/spacing_default"
+            android:text="@string/please_sign_in_using_your_mobile_number"
+            android:textColor="@color/grey_40" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lyt_mobile"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_large"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:background="@drawable/bg_outline"
+            android:layoutDirection="ltr"
+            android:orientation="horizontal"
+            android:paddingVertical="@dimen/spacing_medium"
+            app:layout_constraintBottom_toTopOf="@+id/btn_login"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lyt_title">
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/countryPicker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/spacing_medium"
+                app:ccpDialog_keyboardAutoPopup="false"
+                app:ccpDialog_showFlag="true"
+                app:ccp_autoDetectCountry="true"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                app:ccp_contentColor="@color/colorPrimary"
+                app:ccp_countryAutoDetectionPref="SIM_NETWORK_LOCALE"
+                app:ccp_showFlag="false"
+                app:ccp_showNameCode="false"
+                app:ccp_textSize="@dimen/size_small" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:background="@color/grey_20"/>
+
+            <EditText
+                android:id="@+id/edt_phone_number"
+                style="@style/MaterialEditTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:autofillHints="@string/app_name"
+                android:background="@color/transparent"
+                android:inputType="phone"
+                tools:text="0988424630"
+                android:layout_marginEnd="@dimen/spacing_medium"
+                android:textSize="@dimen/size_small"
+                android:layout_marginStart="@dimen/spacing_default"
+                android:hint="@string/phone_number"
+                android:textColor="@color/colorPrimary"
+                android:padding="@dimen/spacing_medium"
+                tools:ignore="LabelFor" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/MaterialButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_large"
+            android:minHeight="0dp"
+            android:onClick="@{()-> viewModel.doServerLogin(edtPhoneNumber.getText())}"
+            android:padding="@dimen/spacing_default"
+            android:text="@string/continue_"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_title"
+            android:backgroundTint="@color/orange_3"
+            app:cornerRadius="@dimen/spacing_medium"
+            app:layout_constraintBottom_toTopOf="@+id/lyt_powered_by"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lyt_mobile" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8"/>
+
+        <include
+            android:id="@+id/lyt_powered_by"
+            layout="@layout/include_powered_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

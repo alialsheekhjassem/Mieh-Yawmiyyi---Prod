@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.magma.miyyiyawmiyyi.android.presentation.registration.finish_account.FinishAccountViewModel" />
+
+        <variable
+            name="StringRuleUtil"
+            type="com.magma.miyyiyawmiyyi.android.utils.StringRuleUtil" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_background">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.1"/>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lyt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline2">
+
+            <TextView
+                android:id="@+id/txt_title"
+                style="@style/MaterialBoldTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:text="@string/finish_account_setup"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/size_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_body"
+                style="@style/MaterialTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="@dimen/spacing_default"
+                android:text="@string/please_fill_below_to_finish_setup_your_account"
+                android:textColor="@color/grey_40" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txt_input_name_lyt"
+            style="@style/Widget.Design.TextInputLayout"
+            errorMsg="@{@string/name_can_not_be_empty}"
+            validation="@{StringRuleUtil.NOT_EMPTY_RULE}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/spacing_default"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:hint="@string/name"
+            android:textColorHint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lyt_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_input_name"
+                style="@style/TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/grey_40"
+                android:inputType="textPersonName" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txt_birthdate_day"
+            style="@style/MaterialTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vertical_20dp"
+            android:layout_marginHorizontal="@dimen/spacing_default"
+            android:text="@string/date_of_birth"
+            android:textColor="@color/colorPrimary"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txt_input_name_lyt"/>
+
+        <Spinner
+            android:id="@+id/spn_yob"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/yob"
+            android:background="@drawable/bg_rounded"
+            android:backgroundTint="@color/orange_3"
+            android:layout_marginTop="@dimen/spacing_default"
+            tools:listitem="@layout/item_yob_spinner"
+            android:layout_marginHorizontal="@dimen/spacing_default"
+            app:layout_constraintTop_toBottomOf="@id/txt_birthdate_day"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login"
+            style="@style/MaterialButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_large"
+            android:minHeight="0dp"
+            android:padding="@dimen/spacing_default"
+            android:text="@string/done"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_title"
+            android:backgroundTint="@color/orange_3"
+            android:onClick="@{()-> viewModel.onDone()}"
+            app:cornerRadius="@dimen/spacing_medium"
+            app:layout_constraintBottom_toTopOf="@+id/lyt_powered_by"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spn_yob" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8"/>
+
+        <include
+            android:id="@+id/lyt_powered_by"
+            layout="@layout/include_powered_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

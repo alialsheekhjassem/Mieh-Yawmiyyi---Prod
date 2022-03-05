@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.magma.miyyiyawmiyyi.android.presentation.registration.check_code.CheckCodeViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_background">
+
+        <TextView
+            android:id="@+id/txt_change_number"
+            style="@style/MaterialTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:padding="@dimen/spacing_large"
+            android:text="@string/change_number"
+            android:gravity="center"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/size_body"
+            android:drawablePadding="@dimen/spacing_default"
+            android:onClick="@{()->viewModel.onEditPhoneNumber()}"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableStartCompat="@drawable/ic_arrow_left_filled"
+            app:drawableTint="@color/colorPrimary" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_gift"
+            android:layout_width="@dimen/size_sale_header"
+            android:layout_height="@dimen/size_sale_header"
+            android:layout_marginHorizontal="@dimen/spacing_large"
+            app:lottie_autoPlay="true"
+            app:lottie_repeatCount="30"
+            app:lottie_rawRes="@raw/lottie_search"
+            android:layout_marginVertical="@dimen/spacing_large"
+            app:layout_constraintVertical_chainStyle="packed"
+            app:layout_constraintBottom_toTopOf="@+id/lyt_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/lyt_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/otp_number"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_gift">
+
+            <TextView
+                android:id="@+id/txt_title"
+                style="@style/MaterialBoldTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:text="@string/welcome_to_100_yawmiyyi"
+                android:textColor="@color/dark_red"
+                android:textSize="@dimen/size_title"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_body"
+                style="@style/MaterialTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_margin="@dimen/spacing_default"
+                android:text="@string/please_sign_in_using_your_mobile_number"
+                android:textColor="@color/grey_40" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.mukesh.OtpView
+            android:id="@+id/otp_number"
+            style="@style/OtpWidget.OtpView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/app_name"
+            android:inputType="number"
+            android:layout_marginVertical="@dimen/spacing_large"
+            android:textColor="@color/colorPrimary"
+            app:OtpItemCount="6"
+            app:OtpViewType="line"
+            app:layout_constraintBottom_toTopOf="@+id/txt_resend_code"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lyt_title"
+            tools:ignore="LabelFor"
+            tools:text="456455" />
+
+        <TextView
+            android:id="@+id/txt_resend_code"
+            style="@style/MaterialTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginHorizontal="@dimen/spacing_default"
+            android:text="@string/didn_t_receive_the_code_send_again"
+            android:textColor="@color/grey_40"
+            android:textSize="@dimen/size_body"
+            app:layout_constraintBottom_toTopOf="@+id/btn_verify"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/otp_number"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_verify"
+            style="@style/MaterialButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_large"
+            android:minHeight="0dp"
+            android:padding="@dimen/spacing_default"
+            android:text="@string/verify_and_continue"
+            android:textColor="@color/white"
+            android:textSize="@dimen/size_title"
+            android:backgroundTint="@color/orange_1"
+            android:onClick="@{()-> viewModel.onVerify()}"
+            app:cornerRadius="@dimen/spacing_medium"
+            app:layout_constraintBottom_toTopOf="@+id/lyt_powered_by"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_resend_code" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8"/>
+
+        <include
+            android:id="@+id/lyt_powered_by"
+            layout="@layout/include_powered_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/guideline1" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

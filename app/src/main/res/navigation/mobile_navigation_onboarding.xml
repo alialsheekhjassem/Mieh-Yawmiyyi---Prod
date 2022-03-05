@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/getStartedFragment">
+
+    <fragment
+        android:id="@+id/getStartedFragment"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.onboarding.GetStartedFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_get_started">
+
+        <action
+            android:id="@+id/action_getStartedFragment_to_OnboardFragment"
+            app:destination="@id/onboardFragment"
+            app:popUpTo="@id/getStartedFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboardFragment"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.onboarding.OnBoardingPagerFragment"
+        android:label="@string/title_chats"
+        tools:layout="@layout/fragment_onboarding_pager" />
+
+</navigation>

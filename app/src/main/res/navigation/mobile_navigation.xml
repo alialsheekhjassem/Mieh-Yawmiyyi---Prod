@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_home">
+
+    <fragment
+        android:id="@+id/navigation_tasks"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.tasks.TasksFragment"
+        android:label="@string/title_tasks"
+        tools:layout="@layout/fragment_tasks" />
+
+    <fragment
+        android:id="@+id/navigation_our_store"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store.OurStoreFragment"
+        android:label="@string/our_store"
+        tools:layout="@layout/fragment_our_store" />
+
+    <fragment
+        android:id="@+id/navigation_invitations"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.invitations.InvitationsFragment"
+        android:label="@string/invitations"
+        tools:layout="@layout/fragment_invitations" />
+
+    <fragment
+        android:id="@+id/navigation_tickets"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.tickets.TicketsFragment"
+        android:label="@string/title_tickets"
+        tools:layout="@layout/fragment_tickets" />
+
+    <fragment
+        android:id="@+id/navigation_home"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.HomeFragment"
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_live_stream"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.live_stream.LiveStreamFragment"
+        android:label="@string/title_live_stream"
+        tools:layout="@layout/fragment_live_stream" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/navigation_about_the_app"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.about_us.AboutUsFragment"
+        android:label="@string/about_app"
+        tools:layout="@layout/fragment_about_us" />
+</navigation>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.magma.miyyiyawmiyyi.android.model.Winner" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        style="@style/MaterialBaseCardViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_default">
+
+            <TextView
+                android:id="@+id/txt_order"
+                style="@style/MaterialBoldTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="@dimen/spacing_default"
+                android:layout_marginStart="@dimen/spacing_default"
+                android:text="1"
+                android:background="@drawable/bg_circle"
+                android:paddingHorizontal="@dimen/spacing_default"
+                android:textColor="@color/white"
+                android:textSize="@dimen/size_toolbar_title"
+                app:layout_constraintEnd_toStartOf="@id/txt_ticket_num"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_ticket_num"
+                style="@style/MaterialBoldTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/spacing_default"
+                android:text="15944532"
+                android:textColor="@color/green_200"
+                android:gravity="center"
+                android:textSize="@dimen/size_toolbar_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/txt_order"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/line" />
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:background="@color/grey_11"
+                android:layout_marginTop="@dimen/spacing_default"
+                app:layout_constraintStart_toStartOf="@id/txt_ticket_num"
+                app:layout_constraintEnd_toEndOf="@id/txt_ticket_num"
+                app:layout_constraintTop_toBottomOf="@id/txt_ticket_num"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.magma.miyyiyawmiyyi.android.presentation.onboarding.OnBoardingViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/rl_create_account"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_light_gradient_background">
+
+        <TextView
+            android:id="@+id/txt_skip"
+            style="@style/MaterialTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_medium"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="@dimen/spacing_large"
+            android:text="@string/skip"
+            android:textColor="@color/dark_red"
+            app:drawableEndCompat="@drawable/ic_arrow_right"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableTint="@color/dark_red" />
+
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_default"
+            android:background="?attr/selectableItemBackground"
+            android:padding="@dimen/spacing_large"
+            android:src="@drawable/ic_arrow_back"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_skip"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/viewPager"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@+id/lyt_dots"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_skip" />
+
+        <!--<com.google.android.material.tabs.TabLayout
+            android:id="@+id/pageIndicator"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_margin="@dimen/vertical_10dp"
+            android:background="@drawable/bg_light_gradient_background"
+            app:layout_constraintBottom_toTopOf="@+id/txt_title_powered"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager"
+            app:tabBackground="@drawable/onboarding_viewpager_selector_orange"
+            app:tabGravity="center"
+            app:tabMinWidth="50dp"
+            android:clipToPadding="false"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            app:tabIndicatorHeight="0dp" />-->
+
+        <FrameLayout
+            android:id="@+id/lyt_dots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/spacing_default"
+            android:background="@drawable/bg_rounded"
+            android:backgroundTint="@color/grey_70"
+            android:paddingVertical="@dimen/spacing_large"
+            android:paddingHorizontal="@dimen/spacing_default"
+            app:layout_constraintBottom_toTopOf="@+id/btn_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/viewPager">
+
+            <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                android:id="@+id/pageIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:dotsColor="@color/white"
+                app:dotsCornerRadius="5dp"
+                app:dotsSize="@dimen/spacing_default"
+                app:dotsSpacing="@dimen/vertical_10dp"
+                app:dotsWidthFactor="3"
+                app:progressMode="true"
+                app:selectedDotColor="@color/colorPrimary" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/btn_next"
+            style="@style/MaterialBoldTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/vertical_20dp"
+            android:layout_marginBottom="@dimen/vertical_20dp"
+            android:drawablePadding="@dimen/spacing_default"
+            android:gravity="center_vertical"
+            android:padding="@dimen/spacing_default"
+            android:text="@string/next"
+            android:textColor="@color/orange_3"
+            android:textSize="@dimen/size_title"
+            app:drawableEndCompat="@drawable/ic_arrow_circle_right_filled"
+            app:drawableTint="@color/orange_3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lyt_dots" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

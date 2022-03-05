@@ -1,0 +1,290 @@
+<resources>
+    <string name="app_name">Mieh Yawmiyyi</string>
+    <string name="navigation_drawer_open" translatable="false">Drawer Open</string>
+    <string name="navigation_drawer_close" translatable="false">Drawer Closed</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="search">Write Place to Search…</string>
+    <string name="default_info_title">Beriut</string>
+    <string name="default_info_snippet">Lenabon Capital</string>
+    <string name="pick_place">Pick Place</string>
+    <string name="show_directions">Show Directions</string>
+    <string name="title_activity_admob">MainActivity</string>
+    <string name="action_settings">Settings</string>
+    <!-- -
+        This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
+        For more information, see https://support.google.com/admob/answer/3052638
+    <!- -->
+    <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
+    <!--<string name="interstitial_ad_unit_id">ca-app-pub-2559564046715323~6653115980</string>-->
+    <string name="unknown_error">unknown error</string>
+    <string name="error">Error</string>
+    <string name="no_internet">no internet</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAiAir1uMz3NwJDd9vjIhqeEuTUgw2S7VM</string>
+
+
+    <!--onboarding-->
+    <string name="welcome_title_1">100 Yawmiyyi</string>
+    <string name="welcome_title_2">Win A Ticket</string>
+    <string name="welcome_title_3">Invite and Win!</string>
+    <string name="welcome_text_1">Is an application that gives user tickets to join daily poll of 100$. The poll will be done randomly and mechanically</string>
+    <string name="welcome_text_2">To win a ticket, the user does one of the task types: watch advertising videos, answer a group of questions or do tasks via social media.</string>
+    <string name="welcome_text_3">You can invite your friends to join application to collect points and exchange them by several digital gifts.</string>
+
+    <string name="lets_start">Lets Start !</string>
+    <string name="quick_service_for_kitchens_and_restaurants_in_saudi_arabia_to_book_banquets_and_buffets">Quick service for kitchens and restaurants in Saudi Arabia to book banquets and buffets</string>
+    <string name="choose_your_favorite_language">Choose your favorite Language</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
+    <string name="choose_country">Choose country</string>
+    <string name="saudia_arabia">Saudia Arabia</string>
+    <string name="done">Done</string>
+    <string name="choose_city">Choose City</string>
+    <string name="choose_region">Choose Region</string>
+    <string name="enter_the_4_digit_code_that_was_sent_to_the_number">Enter the 4-digit code that was sent to the number</string>
+    <string name="login">Login</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="skip">Skip</string>
+    <string name="select_your_address_to_receive_your_order">Select your address to receive your order</string>
+    <string name="choose_the_right_kitchen_for_your_occasion_whether_it_is_a_restaurant_independent_chefs_or_mobile_carts">Choose the right kitchen for your occasion, whether it is a restaurant, independent chefs or mobile carts</string>
+    <string name="start">Start</string>
+    <string name="continue_">Continue</string>
+    <string name="continue_1">Continue</string>
+    <string name="yes_i_have_read_it_and_agree_to_it">Yes, I have read it and agree to it</string>
+    <string name="have_you_read_our_terms_of_use_and_privacy_policy">Have you read our Terms of Use and Privacy Policy</string>
+    <string name="everything_that_comes_to_your_mind_you_can_find_it_with_us">Everything that comes to your mind, you can find it with us</string>
+    <string name="enter_your_phone_number_for_continue">Enter your phone number for continue</string>
+    <string name="send_code">Send Code!</string>
+    <string name="enter_code_here">Enter Code Here</string>
+    <string name="check_code">Check Code!</string>
+    <string name="don_t_receive_code_click_here">Don\'t receive code? <u>Click Here</u></string>
+
+    <string-array name="home_filter">
+        <item>All</item>
+        <item>Restaurants</item>
+        <item>Oriental food</item>
+        <item>Western food</item>
+        <item>Express delivery</item>
+        <item>Slow delivery</item>
+    </string-array>
+
+    <string-array name="food_filter">
+        <item>Main Meals</item>
+        <item>Cold Appetizers</item>
+        <item>Hot Appetizers</item>
+        <item>Sandwich</item>
+    </string-array>
+
+    <string-array name="yob">
+        <item>1990</item>
+        <item>1991</item>
+        <item>1992</item>
+        <item>1993</item>
+        <item>1994</item>
+        <item>1995</item>
+        <item>1996</item>
+        <item>1997</item>
+        <item>1998</item>
+        <item>1999</item>
+        <item>2000</item>
+    </string-array>
+
+    <string-array name="sex">
+        <item>male</item>
+        <item>female</item>
+    </string-array>
+
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_home">Home</string>
+    <string name="default_location">Beirut, Lebanon</string>
+    <string name="title_chats">Chats</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_my_order">My Orders</string>
+    <string name="title_profile">Profile</string>
+    <string name="restaurant_name_meal">Restaurant name, meal..</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="sex">Sex</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="day">Day</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
+    <string name="address">Address</string>
+    <string name="house">House</string>
+    <string name="house_address">House Address</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="delivery_time">Delivery time</string>
+    <string name="processing_time">Processing Time</string>
+    <string name="food_menu">Food Menu</string>
+    <string name="reviews">Reviews</string>
+    <string name="gallery">Gallery</string>
+    <string name="add">Add</string>
+    <string name="show_cart">Show Cart</string>
+    <string name="items">Items</string>
+    <string name="previous">Previous</string>
+    <string name="confirm_address">Confirm Address</string>
+    <string name="current_address">Your Current Address</string>
+    <string name="change">change</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="settings_and_features">Settings and features</string>
+    <string name="about_app">About app</string>
+    <string name="app_link" translatable="false">https://play.google.com/store/apps/details?id=com.magma.miyyiyawmiyyi.android</string>
+    <string name="invite_your_friends">Invite your friends</string>
+    <string name="logout">Logout</string>
+    <string name="default_delivery_time">Delivery within 30 minutes, without traffic</string>
+    <string name="continue_to_next_step">Continue to next step</string>
+    <string name="hour">Hour</string>
+    <string name="number_of_people">Number of people</string>
+    <string name="table_reservation">Table Reservation</string>
+    <string name="time_for_food_to_come_to_the_table">Time for food to come to the table</string>
+    <string name="payment_method">Payment method</string>
+    <string name="customize">Customize</string>
+    <string name="special_instructions_for_the_chef_or_restaurant">Special instructions for the chef or restaurant</string>
+    <string name="total">Total</string>
+    <string name="total_items">Total of items</string>
+    <string name="delivery_price">Delivery price</string>
+    <string name="personal_info">Your personal information</string>
+    <string name="name_and_phone">Name, phone number</string>
+    <string name="order_inside_a_restaurant">Order inside a restaurant</string>
+    <string name="home_delivery">Home Delivery</string>
+    <string name="receipt_from_the_restaurant">Receipt from the restaurant</string>
+    <string name="application_not_found">Application not found</string>
+    <string name="by_card_online">By card (online)</string>
+    <string name="pay_on_delivery">Pay on delivery</string>
+    <string name="share_the_bill_to_a_friend">Share the bill to a friend</string>
+    <string name="we_accept_all_type_1_type_2_and_type_3_cards">We accept all type 1, type 2 and type 3 cards</string>
+    <string name="card_name">Card name</string>
+    <string name="card_number">Card number</string>
+    <string name="card_end_date">Card end date (month/year)</string>
+    <string name="save_card_information">Save card information</string>
+    <string name="confirm">Confirm</string>
+    <string name="copy_link">Copy link</string>
+    <string name="field_can_not_be_empty">Field can not be empty</string>
+    <string name="name_can_not_be_empty">Name can not be empty</string>
+    <string name="please_enter_avalid_phone">Please enter a valid phone</string>
+    <string name="please_enter_avalid_email">Please enter a valid email</string>
+    <string name="please_enter_avalid_password">Password must at least 8 characters</string>
+    <string name="please_enter_avalid_confirm_password">Confirm password must be same password</string>
+    <string name="next">Next</string>
+    <string name="top_restaurant">Top Restaurant</string>
+    <string name="powered_by">Powered by</string>
+    <string name="magma">Magma</string>
+    <string name="mobile">Mobile</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="forget_password">Forget Password?</string>
+    <string name="do_not_have_account">Don\'t have account?</string>
+    <string name="sign_in_with_facebook">Sign in with facebook</string>
+    <string name="sign_in_with_google">Sign in with google</string>
+    <string name="or">or</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="continue_as_guest">Continue As Guest</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="email_hint">Email : (Optional)</string>
+    <string name="accept_terms_and_conditions">By clicking on the verfiy and sign up you are accepting all the Terms and Conditions</string>
+    <string name="verify_and_sign_up">Verify and Sign Up</string>
+    <string name="already_have_and_account_sign_in">Already have and account?</string>
+    <string name="verification_code">Verification Code</string>
+    <string name="a_verification_code_has_been_sent">A verification code has been sent to your mobile number.</string>
+    <string name="edit_phone_number">Edit Phone Number</string>
+    <string name="didn_t_receive_the_code_resend_45s">Didn\'t receive the code? </string>
+    <string name="resend_45s">Resend </string>
+    <string name="select_location">Location</string>
+    <string name="search_for_restaurants">Search for restaurants</string>
+    <string name="recommended_restaurants">Recommended Restaurants</string>
+    <string name="recommended_food">Recommended Food</string>
+    <string name="new_items">New Items</string>
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="loading">Loading…</string>
+    <string name="password_format_not_correct">Password format is not correct</string>
+    <string name="phone_format_not_correct">Phone format is not correct</string>
+    <string name="pending">Pending</string>
+    <string name="completed">Completed</string>
+    <string name="waiting">Waiting</string>
+    <string name="approved">Approved</string>
+    <string name="processing">Processing</string>
+    <string name="ready">Ready</string>
+    <string name="your_order_is_ready">Your order is ready</string>
+    <string name="channel_name" translatable="false">Abi_Kirshak</string>
+    <string name="channel_description" translatable="false">Abi_Kirshak_Desc</string>
+    <string name="forbidden">Forbidden 403</string>
+    <string name="wrong_number">Wrong Code</string>
+    <string name="code_sent">Code Sent</string>
+    <string name="wrong_code">Wrong Code</string>
+    <string name="success">Success</string>
+    <string name="enter_phone_number">Enter Phone Number</string>
+    <string name="please_enter_the_number_you_signed_up_with">Please enter the number you signed up with</string>
+    <string name="a_verfication_code_has_been_sent_to_your_mobile_number">A verfication code has been sent to your mobile number.</string>
+    <string name="verify">Verify</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="save_new_password">Save New Password</string>
+    <string name="retry">Retry</string>
+    <string name="get_started">Get Started</string>
+    <string name="welcome_to_100_yawmiyyi">Welcome to 100 Yawmiyyi</string>
+    <string name="please_sign_in_using_your_mobile_number">Please sign in using your mobile number</string>
+    <string name="change_number">Change Number</string>
+    <string name="didn_t_receive_the_code_send_again">Didn\'t Receive the code? Send Again</string>
+    <string name="verify_and_continue">Verify and Continue</string>
+    <string name="date_of_birth">Date of Birth</string>
+    <string name="finish_account_setup">Finish Account Setup</string>
+    <string name="please_fill_below_to_finish_setup_your_account">Please fill below to finish setup your account</string>
+    <string name="invitation_code">Invitation Code</string>
+    <string name="please_fill_enter_the_code">Please fill enter the code</string>
+    <string name="show_all">Show all</string>
+    <string name="view">View</string>
+    <string name="title_tasks">Tasks</string>
+    <string name="title_tickets">Tickets</string>
+    <string name="title_live_stream">Live Stream</string>
+    <string name="winner_100_usd_text">The winner of the 100$ Ticket in the last poll is:</string>
+    <string name="winner_golden_lira_text">The winner of the Golden Lira in the last poll is:</string>
+    <string name="chance_golden_text">Get the chance to get enough tickets to enter the Golden Lira draw.</string>
+    <string name="invitations">Invitations</string>
+    <string name="our_store">Our Store</string>
+    <string name="settings">Settings</string>
+    <string name="your_orders">Your Orders</string>
+    <string name="about_the_app">About Us</string>
+    <string name="user_interface">User Interface</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="language">Language</string>
+    <string name="about_us_text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</string>
+    <string name="share_the_app">Share the App</string>
+    <string name="the_golder_lira_ticket">The Golder Lira Ticket</string>
+    <string name="the_100_tickets">The 100$ Tickets</string>
+    <string name="get_it_now">Get it now</string>
+    <string name="the_remaining_time_for_the_golden_lira_poll_stream">The remaining time for the Golden Lira poll stream</string>
+    <string name="watch_now">Watch Now</string>
+    <string name="days">Days</string>
+    <string name="hours">Hours</string>
+    <string name="minutes">Minutes</string>
+    <string name="seconds">Seconds</string>
+    <string name="log_out">Log Out</string>
+    <string name="full_name">Full Name</string>
+    <string name="enter_here">Enter here…</string>
+    <string name="location">Location</string>
+    <string name="task_level_2_of_5_completed">Task Level ( 2 of 5 Completed )</string>
+    <string name="get_tickets">Get Tickets</string>
+    <string name="by_watching_ads_click_the_button_below_to_start">by watching Ads click the button below to start</string>
+    <string name="watch_ads">Watch ADS</string>
+    <string name="test_your_knowledge">Test your Knowledge</string>
+    <string name="what_about_iq">What about IQ?</string>
+    <string name="my_daily_tasks">My Daily Tasks</string>
+    <string name="like">Like</string>
+    <string name="total_points">Total Points</string>
+    <string name="google_gift_cards">Google Gift Cards</string>
+    <string name="exchange_your_points_with_google_gift_cards">Exchange your points with google gift cards</string>
+    <string name="_100_yawmiyyi_gift_cards">100 Yawmiyyi Gift Cards</string>
+    <string name="invitation_sent">Invitation Sent</string>
+    <string name="invitation_received">Invitation Received</string>
+    <string name="for_every_invitation_you_will_get">For every Invitation you will get</string>
+    <string name="the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets">The points will not be counted until the receiver get at least 10 tickets</string>
+    <string name="no_items">No Tasks</string>
+
+    <string-array name="languages">
+        <item>English</item>
+        <item>عربي</item>
+    </string-array>
+</resources>

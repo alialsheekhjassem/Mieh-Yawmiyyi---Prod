@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/details_nav"
+    app:startDestination="@id/fragment_details">
+
+    <fragment
+        android:id="@+id/fragment_details"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.details.RestaurantDetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_restaurant_details">
+        <action
+            android:id="@+id/action_fragment_details_to_fragment_cart"
+            app:destination="@id/fragment_cart"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/fragment_details"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_cart"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.details.cart.CartFragment"
+        android:label="fragment_cart"
+        tools:layout="@layout/fragment_cart">
+        <argument android:name="fragment_cart" />
+        <action
+            android:id="@+id/action_fragment_cart_to_fragment_address"
+            app:destination="@id/fragment_address"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/fragment_address"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_address"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.details.address.AddressFragment"
+        android:label="fragment_address"
+        tools:layout="@layout/fragment_address">
+        <argument android:name="fragment_address" />
+        <action
+            android:id="@+id/action_fragment_address_to_fragment_details"
+            app:destination="@id/fragment_details"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/fragment_details"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>
