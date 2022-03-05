@@ -1,13 +1,6 @@
 *.iml
 .gradle
 /local.properties
-/app/dev
-/app/src/main/res/drawable-hdpi
-/app/src/main/res/drawable-ldpi
-/app/src/main/res/drawable-mdpi
-/app/src/main/res/drawable-xhdpi
-/app/src/main/res/drawable-xxhdpi
-/app/src/main/res/drawable-xxxhdpi
 /.idea/caches
 /.idea/libraries
 /.idea/modules.xml
