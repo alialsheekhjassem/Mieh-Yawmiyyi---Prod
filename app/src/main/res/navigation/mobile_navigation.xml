@@ -9,7 +9,18 @@
         android:id="@+id/navigation_tasks"
         android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.tasks.TasksFragment"
         android:label="@string/title_tasks"
-        tools:layout="@layout/fragment_tasks" />
+        tools:layout="@layout/fragment_tasks">
+
+        <action
+            android:id="@+id/action_tasks_to_quizzes"
+            app:destination="@id/navigation_quizzes"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_quizzes"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.quizzes.QuizzesFragment"
+        android:label="@string/title_tasks"
+        tools:layout="@layout/fragment_quizzes" />
 
     <fragment
         android:id="@+id/navigation_our_store"

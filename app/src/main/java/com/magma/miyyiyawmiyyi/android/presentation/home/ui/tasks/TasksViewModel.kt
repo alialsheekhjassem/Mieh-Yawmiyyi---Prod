@@ -26,6 +26,11 @@ class TasksViewModel @Inject constructor(
      * */
     internal var response = MutableLiveData<Event<Resource<TasksResponse>>>()
     val tasksDb = MutableLiveData<Event<List<TaskObj>>>()
+    val actions = MutableLiveData<Event<TasksActions>>()
+
+    fun onQuizzesClicked() {
+        actions.value = Event(TasksActions.QUIZZES_CLICKED)
+    }
 
     fun getTasks(limit: Int, offset: Int) {
         launch {

@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
 import com.magma.miyyiyawmiyyi.android.model.converters.AnyConverter
+import com.magma.miyyiyawmiyyi.android.model.converters.QuizTaskConverter
 import com.magma.miyyiyawmiyyi.android.model.converters.TaskConverter
 
 @Entity(tableName = "task_obj")
@@ -24,9 +25,9 @@ class TaskObj(
     @ColumnInfo(name = "smTask")
     var smTask: Task?,
 
-    @TypeConverters(AnyConverter::class)
+    @TypeConverters(QuizTaskConverter::class)
     @ColumnInfo(name = "quizTask")
-    var quizTask: Any?,
+    var quizTask: QuizTask?,
 
     @TypeConverters(AnyConverter::class)
     @ColumnInfo(name = "adTask")

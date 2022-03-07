@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.TasksResponse
@@ -48,6 +49,23 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
     }
 
     private fun setUpObservers() {
+        viewModel.actions.observe(
+            viewLifecycleOwner, EventObserver(
+                object : EventObserver.EventUnhandledContent<TasksActions> {
+                    override fun onEventUnhandledContent(t: TasksActions) {
+                        when (t) {
+                            TasksActions.QUIZZES_CLICKED -> {
+                                if (tasksAdapter.currentList.isNotEmpty()) {
+                                    findNavController().navigate(
+                                        TasksFragmentDirections
+                                            .actionTasksToQuizzes()
+                                    )
+                                }
+                            }
+                        }
+                    }
+                })
+        )
         viewModel.tasksDb.observe(
             viewLifecycleOwner,
             EventObserver
@@ -107,9 +125,16 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
     }
 
     private fun setup() {
+
+        viewModel.loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
+
         tasksAdapter.setListener(this)
         tasksAdapter.submitList(arrayListOf())
         binding.recyclerTasks.adapter = tasksAdapter
+
+        binding.include2.btnWatchNow.setOnClickListener {
+            viewModel.onQuizzesClicked()
+        }
     }
 
     private fun setupData(tasksList: ArrayList<TaskObj>) {
@@ -124,7 +149,6 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
 
-        viewModel.loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
         viewModel.getTasks(limit = 20, offset = 0)
     }
 

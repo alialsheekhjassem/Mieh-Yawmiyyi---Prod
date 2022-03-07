@@ -19,135 +19,222 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".presentation.home.ui.tickets.TicketsFragment">
+            tools:background="@drawable/bg_grey"
+            tools:context=".presentation.home.ui.quizzes.QuizzesFragment">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_background"
+            <TextView
+                android:id="@+id/txt_level"
+                style="@style/MaterialBoldTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_default"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg_img_tickets"
+                android:layout_marginHorizontal="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_large"
+                tools:text="Question 1 of 10"
+                android:textColor="@color/orange_5"
+                android:textSize="@dimen/size_big"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/txt_title"
-                style="@style/MaterialBoldTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_default"
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:text="@string/the_golder_lira_ticket"
-                android:textColor="@color/orange_3"
-                android:textSize="@dimen/size_title"
-                app:layout_constraintEnd_toEndOf="@id/img_background"
-                app:layout_constraintStart_toStartOf="@id/img_background"
-                app:layout_constraintTop_toTopOf="@id/img_background" />
-
-            <TextView
-                android:id="@+id/txt_ticket_num"
-                style="@style/MaterialBoldTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_default"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:gravity="center"
-                android:text="461237"
-                android:textColor="@color/orange_3"
-                android:textSize="@dimen/size_header"
-                app:layout_constraintEnd_toEndOf="@id/img_background"
-                app:layout_constraintStart_toStartOf="@id/img_background"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title" />
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
+            <ProgressBar
+                android:id="@+id/progress_remaining_tickets"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_marginHorizontal="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_large"
-                android:layout_marginBottom="30dp"
-                android:src="@drawable/logo"
-                app:layout_constraintBottom_toBottomOf="@id/img_background"
-                app:layout_constraintEnd_toEndOf="@id/img_background"
-                app:layout_constraintStart_toStartOf="@id/img_background"
-                app:layout_constraintTop_toBottomOf="@+id/txt_ticket_num" />
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:background="@drawable/progress_bkg"
+                android:indeterminate="false"
+                android:progress="1"
+                android:max="4"
+                android:progressDrawable="@drawable/progress_style"
+                app:layout_constraintTop_toBottomOf="@id/txt_level" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/lyt_tickets"
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_question"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_default"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:background="@drawable/bg_rounded"
-                android:backgroundTint="@color/grey_3"
-                android:padding="@dimen/spacing_default"
-                app:layout_constraintTop_toBottomOf="@id/img_background">
+                android:layout_marginHorizontal="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:background="@color/white"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/spacing_icon_padding"
+                app:cardElevation="3dp"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toBottomOf="@+id/progress_remaining_tickets">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/logo_1"
-                    android:layout_width="@dimen/image_pos_product_size"
-                    android:layout_height="@dimen/image_pos_product_size"
-                    android:src="@drawable/logo"
-                    app:layout_constraintEnd_toStartOf="@+id/logo_2"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/logo_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/dollar"
-                    app:layout_constraintBottom_toBottomOf="@+id/logo_1"
-                    app:layout_constraintEnd_toStartOf="@+id/logo_3"
-                    app:layout_constraintStart_toEndOf="@+id/logo_1"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/img_card"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="@dimen/spacing_default"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/quiz"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/logo_3"
-                    android:layout_width="@dimen/image_pos_product_size"
-                    android:layout_height="@dimen/image_pos_product_size"
-                    android:src="@drawable/logo"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/logo_2"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/txt_title"
+                        style="@style/MaterialTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_default"
+                        android:layout_marginTop="@dimen/spacing_default"
+                        android:gravity="center"
+                        android:text="@string/test_your_knowledge"
+                        android:textColor="@color/grey_50"
+                        app:layout_constraintBottom_toTopOf="@id/txt_question"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/img_card"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_chainStyle="packed" />
+
+                    <TextView
+                        android:id="@+id/txt_question"
+                        style="@style/MaterialBoldTextStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_default"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:gravity="center"
+                        android:textColor="@color/orange_5"
+                        android:textSize="@dimen/size_title"
+                        app:layout_constraintBottom_toTopOf="@id/txt_choose"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/img_card"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_title"
+                        tools:text="Finish the task and earn PointsFinish the task and earn PointsFinish the task and earn PointsFinish the task and earn PointsFinish the task and earn Points" />
+
+                    <TextView
+                        android:id="@+id/txt_choose"
+                        style="@style/MaterialTextViewBodyStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_default"
+                        android:layout_marginTop="@dimen/spacing_medium"
+                        android:layout_marginBottom="@dimen/spacing_default"
+                        android:gravity="center"
+                        android:text="@string/choose_the_correct_answer_form_below"
+                        android:textColor="@color/grey_50"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/img_card"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_question" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_answer_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_large"
+                android:background="@color/white"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/spacing_icon_padding"
+                app:cardElevation="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()->viewModel.onAnswer1()}"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toBottomOf="@+id/card_question">
 
                 <TextView
-                    android:id="@+id/txt_title_100D_tickets"
+                    android:id="@+id/txt_answer_1"
                     style="@style/MaterialBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_default"
+                    android:layout_margin="@dimen/spacing_default"
                     android:gravity="center"
-                    android:text="@string/the_100_tickets"
-                    android:textColor="@color/green_700"
-                    app:layout_constraintTop_toBottomOf="@+id/logo_2" />
+                    android:padding="@dimen/spacing_default"
+                    android:text="@string/invitations"
+                    android:textColor="@color/grey_50"
+                    android:textSize="@dimen/size_title" />
+            </androidx.cardview.widget.CardView>
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btn_get_it_now"
-                    style="@style/MaterialButtonStyle"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="@dimen/spacing_large"
-                    android:backgroundTint="@color/colorPrimary"
-                    android:paddingVertical="@dimen/spacing_large"
-                    android:text="@string/get_it_now"
-                    android:textSize="@dimen/size_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_title_100D_tickets" />
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_answer_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_large"
+                android:background="@color/white"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/spacing_icon_padding"
+                app:cardElevation="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()->viewModel.onAnswer2()}"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toBottomOf="@+id/card_answer_1">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_tickets"
+                <TextView
+                    android:id="@+id/txt_answer_2"
+                    style="@style/MaterialBoldTextStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_large"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_get_it_now"
-                    tools:itemCount="4"
-                    tools:listitem="@layout/item_ticket" />
+                    android:layout_margin="@dimen/spacing_default"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_default"
+                    android:text="@string/our_store"
+                    android:textColor="@color/grey_50"
+                    android:textSize="@dimen/size_title" />
+            </androidx.cardview.widget.CardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_answer_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/spacing_large"
+                android:background="@color/white"
+                android:elevation="0dp"
+                app:cardCornerRadius="@dimen/spacing_icon_padding"
+                app:cardElevation="3dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="@{()->viewModel.onAnswer3()}"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintTop_toBottomOf="@+id/card_answer_2">
+
+                <TextView
+                    android:id="@+id/txt_answer_3"
+                    style="@style/MaterialBoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/spacing_default"
+                    android:gravity="center"
+                    android:padding="@dimen/spacing_default"
+                    android:text="@string/settings"
+                    android:textColor="@color/grey_50"
+                    android:textSize="@dimen/size_title" />
+            </androidx.cardview.widget.CardView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_back_to_tasks"
+                style="@style/MaterialButtonStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginBottom="@dimen/vertical_20dp"
+                android:layout_marginHorizontal="20dp"
+                android:backgroundTint="@color/orange_5"
+                android:minHeight="0dp"
+                app:cornerRadius="@dimen/spacing_default"
+                android:paddingVertical="@dimen/spacing_large"
+                android:text="@string/back_to_tasks"
+                android:textColor="@color/white"
+                android:onClick="@{()->viewModel.onBackToTasks()}"
+                android:textSize="@dimen/size_title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/card_answer_3" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

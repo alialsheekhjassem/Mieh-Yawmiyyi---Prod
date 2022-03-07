@@ -119,7 +119,6 @@ class CheckCodeFragment : ProgressBarFragments() {
                             val response = t.response as LoginResponse
                             Log.d(TAG, "registerResponse: $response")
                             response.accessToken?.token?.let { viewModel.saveToken(it) }
-                            response.accessToken?.token?.let { showToast(it) }
                             showSuccessToast(getString(R.string.success))
                             countDownTimer?.cancel()
                             Navigation.findNavController(binding.root)

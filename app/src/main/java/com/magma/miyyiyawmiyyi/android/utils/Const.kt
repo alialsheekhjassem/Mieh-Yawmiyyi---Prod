@@ -45,6 +45,7 @@ class Const {
         //TYPES
         const val FACEBOOK_ID = "621b5e4c2fe9e30f26033cd2"
         const val TYPE_SOCIAL_MEDIA = "social_media"
+        const val TYPE_QUIZ = "quiz"
 
     }
 }

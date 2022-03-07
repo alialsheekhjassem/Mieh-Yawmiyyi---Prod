@@ -7,10 +7,12 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
+import androidx.navigation.get
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.navigateUp
@@ -22,6 +24,7 @@ import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.databinding.ActivityHomeBinding
 import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
+import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.app_bar_main.view.*
 import java.util.*
 import javax.inject.Inject
@@ -32,6 +35,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
     lateinit var mDrawerToggle: ActionBarDrawerToggle
+    var mToolBarNavigationListenerIsRegistered = false
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -104,9 +108,66 @@ class HomeActivity : AppCompatActivity() {
                 binding.appBar.coordinatorLayout.setBackgroundResource(R.drawable.bg_grey)
                 toolbar.elevation = 0F
             }
+
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+            if (screensWithHumbIcon(nd, nc)) {
+                enableDrawer(true)
+                toolbar.setNavigationIcon(R.drawable.ic_feather_menu)
+            } else {
+                enableDrawer(false)
+                toolbar.setNavigationIcon(R.drawable.ic_circle_filled_left)
+            }
         }
         mDrawerToggle.syncState()
         toolbar.setNavigationIcon(R.drawable.ic_feather_menu)
+    }
+
+    private fun screensWithHumbIcon(
+        nd: NavDestination,
+        nc: NavController,
+    ) =
+        nd.id == nc.graph[R.id.navigation_home].id ||
+                nd.id == nc.graph[R.id.navigation_tasks].id ||
+                nd.id == nc.graph[R.id.navigation_tickets].id ||
+                nd.id == nc.graph[R.id.navigation_live_stream].id ||
+                nd.id == nc.graph[R.id.navigation_profile].id
+
+    fun enableDrawer(b: Boolean) {
+        if (!b) {
+            // Remove hamburger
+            mDrawerToggle.isDrawerIndicatorEnabled = false
+            // Show back button
+            supportActionBar?.setHomeButtonEnabled(true)
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            toolbar.setNavigationIcon(R.drawable.ic_circle_filled_left)
+            // when DrawerToggle is disabled i.e. setDrawerIndicatorEnabled(false), navigation icon
+            // clicks are disabled i.e. the UP button will not work.
+            // We need to add a listener, as in below, so DrawerToggle will forward
+            // click events to this listener.
+            if (!mToolBarNavigationListenerIsRegistered) {
+                mDrawerToggle.toolbarNavigationClickListener =
+                    View.OnClickListener { onBackPressed() }
+                mToolBarNavigationListenerIsRegistered = true
+            }
+        } else {
+            //You must regain the power of swipe for the drawer.
+            binding.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+
+            // Remove back button
+            supportActionBar!!.setHomeAsUpIndicator(R.drawable.ic_feather_menu)
+            mDrawerToggle.setHomeAsUpIndicator(R.drawable.ic_feather_menu)
+            supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+            // Show hamburger
+            mDrawerToggle.isDrawerIndicatorEnabled = true
+            toolbar.setNavigationIcon(R.drawable.ic_feather_menu)
+            // Remove the/any drawer toggle listener
+            mDrawerToggle.toolbarNavigationClickListener = null
+            mToolBarNavigationListenerIsRegistered = false
+            toolbar.setNavigationIcon(R.drawable.ic_feather_menu)
+
+        }
+        mDrawerToggle.syncState()
+
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
