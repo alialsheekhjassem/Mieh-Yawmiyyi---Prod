@@ -76,6 +76,89 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/lyt_invitation_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/spacing_large"
+                android:background="@drawable/bg_rounded_primary"
+                android:backgroundTint="@color/orange_3"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toStartOf="@+id/guideline2"
+                app:layout_constraintStart_toEndOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/lyt_points">
+
+                <TextView
+                    android:id="@+id/txt_title_invitation_code"
+                    style="@style/MaterialBoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="@dimen/spacing_default"
+                    android:layout_marginTop="@dimen/spacing_default"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="@string/invitation_code"
+                    android:textSize="@dimen/size_small"
+                    android:textColor="@color/grey_10" />
+
+                <TextView
+                    android:id="@+id/txt_invitation_code"
+                    style="@style/MaterialBoldTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_default"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="712 342"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/size_header"
+                    android:drawablePadding="@dimen/spacing_default"
+                    app:drawableEndCompat="@drawable/ic_copy" />
+
+                <TextView
+                    android:id="@+id/txt_title_invitation_link"
+                    style="@style/MaterialBoldTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginHorizontal="@dimen/spacing_default"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="@string/invitation_link"
+                    android:textSize="@dimen/size_title"
+                    android:textColor="@color/grey_10" />
+
+                <TextView
+                    android:id="@+id/txt_title_copy_link"
+                    style="@style/MaterialTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:layout_marginHorizontal="@dimen/spacing_default"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="@string/copy_the_url_below_and_invites_your_friends"
+                    android:textSize="@dimen/size_body"
+                    android:textColor="@color/grey_10" />
+
+                <TextView
+                    android:id="@+id/txt_invitation_link"
+                    style="@style/MaterialTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/spacing_default"
+                    android:layout_marginTop="@dimen/spacing_medium"
+                    android:padding="@dimen/spacing_default"
+                    android:layout_marginHorizontal="@dimen/spacing_default"
+                    android:fontFamily="@font/product_sans_bold"
+                    android:text="http//:sndn-test-100yawmiyyi"
+                    android:background="@drawable/bg_rounded"
+                    android:textColor="@color/grey_11"
+                    android:drawablePadding="@dimen/spacing_default"
+                    app:drawableEndCompat="@drawable/ic_copy"
+                    app:drawableTint="@color/grey_11" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
             <TextView
                 android:id="@+id/txt_title_google_gift_cards"
                 style="@style/MaterialBoldTextStyle"
@@ -88,7 +171,7 @@
                 android:textSize="@dimen/size_big"
                 app:layout_constraintEnd_toEndOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="@id/guideline1"
-                app:layout_constraintTop_toBottomOf="@+id/lyt_points" />
+                app:layout_constraintTop_toBottomOf="@+id/lyt_invitation_code" />
 
             <TextView
                 android:id="@+id/txt_title_google_exchange"
@@ -155,6 +238,50 @@
                 app:layout_constraintStart_toStartOf="@id/guideline1"
                 app:layout_constraintTop_toBottomOf="@+id/txt_title_exchange_1" />
 
+
+            <ProgressBar
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:layout_gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title_google_exchange"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                android:id="@+id/txt_empty"
+                style="@style/MaterialTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_cards"
+                android:visibility="gone"
+                android:layout_margin="@dimen/spacing_large"
+                tools:visibility="visible"
+                android:textColor="@color/grey_50"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title_google_exchange" />
+
+            <TextView
+                android:id="@+id/txt_empty_purchases"
+                style="@style/MaterialTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/no_cards"
+                android:visibility="gone"
+                android:layout_margin="@dimen/spacing_large"
+                tools:visibility="visible"
+                android:textColor="@color/grey_50"
+                android:layout_marginTop="@dimen/spacing_large"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/guideline2"
+                app:layout_constraintStart_toStartOf="@id/guideline1"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title_exchange_1" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

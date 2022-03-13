@@ -32,6 +32,14 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideGiftCardDao(db: AppDatabase) = db.giftCardDao()
+
+    @Singleton
+    @Provides
+    fun providePurchaseCardDao(db: AppDatabase) = db.purchaseCardDao()
+
+    @Singleton
+    @Provides
     fun provideSharedPreferences(app: Application): SharedPreferences {
         return app.getSharedPreferences(Const.PREF_NAME, AppCompatActivity.MODE_PRIVATE)
     }

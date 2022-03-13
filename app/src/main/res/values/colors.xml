@@ -18,11 +18,13 @@
     <color name="dark_blue">#4F496D</color>
     <color name="blue">#3A1ADD</color>
     <color name="light_blue_1">#03BDFD</color>
+    <color name="light_blue_2">#04C1FD</color>
     <color name="light_blue">#64B5F6</color>
     <color name="pink">#FF58A6</color>
     <color name="red">#FF0000</color>
     <color name="colorTransparency">#6F000000</color>
     <color name="transparent">#00000000</color>
+    <color name="eggshell">#EFF3CF</color>
 
     <color name="mtrl_textinput_default_box_stroke_color">#e6e6e6</color>
 
@@ -47,6 +49,7 @@
     <color name="orange_3">#F5CA75</color>
     <color name="orange_4">#E9B01D</color>
     <color name="orange_5">#E8AF1C</color>
+    <color name="orange_6">#FFD66D</color>
     <color name="light_red">#FE5F5F</color>
     <color name="color_background">#EAE6E0</color>
     <color name="color_hint">#C7C7C7</color>

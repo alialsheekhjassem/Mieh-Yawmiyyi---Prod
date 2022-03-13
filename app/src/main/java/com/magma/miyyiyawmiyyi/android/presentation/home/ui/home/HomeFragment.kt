@@ -5,18 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.magma.miyyiyawmiyyi.android.R
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentHomeBinding
 import com.magma.miyyiyawmiyyi.android.model.Winner
+import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemListener
 import javax.inject.Inject
 
-class HomeFragment : Fragment(), RecyclerItemListener<Winner> {
+class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
 
     private var _binding: FragmentHomeBinding? = null
 
@@ -56,6 +56,7 @@ class HomeFragment : Fragment(), RecyclerItemListener<Winner> {
         binding.recyclerWinners.adapter = winnersAdapter
 
         setupData()
+        setUpObservers()
     }
 
     private fun setupData() {
@@ -65,6 +66,9 @@ class HomeFragment : Fragment(), RecyclerItemListener<Winner> {
         winnerList.add(Winner(R.drawable.golden_lira, R.drawable.ic_awesome_ticket,
             Const.TYPE_GOLDEN_LIRA,"Ali Jassem", "12562158"))
         winnersAdapter.submitList(winnerList)
+    }
+
+    private fun setUpObservers() {
     }
 
     override fun onAttach(context: Context) {
@@ -79,5 +83,9 @@ class HomeFragment : Fragment(), RecyclerItemListener<Winner> {
 
     override fun onItemClicked(item: Winner, index: Int) {
 
+    }
+
+    companion object {
+        private const val TAG = "HomeFragment"
     }
 }

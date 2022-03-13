@@ -1,7 +1,11 @@
 package com.magma.miyyiyawmiyyi.android.data.local.repository
 
 import android.content.SharedPreferences
+import com.magma.miyyiyawmiyyi.android.data.local.repository.dao.GiftCardDao
+import com.magma.miyyiyawmiyyi.android.data.local.repository.dao.PurchaseCardDao
 import com.magma.miyyiyawmiyyi.android.data.local.repository.dao.TaskDao
+import com.magma.miyyiyawmiyyi.android.model.GiftCard
+import com.magma.miyyiyawmiyyi.android.model.PurchaseCard
 import com.magma.miyyiyawmiyyi.android.model.TaskObj
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import java.util.*
@@ -10,6 +14,8 @@ import javax.inject.Inject
 class LocalRepository
 @Inject constructor(
     private val taskDao: TaskDao,
+    private val giftCardDao: GiftCardDao,
+    private val purchaseCardDao: PurchaseCardDao,
     private val preferences: SharedPreferences
 ) {
 
@@ -74,6 +80,72 @@ class LocalRepository
 
     fun deleteAllTasks() {
         taskDao.deleteAll()
+    }
+
+    //Gift Card
+    fun loadAllGiftCards(): List<GiftCard> {
+        return giftCardDao.loadAll()
+    }
+
+    fun loadGiftCard(id: String): GiftCard {
+        return giftCardDao.load(id)
+    }
+
+    fun insertGiftCardList(items: List<GiftCard>): LongArray {
+        return giftCardDao.insertAll(items)
+    }
+
+    fun insertGiftCard(item: GiftCard) {
+        return giftCardDao.insert(item)
+    }
+
+    fun updateGiftCard(item: GiftCard) {
+        return giftCardDao.update(item)
+    }
+
+    fun updateGiftCards(items: List<GiftCard>) {
+        return giftCardDao.updateAll(items)
+    }
+
+    fun deleteGiftCard(item: GiftCard) {
+        giftCardDao.delete(item)
+    }
+
+    fun deleteAllGiftCards() {
+        giftCardDao.deleteAll()
+    }
+
+    //Purchase Card
+    fun loadAllPurchaseCards(): List<PurchaseCard> {
+        return purchaseCardDao.loadAll()
+    }
+
+    fun loadPurchaseCard(id: String): PurchaseCard {
+        return purchaseCardDao.load(id)
+    }
+
+    fun insertPurchaseCardList(items: List<PurchaseCard>): LongArray {
+        return purchaseCardDao.insertAll(items)
+    }
+
+    fun insertPurchaseCard(item: PurchaseCard) {
+        return purchaseCardDao.insert(item)
+    }
+
+    fun updatePurchaseCard(item: PurchaseCard) {
+        return purchaseCardDao.update(item)
+    }
+
+    fun updatePurchaseCards(items: List<PurchaseCard>) {
+        return purchaseCardDao.updateAll(items)
+    }
+
+    fun deletePurchaseCard(item: PurchaseCard) {
+        purchaseCardDao.delete(item)
+    }
+
+    fun deleteAllPurchaseCards() {
+        purchaseCardDao.deleteAll()
     }
 
 }

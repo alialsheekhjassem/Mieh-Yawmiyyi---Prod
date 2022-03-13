@@ -43,6 +43,7 @@
                 android:padding="@dimen/spacing_large"
                 android:background="@drawable/bg_rounded"
                 android:hint="@string/enter_here"
+                android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/color_hint"
                 android:layout_marginTop="@dimen/spacing_default"
                 android:layout_marginHorizontal="@dimen/spacing_default"

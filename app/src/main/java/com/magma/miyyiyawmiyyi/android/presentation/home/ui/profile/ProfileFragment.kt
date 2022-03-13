@@ -12,6 +12,7 @@ import com.magma.miyyiyawmiyyi.android.R
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentProfileBinding
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
+import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
 class ProfileFragment : Fragment() {
@@ -49,6 +50,12 @@ class ProfileFragment : Fragment() {
         val adapterYear =
             ArrayAdapter(requireActivity(), R.layout.item_yob_spinner_profile, listYear)
         binding.spnYob.adapter = adapterYear
+
+        val account = ContactManager.getCurrentAccount()
+        account?.let {
+            binding.edtFullName.setText(it.name)
+            binding.edtPhoneNumber.setText(it.phone)
+        }
     }
 
     override fun onAttach(context: Context) {

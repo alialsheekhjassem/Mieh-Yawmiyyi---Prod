@@ -11,6 +11,7 @@ import com.magma.miyyiyawmiyyi.android.presentation.home.ui.about_us.AboutUsFrag
 import  com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.HomeFragment
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.invitations.InvitationsFragment
 import  com.magma.miyyiyawmiyyi.android.presentation.home.ui.live_stream.LiveStreamFragment
+import com.magma.miyyiyawmiyyi.android.presentation.home.ui.orders.OrdersFragment
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store.OurStoreFragment
 import  com.magma.miyyiyawmiyyi.android.presentation.home.ui.profile.ProfileFragment
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.quizzes.QuizzesFragment
@@ -94,5 +95,8 @@ internal abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeAddressFragment(): AddressFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeOrdersFragment(): OrdersFragment
 
 }

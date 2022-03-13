@@ -6,6 +6,9 @@ import com.magma.miyyiyawmiyyi.android.presentation.details.FoodAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.details.cart.CartAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.AdapterSliderView
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.WinnersAdapter
+import com.magma.miyyiyawmiyyi.android.presentation.home.ui.orders.OrdersAdapter
+import com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store.GiftCardsAdapter
+import com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store.PurchaseCardsAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.quizzes.QuizzesAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.tasks.TasksAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.tickets.TicketsAdapter
@@ -42,6 +45,21 @@ class AdapterModule {
     @Provides
     fun provideQuizzesAdapter(): QuizzesAdapter {
         return QuizzesAdapter()
+    }
+
+    @Provides
+    fun provideGiftCardsAdapter(): GiftCardsAdapter {
+        return GiftCardsAdapter()
+    }
+
+    @Provides
+    fun providePurchaseCardsAdapter(): PurchaseCardsAdapter {
+        return PurchaseCardsAdapter()
+    }
+
+    @Provides
+    fun provideOrdersAdapter(): OrdersAdapter {
+        return OrdersAdapter()
     }
 
     @Provides

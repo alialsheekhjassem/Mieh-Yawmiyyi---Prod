@@ -115,7 +115,7 @@ object BindingUtils {
         Glide.with(imageView.context)
             .load(imageUri)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.ic_logo)
+            .placeholder(R.drawable.logo)
             .into(imageView)
     }
 

@@ -41,6 +41,7 @@
     <dimen name="size_circle">58dp</dimen>
     <dimen name="size_toolbar_title">24sp</dimen>
     <dimen name="size_keypad_title">24sp</dimen>
+    <dimen name="size_20sp">20sp</dimen>
     <dimen name="size_sale_title">28sp</dimen>
     <dimen name="spacing_navigation_top">40dp</dimen>
     <dimen name="spacing_profile_top">25dp</dimen>

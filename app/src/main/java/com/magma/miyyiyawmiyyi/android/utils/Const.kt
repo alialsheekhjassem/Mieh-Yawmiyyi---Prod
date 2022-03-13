@@ -29,6 +29,7 @@ class Const {
         const val ERROR_EMPTY: Int = 1
         const val ERROR_PHONE: Int = 2
         const val ERROR_PASSWORD: Int = 3
+        const val ERROR_BIRTHDAY: Int = 4
         //Error
         const val ERROR_NAME_EMPTY: Int = 1
         const val ERROR_PHONE_EMPTY: Int = 2
@@ -46,6 +47,12 @@ class Const {
         const val FACEBOOK_ID = "621b5e4c2fe9e30f26033cd2"
         const val TYPE_SOCIAL_MEDIA = "social_media"
         const val TYPE_QUIZ = "quiz"
+
+        //STATUS
+        const val STATUS_ACTIVE = "active"
+
+        const val TYPE_ROUND_START_DRAW = "fixed_start_draw"
+        const val TYPE_ROUND_TICKETS_DRAW = "fixed_tickets_draw"
 
     }
 }

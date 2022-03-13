@@ -1,18 +1,14 @@
 package com.magma.miyyiyawmiyyi.android.data.remote.services
 
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ResponseWrapper
+import com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.LoginRequest
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.RegisterRequest
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.ResetPasswordRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.responses.LoginResponse
-import com.magma.miyyiyawmiyyi.android.data.remote.responses.NearbySearchResponse
-import com.magma.miyyiyawmiyyi.android.data.remote.responses.TasksResponse
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.*
 import com.magma.miyyiyawmiyyi.android.utils.Urls
 import retrofit2.Response
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface IFoodService {
 
@@ -36,6 +32,11 @@ interface IFoodService {
         @Body loginRequest: LoginRequest?
     ): Response<ResponseWrapper<LoginResponse>>
 
+    @PATCH(Urls.END_POINT_UPDATE_MY_ACCOUNT)
+    suspend fun doServerUpdateMyAccount(
+        @Body accountRequest: AccountRequest?
+    ): Response<ResponseWrapper<MyAccountResponse>>
+
     @POST(Urls.END_POINT_REGISTER)
     suspend fun doServerRegister(
         @Body registerRequest: RegisterRequest?
@@ -51,5 +52,28 @@ interface IFoodService {
         @Query("limit") limit: Int?,
         @Query("offset") offset: Int?
     ): Response<ResponseWrapper<TasksResponse>>
+
+    @GET(Urls.END_POINT_GIFT_STORE)
+    suspend fun getGifts(
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?
+    ): Response<ResponseWrapper<GiftStoreResponse>>
+
+    @GET(Urls.END_POINT_GIFT_STORE_PURCHASES)
+    suspend fun getPurchases(
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?
+    ): Response<ResponseWrapper<GiftStorePurchasesResponse>>
+
+    @GET(Urls.END_POINT_ROUNDS)
+    suspend fun getRounds(
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+        @Query("status") status: String?,
+        @Query("_id") _id: String?,
+    ): Response<ResponseWrapper<RoundsResponse>>
+
+    @GET(Urls.END_POINT_MY_ACCOUNT)
+    suspend fun getMyAccount(): Response<ResponseWrapper<MyAccountResponse>>
 
 }

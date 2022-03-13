@@ -131,8 +131,8 @@
 
     <style name="MaterialCardViewStyle" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">@dimen/vertical_10dp</item>
-        <item name="cardElevation">@dimen/vertical_10dp</item>
-        <item name="cardMaxElevation">@dimen/vertical_10dp</item>
+        <item name="cardElevation">@dimen/spacing_medium</item>
+        <item name="cardMaxElevation">@dimen/spacing_medium</item>
     </style>
 
     <style name="MaterialBaseCardViewStyle" parent="Widget.MaterialComponents.CardView">
