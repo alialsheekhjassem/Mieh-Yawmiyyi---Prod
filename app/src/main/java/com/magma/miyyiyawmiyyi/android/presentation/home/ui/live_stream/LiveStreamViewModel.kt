@@ -7,9 +7,10 @@ import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
 import kotlinx.coroutines.CoroutineScope
 import com.magma.miyyiyawmiyyi.android.data.repository.DataRepository
-import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.Event
 import kotlinx.coroutines.launch
+import java.util.concurrent.Executors
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import kotlin.coroutines.CoroutineContext
 
@@ -23,6 +24,26 @@ class LiveStreamViewModel @Inject constructor(
      * */
     internal var response = MutableLiveData<Event<Resource<RoundsResponse>>>()
     val actions = MutableLiveData<Event<LiveStreamActions>>()
+    internal var responseCountDown = MutableLiveData<Long>()
+
+    fun onTasks(){
+        actions.value = Event(LiveStreamActions.TASKS_CLICKED)
+    }
+
+    fun onStartCountDown(longDate: Long){
+        if (longDate != 0L) {
+            Executors.newSingleThreadScheduledExecutor()
+                .scheduleAtFixedRate({
+                    val elapsedTime: Long =
+                        longDate - System.currentTimeMillis()
+                    if (elapsedTime <= 0) {
+                        responseCountDown.postValue(0L)
+                    } else responseCountDown.postValue(
+                        elapsedTime
+                    )
+                }, 0, 1, TimeUnit.SECONDS)
+        }
+    }
 
     fun getRounds(limit: Int, offset: Int, status: String?, id: String?) {
         launch {

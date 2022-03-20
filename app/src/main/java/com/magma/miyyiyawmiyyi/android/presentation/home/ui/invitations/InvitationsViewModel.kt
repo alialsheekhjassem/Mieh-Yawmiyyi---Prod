@@ -10,8 +10,13 @@ class InvitationsViewModel @Inject constructor(
     private val dataRepository: DataRepository,
     override val coroutineContext: CoroutineContext,
 ) : ViewModel(), CoroutineScope {
+
     fun getLanguage(): String? {
         return dataRepository.getLang()
+    }
+
+    fun getInvitationLink(): String? {
+        return dataRepository.getInvitationLink()
     }
 
     fun setLanguage(lang: String) {

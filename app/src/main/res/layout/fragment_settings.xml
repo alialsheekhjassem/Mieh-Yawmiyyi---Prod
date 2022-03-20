@@ -142,6 +142,7 @@
                     android:layout_gravity="center"
                     android:background="@color/transparent"
                     android:entries="@array/languages"
+                    tools:listitem="@layout/item_setting_spinner"
                     android:gravity="center" />
 
                 <androidx.appcompat.widget.AppCompatImageView
@@ -150,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:src="@drawable/ic_arrow_drop_down"
-                    android:tint="@color/black" />
+                    android:tint="@color/grey_11" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

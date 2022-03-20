@@ -3,6 +3,7 @@ package com.magma.miyyiyawmiyyi.android.presentation.home.ui.settings
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.tasks.Task
+import com.google.firebase.messaging.FirebaseMessaging
 import com.magma.miyyiyawmiyyi.android.R
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentSettingsBinding
@@ -50,6 +53,8 @@ class SettingsFragment : Fragment() {
             ArrayAdapter(requireActivity(), R.layout.item_setting_spinner, listLanguage)
         binding.spnLanguage.adapter = adapterLanguage
 
+        binding.imgArrowLanguage.setOnClickListener { binding.spnLanguage.performClick() }
+
         when (viewModel.getLanguage()) {
             "en" -> binding.spnLanguage.setSelection(0)
             "ar" -> binding.spnLanguage.setSelection(1)
@@ -86,6 +91,19 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        val isGeneralNotifications = viewModel.isGeneralNotifications()
+        Log.d(TAG, "setUp: $isGeneralNotifications")
+        binding.switchNotifications.isChecked = isGeneralNotifications == true
+        binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
+            val lang = viewModel.getLanguage()?.lowercase()
+            val topic = "general_$lang"
+            if (isChecked) {
+                subscribeGeneralTopic(topic)
+            } else {
+                unSubscribeGeneralTopic(topic)
+            }
+        }
+
     }
 
     private fun restartApp(lang: String) {
@@ -93,6 +111,26 @@ class SettingsFragment : Fragment() {
         val toMainActivity = Intent(context, HomeActivity::class.java)
         toMainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(toMainActivity)
+    }
+
+    private fun subscribeGeneralTopic(topic: String) {
+        FirebaseMessaging.getInstance().subscribeToTopic(topic)
+            .addOnCompleteListener { task: Task<Void> ->
+                if (task.isSuccessful) {
+                    viewModel.setIsGeneralNotifications(true)
+                    Log.d(TAG, "subscribeTopic: Success $topic")
+                }
+            }
+    }
+
+    private fun unSubscribeGeneralTopic(topic: String) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
+            .addOnCompleteListener { task: Task<Void> ->
+                if (task.isSuccessful) {
+                    viewModel.setIsGeneralNotifications(false)
+                    Log.d(TAG, "unSubscribeTopic: Success $topic")
+                }
+            }
     }
 
     override fun onAttach(context: Context) {
@@ -103,5 +141,9 @@ class SettingsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG = "SettingsFragment"
     }
 }

@@ -49,13 +49,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         if (remoteMessage.notification != null) {
             Log.d(
                 "TAG",
-                "MMM handleNotification: getNotification " + remoteMessage.notification!!
-                    .title
+                "MMM handleNotification: getNotification " + remoteMessage.notification?.title
             )
             Log.d(
                 "TAG",
-                "MMM handleNotification: getNotification " + remoteMessage.notification!!
-                    .body
+                "MMM handleNotification: getNotification " + remoteMessage.notification?.body
             )
         }
         if (remoteMessage.data.isNotEmpty() && remoteMessage.data.containsKey("Type")
@@ -74,11 +72,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         var title: String? = null
         var body: String? = null
         if (remoteMessage.notification != null) {
-            title = remoteMessage.notification!!.title
-            body = remoteMessage.notification!!.body
+            title = remoteMessage.notification?.title
+            body = remoteMessage.notification?.body
         }
         notificationBuilder
-            .setSmallIcon(R.mipmap.ic_launcher)
+            .setSmallIcon(R.drawable.logo)
             .setContentTitle(title)
             .setContentText(body)
             .setAutoCancel(true)
@@ -109,7 +107,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             // Register the channel with the system; you can't change the importance
             // or other notification behaviors after this
             notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager!!.createNotificationChannel(channel)
+            notificationManager?.createNotificationChannel(channel)
         }
     }
 

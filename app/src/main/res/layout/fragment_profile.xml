@@ -9,6 +9,10 @@
             name="viewModel"
             type="com.magma.miyyiyawmiyyi.android.presentation.home.ui.profile.ProfileViewModel" />
 
+        <variable
+            name="model"
+            type="com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest" />
+
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -45,6 +49,7 @@
                 android:hint="@string/enter_here"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@color/color_hint"
+                android:text="@={model.name}"
                 android:layout_marginTop="@dimen/spacing_default"
                 android:layout_marginHorizontal="@dimen/spacing_default"
                 app:layout_constraintTop_toBottomOf="@+id/txt_full_name"/>
@@ -54,13 +59,13 @@
                 style="@style/MaterialTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_large"
+                android:layout_marginTop="@dimen/card_corner"
                 android:layout_marginHorizontal="@dimen/spacing_default"
                 android:text="@string/phone_number"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/edt_full_name"/>
+                app:layout_constraintTop_toBottomOf="@id/btn_save"/>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/lyt_mobile"
@@ -130,7 +135,7 @@
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/lyt_mobile"/>
+                app:layout_constraintTop_toBottomOf="@id/edt_full_name"/>
 
             <Spinner
                 android:id="@+id/spn_yob"
@@ -183,6 +188,7 @@
                 android:layout_marginHorizontal="@dimen/spacing_default"
                 android:paddingVertical="@dimen/spacing_default"
                 android:textSize="@dimen/size_title"
+                android:onClick="@{()-> viewModel.onDone(model)}"
                 android:backgroundTint="@color/colorPrimary"
                 app:layout_constraintTop_toBottomOf="@+id/spn_location"
                 app:layout_constraintStart_toStartOf="parent"
@@ -198,7 +204,7 @@
                 android:src="@drawable/logo"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_save"
+                app:layout_constraintTop_toBottomOf="@id/lyt_mobile"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

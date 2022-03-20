@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">مية يومية</string>
-    <string name="title_activity_maps">Map</string>
-    <string name="search">Write Place to Search…</string>
-    <string name="default_info_title">Beriut</string>
-    <string name="default_info_snippet">Lenabon Capital</string>
-    <string name="pick_place">Pick Place</string>
-    <string name="show_directions">Show Directions</string>
-    <string name="title_activity_admob">MainActivity</string>
-    <string name="action_settings">Settings</string>
+    <string name="title_activity_maps">خريطة</string>
+    <string name="search">اكتب مكان للبحث…</string>
+    <string name="default_info_title">بيروت</string>
+    <string name="default_info_snippet">عاصمة لبنان</string>
+    <string name="pick_place">اختر المكان</string>
+    <string name="show_directions">إظهار الاتجاهات</string>
+    <string name="title_activity_admob">الرئيسية</string>
+    <string name="action_settings">الإعدادات</string>
     <!-- -
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638
     <!- -->
     <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
     <!--<string name="interstitial_ad_unit_id">ca-app-pub-2559564046715323~6653115980</string>-->
-    <string name="unknown_error">unknown error</string>
+    <string name="unknown_error">خطأ غير معروف</string>
     <string name="error">خطأ</string>
-    <string name="no_internet">no internet</string>
+    <string name="no_internet">لا يوجد اتصال</string>
 
-    <string name="open">Open</string>
-    <string name="close">Close</string>
+    <string name="open">فتح</string>
+    <string name="close">اغلاق</string>
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAiAir1uMz3NwJDd9vjIhqeEuTUgw2S7VM</string>
 
     <!--onboarding-->
-    <string name="welcome_title_1">Is an application that gives user tickets to join daily poll of 100$. The poll will be done randomly and mechanically</string>
-    <string name="welcome_title_2">To win a ticket, the user does one of the task types: watch advertising videos, answer a group of questions or do tasks via social media.</string>
-    <string name="welcome_title_3">You can invite your friends to join application to collect points and exchange them by several digital gifts.</string>
-    <string name="welcome_text_1">Is an application that gives user tickets to join daily poll of 100$. The poll will be done randomly and mechanically</string>
-    <string name="welcome_text_2">To win a ticket, the user does one of the task types: watch advertising videos, answer a group of questions or do tasks via social media.</string>
-    <string name="welcome_text_3">You can invite your friends to join application to collect points and exchange them by several digital gifts.</string>
+    <string name="welcome_title_1">هو تطبيق يمنح المستخدم تذاكر للانضمام إلى استطلاع يومي بقيمة 100 دولار. سيتم إجراء الاستطلاع بشكل عشوائي وآلي</string>
+    <string name="welcome_title_2">للفوز بتذكرة ، يقوم المستخدم بأحد أنواع المهام: مشاهدة مقاطع الفيديو الإعلانية ، أو الإجابة على مجموعة من الأسئلة أو القيام بمهام عبر وسائل التواصل الاجتماعي.</string>
+    <string name="welcome_title_3">يمكنك دعوة أصدقائك للانضمام إلى التطبيق لجمع النقاط واستبدالها بعدة هدايا رقمية.</string>
+    <string name="welcome_text_1">هو تطبيق يمنح المستخدم تذاكر للانضمام إلى استطلاع يومي بقيمة 100 دولار. سيتم إجراء الاستطلاع بشكل عشوائي وآلي</string>
+    <string name="welcome_text_2">للفوز بتذكرة ، يقوم المستخدم بأحد أنواع المهام: مشاهدة مقاطع الفيديو الإعلانية ، أو الإجابة على مجموعة من الأسئلة أو القيام بمهام عبر وسائل التواصل الاجتماعي.</string>
+    <string name="welcome_text_3">يمكنك دعوة أصدقائك للانضمام إلى التطبيق لجمع النقاط واستبدالها بعدة هدايا رقمية.</string>
 
     <string name="lets_start">دعنا نبدأ !</string>
     <string name="quick_service_for_kitchens_and_restaurants_in_saudi_arabia_to_book_banquets_and_buffets">خدمة سريعة للمطابخ والمطاعم في السعودية لحجز الولائم والبوفيهات</string>
@@ -82,7 +82,7 @@
         <item>أنثى</item>
     </string-array>
 
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">الرئيسية</string>
     <string name="title_home">الرئيسية</string>
     <string name="default_location">بيروت، لبنان</string>
     <string name="title_chats">الدردشة</string>
@@ -200,80 +200,137 @@
     <string name="wrong_code">رمز خاطئ</string>
     <string name="success">تم بنجاح</string>
     <string name="enter_phone_number">أدخل رقم الموبايل</string>
-    <string name="please_enter_the_number_you_signed_up_with">Please enter the number you signed up with</string>
-    <string name="a_verfication_code_has_been_sent_to_your_mobile_number">A verfication code has been sent to your mobile number.</string>
-    <string name="verify">Verify</string>
-    <string name="reset_password">Reset Password</string>
-    <string name="save_new_password">Save New Password</string>
-    <string name="retry">Retry</string>
-    <string name="get_started">Get Started</string>
-    <string name="welcome_to_100_yawmiyyi">Welcome to 100 Yawmiyyi</string>
-    <string name="please_sign_in_using_your_mobile_number">Please sign in using your mobile number</string>
-    <string name="change_number">Change Number</string>
-    <string name="didn_t_receive_the_code_send_again">Didn\'t Receive the code? Send Again</string>
-    <string name="verify_and_continue">Verify and Continue</string>
-    <string name="date_of_birth">Date of Birth</string>
-    <string name="finish_account_setup">Finish Account Setup</string>
-    <string name="please_fill_below_to_finish_setup_your_account">Please fill below to finish setup your account</string>
-    <string name="invitation_code">Invitation Code</string>
-    <string name="please_fill_enter_the_code">Please fill enter the code</string>
-    <string name="show_all">Show all</string>
-    <string name="view">View</string>
-    <string name="title_tasks">Tasks</string>
-    <string name="title_tickets">Tickets</string>
-    <string name="title_live_stream">Live Stream</string>
-    <string name="winner_100_usd_text">The winner of the 100$ Ticket in the last poll is:</string>
-    <string name="winner_golden_lira_text">The winner of the Golden Lira in the last poll is:</string>
-    <string name="chance_golden_text">Get the chance to get enough tickets to enter the Golden Lira draw.</string>
-    <string name="invitations">Invitations</string>
-    <string name="our_store">Our Store</string>
-    <string name="settings">Settings</string>
-    <string name="your_orders">Your Orders</string>
-    <string name="about_the_app">About the App</string>
-    <string name="user_interface">User Interface</string>
-    <string name="dark_mode">Dark Mode</string>
-    <string name="language">Language</string>
-    <string name="about_us_text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</string>
-    <string name="share_the_app">Share the App</string>
-    <string name="the_golder_lira_ticket">The Golder Lira Ticket</string>
-    <string name="the_100_tickets">The 100$ Tickets</string>
-    <string name="get_it_now">Get it now</string>
-    <string name="the_remaining_time_for_the_golden_lira_poll_stream">The remaining time for the Golden Lira poll stream</string>
-    <string name="watch_now">Watch Now</string>
-    <string name="days">Days</string>
-    <string name="hours">Hours</string>
-    <string name="minutes">Minutes</string>
-    <string name="seconds">Seconds</string>
-    <string name="log_out">Log Out</string>
-    <string name="full_name">Full Name</string>
-    <string name="enter_here">Enter here…</string>
-    <string name="location">Location</string>
-    <string name="task_level_2_of_5_completed">Task Level ( 2 of 5 Completed )</string>
-    <string name="get_tickets">Get Tickets</string>
-    <string name="by_watching_ads_click_the_button_below_to_start">by watching Ads click the button below to start</string>
-    <string name="watch_ads">Watch ADS</string>
-    <string name="test_your_knowledge">Test your Knowledge</string>
-    <string name="what_about_iq">What about IQ?</string>
-    <string name="my_daily_tasks">My Daily Tasks</string>
-    <string name="like">Like</string>
-    <string name="total_points">Total Points</string>
-    <string name="google_gift_cards">Google Gift Cards</string>
-    <string name="exchange_your_points_with_google_gift_cards">Exchange your points with google gift cards</string>
-    <string name="_100_yawmiyyi_gift_cards">100 Yawmiyyi Gift Cards</string>
-    <string name="invitation_sent">Invitation Sent</string>
-    <string name="invitation_received">Invitation Received</string>
-    <string name="for_every_invitation_you_will_get">For every Invitation you will get</string>
-    <string name="the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets">The points will not be counted until the receiver get at least 10 tickets</string>
-    <string name="no_items">No Tasks</string>
-    <string name="question_1_of_10">Question 1 of 10</string>
-    <string name="choose_the_correct_answer_form_below">Choose the correct answer form below</string>
-    <string name="back_to_tasks">Back to Tasks</string>
-    <string name="watch_last_100_draw">Watch last 100$ Draw</string>
-    <string name="watch_now_on_facebook">Watch Now On Facebook</string>
-    <string name="the_remaining_tickets_for_the_100_poll_stream">The remaining tickets for the 100$ poll stream</string>
-    <string name="claim_your_tickets_now">Claim your Tickets Now!</string>
-    <string name="head_now_to_your_tasks_and_collect_tickets">Head now to your tasks and collect tickets</string>
-    <string name="no_cards">No Cards</string>
-    <string name="invitation_link">Invitation Link</string>
-    <string name="copy_the_url_below_and_invites_your_friends">Copy the URL below and invites your friends</string>
+    <string name="please_enter_the_number_you_signed_up_with">الرجاء إدخال الرقم الذي قمت بالتسجيل به</string>
+    <string name="a_verfication_code_has_been_sent_to_your_mobile_number">تم إرسال رمز التحقق إلى رقم هاتفك المحمول.</string>
+    <string name="verify">تأكيد</string>
+    <string name="reset_password">إعادة تعيين كلمة المرور</string>
+    <string name="save_new_password">حفظ كلمة المرور الجديدة</string>
+    <string name="retry">أعد المحاولة</string>
+    <string name="get_started">البدء</string>
+    <string name="welcome_to_100_yawmiyyi">أهلاً بكم في مية يومية</string>
+    <string name="please_sign_in_using_your_mobile_number">الرجاء تسجيل الدخول باستخدام رقم هاتفك المحمول</string>
+    <string name="change_number">تغيير رقم</string>
+    <string name="didn_t_receive_the_code_send_again">ألم يصلك الرمز؟ أعد الإرسال</string>
+    <string name="verify_and_continue">تحقق والمتابعة</string>
+    <string name="date_of_birth">تاريخ الميلاد</string>
+    <string name="finish_account_setup">إنهاء إعداد الحساب</string>
+    <string name="please_fill_below_to_finish_setup_your_account">يرجى ملء أدناه لإنهاء إعداد حسابك</string>
+    <string name="invitation_code">كود الدعوة</string>
+    <string name="please_fill_enter_the_code">الرجاء إدخال الرمز</string>
+    <string name="show_all">عرض الكل</string>
+    <string name="view">عرض</string>
+    <string name="title_tasks">المهام</string>
+    <string name="title_tickets">التذاكر</string>
+    <string name="title_live_stream">البث المباشر</string>
+    <string name="winner_100_usd_text">الفائز بجائزة 100 دولار في السحب الأخير هو:</string>
+    <string name="winner_golden_lira_text">الفائز بالجائزة الذهبية في السحب الأخير هو:</string>
+    <string name="chance_golden_text">احصل على فرصة الحصول على تذاكر كافية لدخول سحب الليرة الذهبية.</string>
+    <string name="invitations">الدعوات</string>
+    <string name="our_store">متجرنا</string>
+    <string name="settings">الإعدادات</string>
+    <string name="your_orders">طلباتك</string>
+    <string name="about_the_app">حول التطبيق</string>
+    <string name="user_interface">واجهة المستخدم</string>
+    <string name="dark_mode">الوضع الداكن</string>
+    <string name="language">اللغة</string>
+    <string name="about_us_text">تطبيق 100 يومية يتيح لك فرصة الفوز بجائزة نقدية و ذلك من خلال سحب يومي على التذاكر التي يحصل عليها المستخدمون من خلال مشاهدة مقاطع لفيديوهات اعلانية او أداء مهام عبر التواصل الاجتماعي.</string>
+    <string name="share_the_app">شارك التطبيق</string>
+    <string name="the_golder_lira_ticket">تذكرة الليرة الذهبية</string>
+    <string name="the_100_tickets">تذاكر الـ 100 دولار</string>
+    <string name="get_it_now">احصل عليها الآن</string>
+    <string name="the_remaining_time_for_the_golden_lira_poll_stream">الوقت المتبقي لسحب الليرة الذهبية</string>
+    <string name="watch_now">شاهد الآن</string>
+    <string name="days">أيام</string>
+    <string name="hours">ساعات</string>
+    <string name="minutes">دقائق</string>
+    <string name="seconds">ثواني</string>
+    <string name="log_out">تسجيل خروج</string>
+    <string name="full_name">الاسم الكامل</string>
+    <string name="enter_here">أدخل هنا…</string>
+    <string name="location">العنوان</string>
+    <string name="task_level_2_of_5_completed">مستوى المهمة (%1$d من %2$d مكتمل)</string>
+    <string name="get_tickets">أحصل على تذاكر</string>
+    <string name="by_watching_ads_click_the_button_below_to_start">بمشاهدة الإعلانات انقر فوق الزر أدناه للبدء</string>
+    <string name="watch_ads">مشاهدة الإعلانات</string>
+    <string name="test_your_knowledge">اختبر معلوماتك</string>
+    <string name="what_about_iq">ماذا عن معدل الذكاء؟</string>
+    <string name="my_daily_tasks">المهام اليومية الخاصة بي</string>
+    <string name="like">إعجاب</string>
+    <string name="total_points">إجمالي النقاط</string>
+    <string name="google_gift_cards">بطاقات هدايا جوجل</string>
+    <string name="exchange_your_points_with_google_gift_cards">استبدل نقاطك ببطاقات هدايا جوجل</string>
+    <string name="_100_yawmiyyi_gift_cards">بطاقات هدايا مية يومية</string>
+    <string name="invitation_sent">دعوات مرسلة</string>
+    <string name="invitation_received">دعوات مستقبلة</string>
+    <string name="for_every_invitation_you_will_get">ستحصل على كل دعوة</string>
+    <string name="the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets">لن يتم احتساب النقاط حتى يحصل المستلم على 10 تذاكر على الأقل</string>
+    <string name="no_items">لا توجد مهام</string>
+    <string name="question_1_of_10">السؤال %1$d من %2$d</string>
+    <string name="choose_the_correct_answer_form_below">اختر نموذج الإجابة الصحيح أدناه</string>
+    <string name="back_to_tasks">العودة إلى المهام</string>
+    <string name="watch_last_100_draw">شاهد آخر سحب بقيمة 100 دولار</string>
+    <string name="watch_now_on_facebook">شاهد الآن على فيسبوك</string>
+    <string name="the_remaining_tickets_for_the_100_poll_stream">التذاكر المتبقية لتيار الاستطلاع 100 دولار</string>
+    <string name="claim_your_tickets_now">اطلب التذاكر الخاصة بك الآن!</string>
+    <string name="head_now_to_your_tasks_and_collect_tickets">توجه الآن إلى مهامك واجمع التذاكر</string>
+    <string name="no_cards">لا بطاقات</string>
+    <string name="invitation_link">رابط الدعوة</string>
+    <string name="copy_the_url_below_and_invites_your_friends">انسخ عنوان URL أدناه وادعو أصدقائك</string>
+    <string name="points">نقاط</string>
+    <string name="ticket">تذكرة</string>
+    <string name="total_tickets">إجمالي التذاكر</string>
+    <string name="no_winner">لا يوجد رابح</string>
+    <string name="update_available">التحديث متاح</string>
+    <string name="please_update_app">يرجى تحديث التطبيق</string>
+    <string name="update_available_body">تحديث متاح. هل ترغب في تحديث؟</string>
+    <string name="update_available_body_force">تحديث متاح. يجب عليك تحديث التطبيق</string>
+    <string name="later">في وقت لاحق</string>
+    <string name="update">تحديث</string>
+    <string name="gift_info">معلومات الهدية</string>
+    <string name="total_point_amount">المبلغ الإجمالي للنقاط</string>
+    <string name="total_cash_amount">المبلغ النقدي الإجمالي</string>
+    <string name="confirm_card_request">تأكيد طلب البطاقة</string>
+    <string name="copied">تم النسخ</string>
+
+    <!--Terms-->
+    <string name="terms_and_conditions"><u><b>شروط وقواعد الاستخدام</b></u></string>
+    <string name="terms_and_conditionsaccept"> أوافق على  </string>
+    <string name="youshouldaccept">عليك الموافقة على الشروط والاحكام!</string>
+    <string name="terms_text1">
+       - المسابقة مجانية 100%، ولا يطلب من المستخدمين إجراء أي دفعات داخل أو خارج التطبيق للاشتراك.
+    </string>
+    <string name="terms_text2">
+        - إن استخدام معلومات شخصية حقيقية أثناء التسجيل ضروري للاتصال بك في حال الربح.
+    </string>
+    <string name="terms_text3">
+- يمكن للمستخدم جمع التذاكر من خلال مشاهدة الإعلانات أو متابعة مواقع التواصل بحد أقصى 10 تذاكر يومياً.    </string>
+    <string name="terms_text4">
+- يمكن لـ 100 يومية تغيير عدد المهام الواجب أداؤها للحصول على تذكرة الدخول في السحب    </string>
+    <string name="terms_text5">
+- يمكن لـ 100 يومية تغيير عدد التذاكر التي يمكن الحصول عليها كحد أقصى في اليوم الواحد.    </string>
+    <string name="terms_text6">
+- يتم إلغاء جميع تذاكر اليوم السابق عند بداية كل سحب جديد.    </string>
+    <string name="terms_text7">
+- يتم تسليم الجائزة للرابح خلال مدة أقصاها 10 أيام من تاريخ السحب.    </string>
+    <string name="terms_text8">
+- يجب على المستخدم إتمام عدد المهام المطلوبة للحصول على تذكرة واحدة على الأقل للاشتراك في كل سحب.
+    </string>
+    <string name="terms_text9">
+- كلما قمت بتجميع عدد أكبر من التذاكر، كلما زادت فرصك للربح.    </string>
+    <string name="terms_text10">
+- سيتم اختيار التذكرة الرابحة عشوائيا وبسحب ميكانيكي عبر البث المباشر على فيسبوك.    </string>
+    <string name="terms_text11">
+- يمكن للمستخدمين الاستفادة من دعوة أصدقائهم للتطبيق لربح النقاط واستبدالها بالهدايا الرقمية.
+    </string>
+    <string name="terms_text12">
+- على المدعوين الحصول على 5 تذاكر على الأقل ليتم احتساب الدعوة والحصول على نقاطك    </string>
+    <string name="terms_text13">
+- يمكن لـ 100 يومية إجراء تعديل على قيمة الهدايا، وتعديل قيمة النقاط لكل دعوة، ويتم احتساب القيم الجديدة على الدعوات الجديدة فقط، وتبقى القديمة على حالها.    </string>
+    <string name="terms_text14">
+- يحق لـ 100 يومية إلغاء السحب في حال حصول خلل تقني أو أمر طارئ في استديو التصوير.    </string>
+    <string name="terms_text15">- عند المتابعة،  سيصلك كود تحقق الى رقمك عبر رسالة نصية</string>
+    <string name="terms_text15_about">- تم استلام رسالة تحقق عند التسجيل</string>
+    <string name="agree">أوافق</string>
+    <string name="draw_number_1">رقم السحب: 1</string>
+
 </resources>

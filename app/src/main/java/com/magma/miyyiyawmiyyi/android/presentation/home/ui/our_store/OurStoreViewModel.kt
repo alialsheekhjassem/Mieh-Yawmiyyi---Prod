@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.CreatePurchaseResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.GiftStorePurchasesResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.GiftStoreResponse
 import kotlinx.coroutines.CoroutineScope
@@ -156,6 +157,18 @@ class OurStoreViewModel @Inject constructor(
                 loadAllPurchaseCards()
                 Log.d("TAG", "savePurchaseCards: $ids")
             }
+        }
+    }
+
+    internal var responseCreatePurchase = MutableLiveData<Event<Resource<CreatePurchaseResponse>>>()
+    fun doServerCreatePurchase(gift: String?) {
+        launch {
+            //val token = dataRepository.getApiToken()
+            responseCreatePurchase.value = Event(Resource.Loading())
+            val result: Resource<CreatePurchaseResponse> =
+                dataRepository.doServerCreatePurchase(gift)
+            Log.d("TAG", "doServerCreatePurchase: $result")
+            responseCreatePurchase.value = Event(result)
         }
     }
 

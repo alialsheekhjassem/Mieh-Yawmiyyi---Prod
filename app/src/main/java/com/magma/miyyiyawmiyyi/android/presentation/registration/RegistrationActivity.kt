@@ -14,6 +14,7 @@ import com.magma.miyyiyawmiyyi.android.presentation.registration.login.LoginView
 import com.magma.miyyiyawmiyyi.android.utils.BindingUtils.hideKeyboard
 import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
+import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
 class RegistrationActivity : AppCompatActivity() {
@@ -57,6 +58,13 @@ class RegistrationActivity : AppCompatActivity() {
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
+
+        ContactManager.getCurrentAccount()?.account?.let {
+            if (!viewModel.getApiToken().isNullOrEmpty() &&
+                !it.phone.isNullOrEmpty() && it.name.isNullOrEmpty()){
+                navController.navigate(R.id.navigation_finish_account)
+            }
+        }
     }
 
     private fun Activity.hideKeyboard() {

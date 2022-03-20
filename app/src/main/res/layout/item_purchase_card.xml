@@ -38,6 +38,7 @@
                 android:scaleType="fitCenter"
                 android:padding="@dimen/spacing_large"
                 android:src="@drawable/logo"
+                image_url="@{item.gift.image}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>

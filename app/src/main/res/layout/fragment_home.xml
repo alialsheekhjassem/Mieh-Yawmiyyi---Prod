@@ -39,8 +39,7 @@
                     android:layout_margin="@dimen/spacing_default"
                     layout="@layout/include_total"
                     app:drawable="@{@drawable/gold_sack}"
-                    app:title="@{`Total Points`}"
-                    app:value="@{`1000 Point`}"/>
+                    app:title="@{@string/total_points}"/>
 
                 <include
                     android:id="@+id/card_tickets"
@@ -51,8 +50,7 @@
                     android:layout_marginVertical="@dimen/spacing_default"
                     layout="@layout/include_total"
                     app:drawable="@{@drawable/ticket}"
-                    app:title="@{`Total Tickets`}"
-                    app:value="@{`7/10 Ticket`}"/>
+                    app:title="@{@string/total_tickets}"/>
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 

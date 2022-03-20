@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.TasksResponse
@@ -19,6 +20,7 @@ import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemListener
+import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
 class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
@@ -135,6 +137,25 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         binding.include2.btnWatchNow.setOnClickListener {
             viewModel.onQuizzesClicked()
         }
+
+        val level = ContactManager.getCurrentInfo()?.activeRound?.let {
+            it.config?.tasksPerTicket?.let { tasksCount ->
+                binding.progressRemainingTickets.progress = tasksCount
+                String.format(
+                    getString(R.string.task_level_2_of_5_completed),
+                    tasksCount,
+                    it.config?.maxTicketsPerContestant ?: 0
+                )
+            } ?: String.format(
+                getString(R.string.task_level_2_of_5_completed),
+                0,
+                it.config?.maxTicketsPerContestant ?: 0
+            )
+        } ?: String.format(
+            getString(R.string.task_level_2_of_5_completed),
+            0, 0
+        )
+        binding.txtLevel.text = level
     }
 
     private fun setupData(tasksList: ArrayList<TaskObj>) {

@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
@@ -15,6 +17,7 @@ import com.magma.miyyiyawmiyyi.android.databinding.FragmentLiveStreamBinding
 import com.magma.miyyiyawmiyyi.android.model.Round
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
 import com.magma.miyyiyawmiyyi.android.utils.Const
+import com.magma.miyyiyawmiyyi.android.utils.DateUtils
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import javax.inject.Inject
@@ -56,8 +59,8 @@ class LiveStreamFragment : ProgressBarFragments() {
                 activeRound.type?.let {
                     setStreamView(it)
                     if (it == Const.TYPE_ROUND_START_DRAW) {
-                        val percentage = activeRound.fixedStartDraw?.minutesBeforeClose
-                        binding.txtMinutes1.text = percentage.toString()
+                        val date = activeRound.drawResultAt
+                        viewModel.onStartCountDown(DateUtils.formatDateTimeToLong(date))
                     } else if (it == Const.TYPE_ROUND_TICKETS_DRAW) {
                         activeRound.fixedTicketsDraw?.maxTickets?.let { maxTickets ->
                             val percentage = 2 * 100 / maxTickets
@@ -82,6 +85,29 @@ class LiveStreamFragment : ProgressBarFragments() {
     }
 
     private fun setUpObservers() {
+
+        viewModel.actions.observe(
+            viewLifecycleOwner, EventObserver(
+                object : EventObserver.EventUnhandledContent<LiveStreamActions> {
+                    override fun onEventUnhandledContent(t: LiveStreamActions) {
+                        when (t) {
+                            LiveStreamActions.TASKS_CLICKED -> {
+                                findNavController().navigate(R.id.navigation_tasks)
+                            }
+                        }
+                    }
+                })
+        )
+
+        viewModel.responseCountDown.observe(
+            viewLifecycleOwner, {
+                if (it <= 0) {
+                    setViewsTime(Const.INIT_COUNT_DOWN)
+                } else {
+                    DateUtils.formatLongToCountDown(it)?.let { it1 -> setViewsTime(it1) }
+                }
+            }
+        )
         // listen to api result
         viewModel.response.observe(
             this,
@@ -122,6 +148,31 @@ class LiveStreamFragment : ProgressBarFragments() {
                 }
             })
         )
+    }
+
+    private fun setViewsTime(time: String) {
+        val timeArray = time.split(":")
+        if (timeArray.size == 4) {
+            //Day
+            binding.txtDays11.text = timeArray[0][0].toString()
+            if (timeArray[0].length == 1) binding.txtDays12.text = "0"
+            else binding.txtDays12.text = timeArray[0][1].toString()
+
+            //Hour
+            binding.txtHours11.text = timeArray[1][0].toString()
+            if (timeArray[1].length == 1) binding.txtHours12.text = "0"
+            else binding.txtHours12.text = timeArray[1][1].toString()
+
+            //Minute
+            binding.txtMinutes11.text = timeArray[2][0].toString()
+            if (timeArray[2].length == 1) binding.txtMinutes12.text = "0"
+            else binding.txtMinutes12.text = timeArray[2][1].toString()
+
+            //Second
+            binding.txtSeconds11.text = timeArray[3][0].toString()
+            if (timeArray[3].length == 1) binding.txtSeconds12.text = "0"
+            else binding.txtSeconds12.text = timeArray[3][1].toString()
+        }
     }
 
     override fun onAttach(context: Context) {

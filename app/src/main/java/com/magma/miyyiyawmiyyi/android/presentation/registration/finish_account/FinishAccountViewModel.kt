@@ -8,6 +8,7 @@ import com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest
 import kotlinx.coroutines.CoroutineScope
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
 import com.magma.miyyiyawmiyyi.android.data.repository.DataRepository
+import com.magma.miyyiyawmiyyi.android.model.Account
 import com.magma.miyyiyawmiyyi.android.utils.Event
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,7 +19,6 @@ class FinishAccountViewModel @Inject constructor(
     override val coroutineContext: CoroutineContext,
 ) : ViewModel(), CoroutineScope {
 
-    val actions = MutableLiveData<Event<FinishAccountActions>>()
     val validation = MutableLiveData<Event<FinishAccountValidation>>()
 
     fun onDone(accountRequest: AccountRequest) {
@@ -38,7 +38,7 @@ class FinishAccountViewModel @Inject constructor(
         }
     }
 
-    val updateResponse = MutableLiveData<Event<Resource<MyAccountResponse>>>()
+    val updateResponse = MutableLiveData<Event<Resource<Account>>>()
 
     private fun doServerUpdateMyAccount(
         request: AccountRequest,
@@ -47,9 +47,25 @@ class FinishAccountViewModel @Inject constructor(
             Log.d("TAG", "doServerUpdateMyAccount: ${request.name}")
             Log.d("TAG", "doServerUpdateMyAccount: ${request.birthdate}")
             updateResponse.value = Event(Resource.Loading())
-            val response: Resource<MyAccountResponse> =
+            val response: Resource<Account> =
                 dataRepository.doServerUpdateMyAccount(request)
             updateResponse.value = Event(response)
+        }
+    }
+
+    /**
+     * Live data of requests list response.
+     * */
+    internal var response = MutableLiveData<Event<Resource<MyAccountResponse>>>()
+
+    fun getMyAccount() {
+        launch {
+            //val token = dataRepository.getApiToken()
+            response.value = Event(Resource.Loading())
+            val result: Resource<MyAccountResponse> =
+                dataRepository.getMyAccount()
+            Log.d("TAG", "getRounds: $result")
+            response.value = Event(result)
         }
     }
 

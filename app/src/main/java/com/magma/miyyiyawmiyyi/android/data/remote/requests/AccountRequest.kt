@@ -5,13 +5,13 @@ import com.google.gson.annotations.SerializedName
 class AccountRequest {
 
     @SerializedName("name")
-    var name:String? = null
+    var name:String? = ""
 
     @SerializedName("image")
     var image:String? = null
 
     @SerializedName("birthdate")
-    var birthdate:String? = null
+    var birthdate:String? = ""
 
     @SerializedName("gender")
     var gender:String? = null
@@ -20,5 +20,6 @@ class AccountRequest {
     var country:String? = null
 
     @SerializedName("locale")
-    var locale:String? = null
+    var locale:String? = ""
+
 }

@@ -1,10 +1,8 @@
 package com.magma.miyyiyawmiyyi.android.data.remote.controller
 
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.LoginRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.RegisterRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.ResetPasswordRequest
+import com.magma.miyyiyawmiyyi.android.data.remote.requests.*
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.*
+import com.magma.miyyiyawmiyyi.android.model.Account
 
 internal interface IRestApiManager {
 
@@ -24,5 +22,13 @@ internal interface IRestApiManager {
 
     suspend fun getMyAccount(): Resource<MyAccountResponse>
 
-    suspend fun doServerUpdateMyAccount(accountRequest: AccountRequest): Resource<MyAccountResponse>
+    suspend fun doServerUpdateMyAccount(accountRequest: AccountRequest): Resource<Account>
+
+    suspend fun doServerUpdateMyAccount(accountRequest: InvitedByRequest): Resource<Account>
+
+    suspend fun getTickets(limit: Int, offset: Int, round: String?, populate: Boolean?): Resource<TicketsResponse>
+
+    suspend fun getInfo(): Resource<InfoResponse>
+
+    suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse>
 }

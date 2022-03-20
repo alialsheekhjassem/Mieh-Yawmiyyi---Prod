@@ -8,14 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentOrdersBinding
+import com.magma.miyyiyawmiyyi.android.model.Ticket
 import dagger.android.support.AndroidSupportInjection
-import com.magma.miyyiyawmiyyi.android.model.Winner
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemListener
 import javax.inject.Inject
 
-class OrdersFragment : Fragment(), RecyclerItemListener<Winner> {
+class OrdersFragment : Fragment(), RecyclerItemListener<Ticket> {
 
     private var _binding: FragmentOrdersBinding? = null
 
@@ -56,18 +56,18 @@ class OrdersFragment : Fragment(), RecyclerItemListener<Winner> {
     }
 
     private fun setupData() {
-        val winnerList: ArrayList<Winner> = arrayListOf()
-        winnerList.add(
-            Winner(
-                0, 0,
-            Const.TYPE_100DOLLAR,"Ali Jassem", "12562158")
+        val ticketList: ArrayList<Ticket> = arrayListOf()
+        ticketList.add(
+            Ticket(
+                "0", "0",
+            Const.TYPE_100DOLLAR,"Ali Jassem", "","12562158")
         )
-        winnerList.add(
-            Winner(
-                0, 0,
-            Const.TYPE_GOLDEN_LIRA,"Ali Jassem", "12562158")
+        ticketList.add(
+            Ticket(
+                "0", "0",
+            Const.TYPE_GOLDEN_LIRA,"Ali Jassem", "", "12562158")
         )
-        ticketsAdapter.submitList(winnerList)
+        ticketsAdapter.submitList(ticketList)
     }
 
     override fun onAttach(context: Context) {
@@ -80,7 +80,7 @@ class OrdersFragment : Fragment(), RecyclerItemListener<Winner> {
         _binding = null
     }
 
-    override fun onItemClicked(item: Winner, index: Int) {
+    override fun onItemClicked(item: Ticket, index: Int) {
 
     }
 }

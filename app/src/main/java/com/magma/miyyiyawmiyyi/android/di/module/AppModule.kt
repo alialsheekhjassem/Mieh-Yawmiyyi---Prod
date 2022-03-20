@@ -28,6 +28,14 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideRoundDao(db: AppDatabase) = db.roundDao()
+
+    @Singleton
+    @Provides
+    fun provideTicketDao(db: AppDatabase) = db.ticketDao()
+
+    @Singleton
+    @Provides
     fun provideTaskDao(db: AppDatabase) = db.taskDao()
 
     @Singleton

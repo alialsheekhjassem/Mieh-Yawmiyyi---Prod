@@ -116,6 +116,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-messaging:23.0.0'
+    implementation 'com.google.firebase:firebase-dynamic-links-ktx'
 
     //google admob
     //implementation 'com.google.android.gms:play-services-ads:20.5.0'

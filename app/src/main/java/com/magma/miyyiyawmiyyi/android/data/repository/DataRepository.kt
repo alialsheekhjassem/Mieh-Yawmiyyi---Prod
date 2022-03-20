@@ -3,14 +3,9 @@ package com.magma.miyyiyawmiyyi.android.data.repository
 import com.magma.miyyiyawmiyyi.android.data.local.repository.LocalRepository
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ResponseWrapper
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.LoginRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.RegisterRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.ResetPasswordRequest
+import com.magma.miyyiyawmiyyi.android.data.remote.requests.*
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.*
-import com.magma.miyyiyawmiyyi.android.model.GiftCard
-import com.magma.miyyiyawmiyyi.android.model.PurchaseCard
-import com.magma.miyyiyawmiyyi.android.model.TaskObj
+import com.magma.miyyiyawmiyyi.android.model.*
 import javax.inject.Inject
 
 class DataRepository
@@ -56,8 +51,29 @@ constructor(
         return remoteRepository.getMyAccount()
     }
 
-    override suspend fun doServerUpdateMyAccount(accountRequest: AccountRequest): Resource<MyAccountResponse> {
+    override suspend fun doServerUpdateMyAccount(accountRequest: AccountRequest): Resource<Account> {
         return remoteRepository.doServerUpdateMyAccount(accountRequest)
+    }
+
+    override suspend fun doServerUpdateMyAccount(accountRequest: InvitedByRequest): Resource<Account> {
+        return remoteRepository.doServerUpdateMyAccount(accountRequest)
+    }
+
+    override suspend fun getTickets(
+        limit: Int,
+        offset: Int,
+        round: String?,
+        populate: Boolean?
+    ): Resource<TicketsResponse> {
+        return remoteRepository.getTickets(limit, offset, round, populate)
+    }
+
+    override suspend fun getInfo(): Resource<InfoResponse> {
+        return remoteRepository.getInfo()
+    }
+
+    override suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse> {
+        return remoteRepository.doServerCreatePurchase(gift)
     }
 
     override fun loadAllTasks(): List<TaskObj> {
@@ -160,6 +176,70 @@ constructor(
         localRepository.deleteAllPurchaseCards()
     }
 
+    override fun loadAllTickets(): List<Ticket> {
+        return localRepository.loadAllTickets()
+    }
+
+    override fun loadTicket(id: String): Ticket {
+        return localRepository.loadTicket(id)
+    }
+
+    override fun insertTicketList(items: List<Ticket>) {
+        localRepository.insertTicketList(items)
+    }
+
+    override fun insertTicket(item: Ticket) {
+        localRepository.insertTicket(item)
+    }
+
+    override fun updateTicket(item: Ticket) {
+        localRepository.updateTicket(item)
+    }
+
+    override fun updateTickets(items: List<Ticket>) {
+        localRepository.updateTickets(items)
+    }
+
+    override fun deleteTicket(item: Ticket) {
+        localRepository.deleteTicket(item)
+    }
+
+    override fun deleteAllTickets() {
+        localRepository.deleteAllTickets()
+    }
+
+    override fun loadAllRounds(): List<Round> {
+        return localRepository.loadAllRounds()
+    }
+
+    override fun loadRound(id: String): Round {
+        return localRepository.loadRound(id)
+    }
+
+    override fun insertRoundList(items: List<Round>) {
+        localRepository.insertRoundList(items)
+    }
+
+    override fun insertRound(item: Round) {
+        localRepository.insertRound(item)
+    }
+
+    override fun updateRound(item: Round) {
+        localRepository.updateRound(item)
+    }
+
+    override fun updateRounds(items: List<Round>) {
+        localRepository.updateRounds(items)
+    }
+
+    override fun deleteRound(item: Round) {
+        localRepository.deleteRound(item)
+    }
+
+    override fun deleteAllRounds() {
+        localRepository.deleteAllRounds()
+    }
+
 
     //Pref
     override fun setApiToken(apiToken: String) {
@@ -179,11 +259,27 @@ constructor(
     }
 
     override fun setIsShownOnBoarding(isShown: Boolean) {
-        return localRepository.setIsShownOnBoarding(isShown)
+        localRepository.setIsShownOnBoarding(isShown)
     }
 
     override fun isShownOnBoarding(): Boolean {
         return localRepository.isShownOnBoarding()
+    }
+
+    override fun setIsGeneralNotifications(isGeneral: Boolean) {
+        localRepository.setIsGeneralNotifications(isGeneral)
+    }
+
+    override fun isGeneralNotifications(): Boolean {
+        return localRepository.isGeneralNotifications()
+    }
+
+    override fun setInvitationLink(link: String) {
+        localRepository.setInvitationLink(link)
+    }
+
+    override fun getInvitationLink(): String? {
+        return localRepository.getInvitationLink()
     }
 
 }

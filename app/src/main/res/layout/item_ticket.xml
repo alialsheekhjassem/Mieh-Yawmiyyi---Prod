@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.magma.miyyiyawmiyyi.android.model.Winner" />
+            type="com.magma.miyyiyawmiyyi.android.model.Ticket" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -25,9 +25,10 @@
                 style="@style/MaterialBoldTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginVertical="@dimen/spacing_default"
+                android:layout_marginTop="@dimen/spacing_default"
                 android:layout_marginStart="@dimen/spacing_default"
-                android:text="1"
+                android:layout_marginBottom="@dimen/spacing_large"
+                tools:text="15"
                 android:background="@drawable/bg_circle"
                 android:paddingHorizontal="@dimen/spacing_default"
                 android:textColor="@color/white"
@@ -35,15 +36,18 @@
                 app:layout_constraintEnd_toStartOf="@id/txt_ticket_num"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintBottom_toTopOf="@+id/line" />
 
             <TextView
                 android:id="@+id/txt_ticket_num"
                 style="@style/MaterialBoldTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/spacing_default"
-                android:text="15944532"
+                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:layout_marginTop="@dimen/spacing_default"
+                android:layout_marginBottom="@dimen/spacing_large"
+                tools:text="15944532"
+                android:text="@{item.number}"
                 android:textColor="@color/green_200"
                 android:gravity="center"
                 android:textSize="@dimen/size_toolbar_title"
@@ -60,7 +64,6 @@
                 android:layout_marginTop="@dimen/spacing_default"
                 app:layout_constraintStart_toStartOf="@id/txt_ticket_num"
                 app:layout_constraintEnd_toEndOf="@id/txt_ticket_num"
-                app:layout_constraintTop_toBottomOf="@id/txt_ticket_num"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

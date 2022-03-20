@@ -18,4 +18,12 @@ class SettingsViewModel @Inject constructor(
         dataRepository.setLang(lang)
     }
 
+    fun isGeneralNotifications(): Boolean {
+        return dataRepository.isGeneralNotifications()
+    }
+
+    fun setIsGeneralNotifications(isGeneral: Boolean) {
+        dataRepository.setIsGeneralNotifications(isGeneral)
+    }
+
 }

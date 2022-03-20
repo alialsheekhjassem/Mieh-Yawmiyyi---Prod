@@ -92,17 +92,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:autofillHints="@string/app_name"
-            android:inputType="number"
+            android:inputType="text"
             android:layout_marginVertical="@dimen/spacing_large"
             android:textColor="@color/colorPrimary"
-            app:OtpItemCount="4"
+            app:OtpItemCount="6"
             app:OtpViewType="line"
             app:layout_constraintBottom_toTopOf="@+id/btn_verify"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lyt_title"
             tools:ignore="LabelFor"
-            tools:text="4564" />
+            tools:text="456445" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_verify"
@@ -116,7 +116,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/size_title"
             android:backgroundTint="@color/orange_3"
-            android:onClick="@{()-> viewModel.onSkip()}"
+            android:onClick="@{()-> viewModel.onDone(otpNumber.getText().toString())}"
             app:cornerRadius="@dimen/spacing_medium"
             app:layout_constraintBottom_toTopOf="@+id/txt_skip"
             app:layout_constraintEnd_toEndOf="parent"

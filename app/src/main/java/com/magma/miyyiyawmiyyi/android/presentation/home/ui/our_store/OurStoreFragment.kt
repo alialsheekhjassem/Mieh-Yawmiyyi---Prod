@@ -1,16 +1,22 @@
 package com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.CreatePurchaseResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.GiftStorePurchasesResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.GiftStoreResponse
+import com.magma.miyyiyawmiyyi.android.databinding.DialogGiftCardBinding
+import com.magma.miyyiyawmiyyi.android.databinding.DialogPurchaseCardBinding
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentOurStoreBinding
 import com.magma.miyyiyawmiyyi.android.model.GiftCard
 import com.magma.miyyiyawmiyyi.android.model.PurchaseCard
@@ -87,6 +93,8 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
             viewLifecycleOwner,
             EventObserver
                 (object :
+
+
                 EventObserver.EventUnhandledContent<List<PurchaseCard>> {
                 override fun onEventUnhandledContent(t: List<PurchaseCard>) {
                     purchaseCardsAdapter.submitList(t)
@@ -179,6 +187,45 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
                 }
             })
         )
+
+        // listen to api result
+        viewModel.responseCreatePurchase.observe(
+            requireActivity(),
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<CreatePurchaseResponse>> {
+                override fun onEventUnhandledContent(t: Resource<CreatePurchaseResponse>) {
+                    hideKeyboard()
+                    when (t) {
+                        is Resource.Loading -> {
+                            // show progress bar and remove no data layout while loading
+                            showLoadingDialog()
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            hideLoadingDialog()
+                            val response = t.response as CreatePurchaseResponse
+                            Log.d(TAG, "createPurchaseResponse: $response")
+                            showSuccessToast(getString(R.string.success))
+                        }
+                        is Resource.DataError -> {
+                            hideLoadingDialog()
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "createPurchaseResponse: DataError $response")
+                            showToast(response.failureMessage)
+                        }
+                        is Resource.Exception -> {
+                            hideLoadingDialog()
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "createPurchaseResponse: Exception $response")
+                            showToast(response.toString())
+                        }
+                    }
+                }
+            })
+        )
     }
 
     override fun onAttach(context: Context) {
@@ -190,11 +237,51 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
     }
 
     override fun onItemClicked(item: GiftCard, index: Int) {
+        showGiftDialog(item)
+    }
 
+    private fun showGiftDialog(item: GiftCard) {
+        val builder = AlertDialog.Builder(requireActivity())
+        val dialogBinding: DialogGiftCardBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(requireActivity()), R.layout.dialog_gift_card, null, false
+        )
+        builder.setView(dialogBinding.root)
+        val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialogBinding.item = item
+        dialogBinding.btnContinue.setOnClickListener {
+            if (item._id.isNotEmpty()){
+                viewModel.doServerCreatePurchase(item._id)
+            }
+            alertDialog.dismiss()
+        }
+        dialogBinding.btnClose.setOnClickListener { alertDialog.dismiss() }
+        alertDialog.show()
     }
 
     override fun onItemCardClicked(item: PurchaseCard, index: Int) {
+        showPurchaseDialog(item)
+    }
 
+    private fun showPurchaseDialog(item: PurchaseCard) {
+        val builder = AlertDialog.Builder(requireActivity())
+        val dialogBinding: DialogPurchaseCardBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(requireActivity()), R.layout.dialog_purchase_card, null, false
+        )
+        builder.setView(dialogBinding.root)
+        val alertDialog = builder.create()
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialogBinding.item = item
+        dialogBinding.btnContinue.setOnClickListener {
+            //showSuccessToast(item._id)
+            //Do your logic
+            if (item._id.isNotEmpty()){
+                viewModel.doServerCreatePurchase(item._id)
+            }
+            alertDialog.dismiss()
+        }
+        dialogBinding.btnClose.setOnClickListener { alertDialog.dismiss() }
+        alertDialog.show()
     }
 
     companion object {

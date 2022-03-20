@@ -23,7 +23,8 @@ class LoginViewModel @Inject constructor(
     val loginResponse = MutableLiveData<Event<Resource<LoginResponse>>>()
 
     fun doServerLogin(
-        edtPhone: Editable
+        edtPhone: Editable,
+        isAcceptTerms: Boolean
     ) {
         //validate phone number
         when {
@@ -33,6 +34,10 @@ class LoginViewModel @Inject constructor(
             }
             StringRuleUtil.PHONE_RULE.validate(edtPhone) -> {
                 loginValidation.value = Const.ERROR_PHONE
+                return
+            }
+            !isAcceptTerms -> {
+                loginValidation.value = Const.ERROR_TERMS
                 return
             }
             else -> {
@@ -48,6 +53,10 @@ class LoginViewModel @Inject constructor(
 
     fun saveToken(loginResponse: LoginResponse) {
         loginResponse.accessToken?.token?.let { dataRepository.setApiToken(it) }
+    }
+
+    fun getApiToken() : String? {
+        return dataRepository.getApiToken()
     }
 
 }

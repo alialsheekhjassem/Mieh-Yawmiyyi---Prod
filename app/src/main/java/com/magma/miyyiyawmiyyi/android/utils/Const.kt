@@ -14,6 +14,7 @@ class Const {
         const val TYPE_100DOLLAR = "100dollar"
         const val TYPE_GOLDEN_LIRA = "golden_lira"
         const val DATE_FORMAT = "yyyy-MM-dd_HHmmss"
+        const val INIT_COUNT_DOWN = "00:00:00:00"
 
         const val TAG_FoodMenuFragment = "FoodMenuFragment"
         const val TAG_ForgetPasswordFragment = "ForgetPasswordFragment"
@@ -23,13 +24,16 @@ class Const {
         //shared pref
         const val PREF_API_TOKEN = "api_token"
         const val PREF_LANG = "lang"
+        const val PREF_INVITATION_LINK = "invitation_link"
         const val PREF_IS_SHOWN_ONBOARDING = "is_shown_onboarding"
+        const val PREF_IS_GENERAL = "is_general"
 
         //Error
         const val ERROR_EMPTY: Int = 1
         const val ERROR_PHONE: Int = 2
-        const val ERROR_PASSWORD: Int = 3
-        const val ERROR_BIRTHDAY: Int = 4
+        const val ERROR_TERMS: Int = 3
+        const val ERROR_PASSWORD: Int = 4
+        const val ERROR_BIRTHDAY: Int = 5
         //Error
         const val ERROR_NAME_EMPTY: Int = 1
         const val ERROR_PHONE_EMPTY: Int = 2
@@ -42,11 +46,18 @@ class Const {
         //Extras
         const val EXTRA_REGISTER_REQUEST = "register_request"
         const val EXTRA_PHONE_NUMBER = "PHONE_NUMBER"
+        const val EXTRA_DEEP_LINK = "DEEP_LINK"
 
         //TYPES
         const val FACEBOOK_ID = "621b5e4c2fe9e30f26033cd2"
         const val TYPE_SOCIAL_MEDIA = "social_media"
         const val TYPE_QUIZ = "quiz"
+
+        //Topics
+        const val TOPIC_ROUNDS = "rounds"
+        const val TOPIC_GRAND_PRIZE = "grand_prize"
+        const val TOPIC_GENERAL_AR = "general_ar"
+        const val TOPIC_GENERAL_EN = "general_en"
 
         //STATUS
         const val STATUS_ACTIVE = "active"

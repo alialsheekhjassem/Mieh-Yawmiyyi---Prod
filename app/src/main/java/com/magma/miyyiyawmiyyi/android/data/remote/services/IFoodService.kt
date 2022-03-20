@@ -1,11 +1,10 @@
 package com.magma.miyyiyawmiyyi.android.data.remote.services
 
+import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ResponseWrapper
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.LoginRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.RegisterRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.ResetPasswordRequest
+import com.magma.miyyiyawmiyyi.android.data.remote.requests.*
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.*
+import com.magma.miyyiyawmiyyi.android.model.Account
 import com.magma.miyyiyawmiyyi.android.utils.Urls
 import retrofit2.Response
 import retrofit2.http.*
@@ -35,7 +34,12 @@ interface IFoodService {
     @PATCH(Urls.END_POINT_UPDATE_MY_ACCOUNT)
     suspend fun doServerUpdateMyAccount(
         @Body accountRequest: AccountRequest?
-    ): Response<ResponseWrapper<MyAccountResponse>>
+    ): Response<ResponseWrapper<Account>>
+
+    @PATCH(Urls.END_POINT_UPDATE_MY_ACCOUNT)
+    suspend fun doServerUpdateMyAccount(
+        @Body accountRequest: InvitedByRequest?
+    ): Response<ResponseWrapper<Account>>
 
     @POST(Urls.END_POINT_REGISTER)
     suspend fun doServerRegister(
@@ -75,5 +79,21 @@ interface IFoodService {
 
     @GET(Urls.END_POINT_MY_ACCOUNT)
     suspend fun getMyAccount(): Response<ResponseWrapper<MyAccountResponse>>
+
+    @GET(Urls.END_POINT_TICKETS)
+    suspend fun getTickets(
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+        @Query("round") round: String?,
+        @Query("populate") populate: Boolean?,
+    ): Response<ResponseWrapper<TicketsResponse>>
+
+    @GET(Urls.END_POINT_INFO)
+    suspend fun getInfo(): Response<ResponseWrapper<InfoResponse>>
+
+    @POST(Urls.END_POINT_CREATE_PURCHASE)
+    suspend fun doServerCreatePurchase(
+        @Query("gift") gift: String?,
+    ): Response<ResponseWrapper<CreatePurchaseResponse>>
 
 }

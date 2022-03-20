@@ -59,14 +59,14 @@
                 app:layout_constraintStart_toEndOf="@+id/img_icon"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/txt_total_value"
-                tools:text="Crepaway" />
+                tools:text="Total Points" />
 
             <TextView
                 android:id="@+id/txt_total_value"
                 style="@style/MaterialBoldTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_default"
+                android:layout_marginHorizontal="@dimen/spacing_medium"
                 android:gravity="center"
                 android:text="@{value}"
                 android:textSize="@dimen/size_title"

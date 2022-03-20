@@ -210,8 +210,8 @@
     <string name="processing">Processing</string>
     <string name="ready">Ready</string>
     <string name="your_order_is_ready">Your order is ready</string>
-    <string name="channel_name" translatable="false">Abi_Kirshak</string>
-    <string name="channel_description" translatable="false">Abi_Kirshak_Desc</string>
+    <string name="channel_name" translatable="false">100_yaw</string>
+    <string name="channel_description" translatable="false">100_yaw_desc</string>
     <string name="forbidden">Forbidden 403</string>
     <string name="wrong_number">Wrong Code</string>
     <string name="code_sent">Code Sent</string>
@@ -251,7 +251,7 @@
     <string name="user_interface">User Interface</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="language">Language</string>
-    <string name="about_us_text">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</string>
+    <string name="about_us_text">100 Yawmiyyi gives a cash prize through a daily random poll of tickets where users can get them by watching advertising videos or doing tasks via social media.</string>
     <string name="share_the_app">Share the App</string>
     <string name="the_golder_lira_ticket">The Golder Lira Ticket</string>
     <string name="the_100_tickets">The 100$ Tickets</string>
@@ -266,7 +266,7 @@
     <string name="full_name">Full Name</string>
     <string name="enter_here">Enter here…</string>
     <string name="location">Location</string>
-    <string name="task_level_2_of_5_completed">Task Level ( 2 of 5 Completed )</string>
+    <string name="task_level_2_of_5_completed">Task Level ( %1$d of %2$d Completed )</string>
     <string name="get_tickets">Get Tickets</string>
     <string name="by_watching_ads_click_the_button_below_to_start">by watching Ads click the button below to start</string>
     <string name="watch_ads">Watch ADS</string>
@@ -294,6 +294,49 @@
     <string name="no_cards">No Cards</string>
     <string name="invitation_link">Invitation Link</string>
     <string name="copy_the_url_below_and_invites_your_friends">Copy the URL below and invites your friends</string>
+    <string name="points">Points</string>
+    <string name="ticket">Ticket</string>
+    <string name="total_tickets">Total Tickets</string>
+    <string name="no_winner">No Winner</string>
+    <string name="init_value" translatable="false">0</string>
+    <string name="update_available">Update Available</string>
+    <string name="please_update_app">Please Update App</string>
+    <string name="update_available_body_force">An update is available. You should update app</string>
+    <string name="update_available_body">An update is available. Would you like to update?</string>
+    <string name="later">Later</string>
+    <string name="update">Update</string>
+    <string name="gift_info">Gift Info</string>
+    <string name="total_point_amount">Total Point Amount</string>
+    <string name="total_cash_amount">Total Cash Amount</string>
+    <string name="confirm_card_request">Confirm Card Request</string>
+    <string name="copied">Copied</string>
+
+    <!--Terms-->
+    <string name="terms_and_conditions"><u><b>terms and Conditions</b></u></string>
+    <string name="terms_and_conditionsaccept">I accept </string>
+    <string name="youshouldaccept">you should accept our terms</string>
+    <string name="terms_text1">
+- The contest is 100% free, and users are not required to make any payments inside or outside the application to participate.    </string>
+    <string name="terms_text2">
+- The usage of real personal information during registration is necessary to contact you in case of profit.    </string>
+    <string name="terms_text3">
+- The user can collect tickets by watching ads or follow the communication sites, with a maximum of 10 tickets daily.    </string>
+    <string name="terms_text4">
+- 100 Yawmiyyi can change the number of tasks to be performed to get a ticket to enter the draw.    </string>
+    <string name="terms_text5">- 100 Yawmiyyi can change the number of tickets to be collected per day.</string>
+    <string name="terms_text6">- All tickets of the previous day are removed at the start of each new draw.</string>
+    <string name="terms_text7">- The prize is awarded to the winner within a maximum period of 10 days from the date of draw.</string>
+    <string name="terms_text8">- The user must complete the number of tasks required to obtain at least one ticket to participate in each draw.</string>
+    <string name="terms_text9">- The more tickets you collect, the higher your chances of winning.</string>
+    <string name="terms_text10">- The winning ticket will be chosen randomly with a mechanical draw via Live Facebook</string>
+    <string name="terms_text11">- Users can invite their friends to the application to earn points and exchange them for digital gifts</string>
+    <string name="terms_text12">- The invitees must get a minimum of 5 tickets in order for the invitation  to be counted and the you can receive your points</string>
+    <string name="terms_text13">- 100 yawmiyyi can make adjustments to the value of gifts, points for each invitation, and new values ​​are calculated on new invitations only, and the old ones remain the same.</string>
+    <string name="terms_text14">- 100 yawmiyyi have the right to cancel the draw in the event of a technical defect or an emergency matter in the photography studio.</string>
+    <string name="terms_text15">- By continuing you will receive a verification code to your phone number by SMS</string>
+    <string name="terms_text15_about">- verification message is received upon registration</string>
+    <string name="agree">Agree</string>
+    <string name="draw_number_1">Poll Number: %1$d</string>
 
     <string-array name="languages">
         <item>English</item>

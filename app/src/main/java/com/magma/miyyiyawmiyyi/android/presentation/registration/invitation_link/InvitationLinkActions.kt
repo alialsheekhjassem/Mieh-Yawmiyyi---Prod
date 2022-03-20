@@ -4,5 +4,5 @@ package com.magma.miyyiyawmiyyi.android.presentation.registration.invitation_lin
  * Enumeration lists all available actions of Document Upload screen.
  * */
 enum class InvitationLinkActions {
-    DONE_CLICKED, CHANGE_NUMBER_CLICKED, SKIP_CLICKED
+    DONE_CLICKED, CHANGE_NUMBER_CLICKED, SKIP_CLICKED, EMPTY_CODE, WRONG_CODE
 }

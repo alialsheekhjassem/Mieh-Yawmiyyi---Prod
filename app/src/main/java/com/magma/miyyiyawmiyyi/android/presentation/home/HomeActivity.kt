@@ -3,11 +3,14 @@ package com.magma.miyyiyawmiyyi.android.presentation.home
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.Navigation.findNavController
@@ -21,9 +24,17 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.AndroidInjection
 import com.magma.miyyiyawmiyyi.android.R
+import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
+import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
 import com.magma.miyyiyawmiyyi.android.databinding.ActivityHomeBinding
+import com.magma.miyyiyawmiyyi.android.presentation.splash.SplashViewModel
+import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
+import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.app_bar_main.view.*
 import java.util.*
@@ -39,6 +50,12 @@ class HomeActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    private val TAG = "HomeActivity"
+
+    private val viewModel: SplashViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory)[SplashViewModel::class.java]
+    }
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,6 +137,12 @@ class HomeActivity : AppCompatActivity() {
         }
         mDrawerToggle.syncState()
         toolbar.setNavigationIcon(R.drawable.ic_feather_menu)
+
+        if (ContactManager.getCurrentAccount()?.account == null){
+            setObservers()
+            viewModel.getMyAccount()
+            viewModel.getInfo()
+        }
     }
 
     private fun screensWithHumbIcon(
@@ -132,7 +155,7 @@ class HomeActivity : AppCompatActivity() {
                 nd.id == nc.graph[R.id.navigation_live_stream].id ||
                 nd.id == nc.graph[R.id.navigation_profile].id
 
-    fun enableDrawer(b: Boolean) {
+    private fun enableDrawer(b: Boolean) {
         if (!b) {
             // Remove hamburger
             mDrawerToggle.isDrawerIndicatorEnabled = false
@@ -168,6 +191,132 @@ class HomeActivity : AppCompatActivity() {
         }
         mDrawerToggle.syncState()
 
+    }
+
+    private fun setObservers() {
+        // listen to api result
+        viewModel.infoResponse.observe(
+            this,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<InfoResponse>> {
+                override fun onEventUnhandledContent(t: Resource<InfoResponse>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            val response = t.response as InfoResponse
+                            Log.d(TAG, "response: $response")
+                            ContactManager.setInfo(response)
+                        }
+                        is Resource.DataError -> {
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "response: DataError $response")
+                        }
+                        is Resource.Exception -> {
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                        }
+                    }
+                }
+            })
+        )
+        // listen to api result
+        viewModel.roundResponse.observe(
+            this,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<RoundsResponse>> {
+                override fun onEventUnhandledContent(t: Resource<RoundsResponse>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            // show progress bar and remove no data layout while loading
+                            //binding.progress.visibility = View.VISIBLE
+                            //binding.txtEmpty.visibility = View.GONE
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            //binding.progress.visibility = View.GONE
+                            val response = t.response as RoundsResponse
+                            Log.d(TAG, "response: $response")
+
+                            viewModel.deleteAndSaveRounds(response.items)
+                        }
+                        is Resource.DataError -> {
+                            //binding.progress.visibility = View.GONE
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "response: DataError $response")
+                        }
+                        is Resource.Exception -> {
+                            //binding.progress.visibility = View.GONE
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                        }
+                    }
+                }
+            })
+        )
+        // listen to api result
+        viewModel.response.observe(
+            this,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<MyAccountResponse>> {
+                override fun onEventUnhandledContent(t: Resource<MyAccountResponse>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            // show progress bar and remove no data layout while loading
+                            //binding.progress.visibility = View.VISIBLE
+                            //binding.txtEmpty.visibility = View.GONE
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            //binding.progress.visibility = View.GONE
+                            val response = t.response as MyAccountResponse
+                            Log.d("TAG", "response: $response")
+                            onFetchedAccountSuccess(response)
+                        }
+                        is Resource.DataError -> {
+                            //binding.progress.visibility = View.GONE
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d("TAG", "response: DataError $response")
+                            //showErrorToast(response.failureMessage)
+                            Toast.makeText(
+                                applicationContext, response.failureMessage,
+                                Toast.LENGTH_LONG
+                            ).show()
+                            onFailure()
+                        }
+                        is Resource.Exception -> {
+                            //binding.progress.visibility = View.GONE
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d("TAG", "response: $response")
+                            //showErrorToast(response.toString())
+                            Toast.makeText(
+                                applicationContext, response.toString(),
+                                Toast.LENGTH_LONG
+                            ).show()
+                            onFailure()
+                        }
+                    }
+                }
+            })
+        )
+    }
+
+    private fun onFailure() {
+
+    }
+
+    private fun onFetchedAccountSuccess(response: MyAccountResponse) {
+        ContactManager.setAccount(response)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

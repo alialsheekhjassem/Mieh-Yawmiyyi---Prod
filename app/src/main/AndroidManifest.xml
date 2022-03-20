@@ -17,13 +17,14 @@
         android:theme="@style/Theme.MiehYawmiyyi"
         android:roundIcon="@drawable/logo"
         tools:ignore="AllowBackup">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDqqWBOk5Qy8rtslBpEUSEe-AIhHSQL2nk" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_logo" />
+            android:resource="@drawable/logo" />
 
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
@@ -37,7 +38,17 @@
             android:name=".presentation.home.HomeActivity"
             android:exported="true"
             android:label="@string/title_activity_home"
-            android:theme="@style/Theme.MiehYawmiyyi.NoActionBar"/>
+            android:theme="@style/Theme.MiehYawmiyyi.NoActionBar">
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data
+                    android:host="100yawmiyyi.com"
+                    android:scheme="https"/>
+            </intent-filter>
+        </activity>
         <activity android:name=".presentation.onboarding.OnBoardingActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".presentation.registration.RegistrationActivity"

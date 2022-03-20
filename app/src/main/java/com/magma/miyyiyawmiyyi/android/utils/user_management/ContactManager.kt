@@ -1,15 +1,18 @@
 package com.magma.miyyiyawmiyyi.android.utils.user_management
 
 import android.util.Log
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
+import com.magma.miyyiyawmiyyi.android.model.Account
 
 class ContactManager {
 
     private var account: MyAccountResponse? = null
+    private var info: InfoResponse? = null
 
     init {
         Log.i("ContactManager","Initiating")
-        Log.i("ContactManager", "Current MyAccountResponse: ${account?.phone}")
+        Log.i("ContactManager", "Current MyAccountResponse: ${account?.account}")
     }
 
     companion object {
@@ -21,8 +24,22 @@ class ContactManager {
             instance.account = account
         }
 
+        fun setAccount(account: Account){
+            Log.i("ContactManager", "Add Contact ...")
+            instance.account?.account = account
+        }
+
         fun getCurrentAccount(): MyAccountResponse? {
             return instance.account
+        }
+
+        fun setInfo(info: InfoResponse){
+            Log.i("ContactManager", "Add InfoResponse ...$info")
+            instance.info = info
+        }
+
+        fun getCurrentInfo(): InfoResponse? {
+            return instance.info
         }
 
         fun refreshInstance() {

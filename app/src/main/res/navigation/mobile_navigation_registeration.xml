@@ -66,7 +66,12 @@
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/navigation_finish_account"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true">
+            <argument
+                app:argType="string"
+                android:name="DEEP_LINK"
+                app:nullable="true"/>
+        </action>
     </fragment>
 
     <fragment

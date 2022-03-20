@@ -65,7 +65,7 @@
                     android:background="@drawable/bg_rounded_primary"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="1"
+                    android:text="@string/init_value"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -76,7 +76,7 @@
                     android:background="@drawable/bg_rounded_primary"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="1"
+                    android:text="@string/init_value"
                     android:textColor="@color/white" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -194,7 +194,7 @@
                     android:background="@drawable/bg_rounded_primary"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="1"
+                    android:text="@string/init_value"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -205,7 +205,7 @@
                     android:background="@drawable/bg_rounded_primary"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="1"
+                    android:text="@string/init_value"
                     android:textColor="@color/white" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -228,7 +228,7 @@
                     android:background="@drawable/bg_rounded_primary"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="1"
+                    android:text="@string/init_value"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -239,7 +239,7 @@
                     android:background="@drawable/bg_rounded_primary"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="1"
+                    android:text="@string/init_value"
                     android:textColor="@color/white" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -263,7 +263,7 @@
                     android:background="@drawable/bg_rounded_primary"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="1"
+                    android:text="@string/init_value"
                     android:textColor="@color/white" />
 
                 <TextView
@@ -274,7 +274,7 @@
                     android:background="@drawable/bg_rounded_primary"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="1"
+                    android:text="@string/init_value"
                     android:textColor="@color/white" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -371,7 +371,7 @@
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
                             android:padding="@dimen/spacing_default"
-                            android:text="1"
+                            android:text="@string/init_value"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -382,7 +382,7 @@
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
                             android:padding="@dimen/spacing_default"
-                            android:text="1"
+                            android:text="@string/init_value"
                             android:textColor="@color/white" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -500,7 +500,7 @@
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
                             android:padding="@dimen/spacing_default"
-                            android:text="1"
+                            android:text="@string/init_value"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -511,7 +511,7 @@
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
                             android:padding="@dimen/spacing_default"
-                            android:text="1"
+                            android:text="@string/init_value"
                             android:textColor="@color/white" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -534,7 +534,7 @@
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
                             android:padding="@dimen/spacing_default"
-                            android:text="1"
+                            android:text="@string/init_value"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -545,7 +545,7 @@
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
                             android:padding="@dimen/spacing_default"
-                            android:text="1"
+                            android:text="@string/init_value"
                             android:textColor="@color/white" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -569,7 +569,7 @@
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
                             android:padding="@dimen/spacing_default"
-                            android:text="1"
+                            android:text="@string/init_value"
                             android:textColor="@color/white" />
 
                         <TextView
@@ -580,7 +580,7 @@
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
                             android:padding="@dimen/spacing_default"
-                            android:text="1"
+                            android:text="@string/init_value"
                             android:textColor="@color/white" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -662,6 +662,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
+                tools:visibility="visible"
                 app:constraint_referenced_ids="card_time, img_gift"/>
 
             <androidx.cardview.widget.CardView
@@ -671,7 +672,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/spacing_large"
                 android:visibility="gone"
-                tools:visibility="visible"
+                tools:visibility="gone"
                 android:layout_marginHorizontal="@dimen/spacing_default"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/barrier">
@@ -816,6 +817,7 @@
                         android:text="@string/title_tasks"
                         android:textColor="@color/white"
                         android:textSize="@dimen/size_small"
+                        android:onClick="@{()->viewModel.onTasks()}"
                         app:layout_constraintWidth_percent="0.32"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/txt_body"

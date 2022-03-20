@@ -1,12 +1,8 @@
 package com.magma.miyyiyawmiyyi.android.data.local.repository
 
 import android.content.SharedPreferences
-import com.magma.miyyiyawmiyyi.android.data.local.repository.dao.GiftCardDao
-import com.magma.miyyiyawmiyyi.android.data.local.repository.dao.PurchaseCardDao
-import com.magma.miyyiyawmiyyi.android.data.local.repository.dao.TaskDao
-import com.magma.miyyiyawmiyyi.android.model.GiftCard
-import com.magma.miyyiyawmiyyi.android.model.PurchaseCard
-import com.magma.miyyiyawmiyyi.android.model.TaskObj
+import com.magma.miyyiyawmiyyi.android.data.local.repository.dao.*
+import com.magma.miyyiyawmiyyi.android.model.*
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import java.util.*
 import javax.inject.Inject
@@ -16,6 +12,8 @@ class LocalRepository
     private val taskDao: TaskDao,
     private val giftCardDao: GiftCardDao,
     private val purchaseCardDao: PurchaseCardDao,
+    private val ticketDao: TicketDao,
+    private val roundDao: RoundDao,
     private val preferences: SharedPreferences
 ) {
 
@@ -42,6 +40,22 @@ class LocalRepository
 
     fun isShownOnBoarding(): Boolean {
         return preferences.getBoolean(Const.PREF_IS_SHOWN_ONBOARDING, false)
+    }
+
+    fun setIsGeneralNotifications(isGeneral: Boolean) {
+        preferences.edit().putBoolean(Const.PREF_IS_GENERAL, isGeneral).apply()
+    }
+
+    fun isGeneralNotifications(): Boolean {
+        return preferences.getBoolean(Const.PREF_IS_GENERAL, true)
+    }
+
+    fun setInvitationLink(link: String) {
+        preferences.edit().putString(Const.PREF_INVITATION_LINK, link).apply()
+    }
+
+    fun getInvitationLink(): String? {
+        return preferences.getString(Const.PREF_INVITATION_LINK, null)
     }
     //End pref
 
@@ -146,6 +160,72 @@ class LocalRepository
 
     fun deleteAllPurchaseCards() {
         purchaseCardDao.deleteAll()
+    }
+
+    //Ticket
+    fun loadAllTickets(): List<Ticket> {
+        return ticketDao.loadAll()
+    }
+
+    fun loadTicket(id: String): Ticket {
+        return ticketDao.load(id)
+    }
+
+    fun insertTicket(item: Ticket) {
+        ticketDao.insert(item)
+    }
+
+    fun insertTicketList(items: List<Ticket>) {
+        ticketDao.insertAll(items)
+    }
+
+    fun updateTicket(item: Ticket) {
+        ticketDao.update(item)
+    }
+
+    fun updateTickets(items: List<Ticket>) {
+        ticketDao.updateAll(items)
+    }
+
+    fun deleteTicket(item: Ticket) {
+        ticketDao.delete(item)
+    }
+
+    fun deleteAllTickets() {
+        ticketDao.deleteAll()
+    }
+
+    //Ticket
+    fun loadAllRounds(): List<Round> {
+        return roundDao.loadAll()
+    }
+
+    fun loadRound(id: String): Round {
+        return roundDao.load(id)
+    }
+
+    fun insertRound(item: Round) {
+        roundDao.insert(item)
+    }
+
+    fun insertRoundList(items: List<Round>) {
+        roundDao.insertAll(items)
+    }
+
+    fun updateRound(item: Round) {
+        roundDao.update(item)
+    }
+
+    fun updateRounds(items: List<Round>) {
+        roundDao.updateAll(items)
+    }
+
+    fun deleteRound(item: Round) {
+        roundDao.delete(item)
+    }
+
+    fun deleteAllRounds() {
+        roundDao.deleteAll()
     }
 
 }

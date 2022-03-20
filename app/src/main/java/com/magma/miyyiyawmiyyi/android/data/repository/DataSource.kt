@@ -2,14 +2,9 @@ package com.magma.miyyiyawmiyyi.android.data.repository
 
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ResponseWrapper
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.LoginRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.RegisterRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.requests.ResetPasswordRequest
+import com.magma.miyyiyawmiyyi.android.data.remote.requests.*
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.*
-import com.magma.miyyiyawmiyyi.android.model.GiftCard
-import com.magma.miyyiyawmiyyi.android.model.PurchaseCard
-import com.magma.miyyiyawmiyyi.android.model.TaskObj
+import com.magma.miyyiyawmiyyi.android.model.*
 
 interface DataSource {
 
@@ -22,7 +17,11 @@ interface DataSource {
     suspend fun getPurchases(limit: Int, offset: Int): Resource<GiftStorePurchasesResponse>
     suspend fun getRounds(limit: Int, offset: Int, status: String?, id: String?): Resource<RoundsResponse>
     suspend fun getMyAccount(): Resource<MyAccountResponse>
-    suspend fun doServerUpdateMyAccount(accountRequest: AccountRequest): Resource<MyAccountResponse>
+    suspend fun doServerUpdateMyAccount(accountRequest: AccountRequest): Resource<Account>
+    suspend fun doServerUpdateMyAccount(accountRequest: InvitedByRequest): Resource<Account>
+    suspend fun getTickets(limit: Int, offset: Int, round: String?, populate: Boolean?): Resource<TicketsResponse>
+    suspend fun getInfo(): Resource<InfoResponse>
+    suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse>
 
     //Local
     fun loadAllTasks(): List<TaskObj>
@@ -52,6 +51,24 @@ interface DataSource {
     fun updatePurchaseCards(items: List<PurchaseCard>)
     fun deletePurchaseCard(item: PurchaseCard)
     fun deleteAllPurchaseCards()
+    //Ticket
+    fun loadAllTickets(): List<Ticket>
+    fun loadTicket(id: String): Ticket
+    fun insertTicketList(items: List<Ticket>)
+    fun insertTicket(item: Ticket)
+    fun updateTicket(item: Ticket)
+    fun updateTickets(items: List<Ticket>)
+    fun deleteTicket(item: Ticket)
+    fun deleteAllTickets()
+    //Round
+    fun loadAllRounds(): List<Round>
+    fun loadRound(id: String): Round
+    fun insertRoundList(items: List<Round>)
+    fun insertRound(item: Round)
+    fun updateRound(item: Round)
+    fun updateRounds(items: List<Round>)
+    fun deleteRound(item: Round)
+    fun deleteAllRounds()
 
     //Pref
     fun setApiToken(apiToken: String)
@@ -60,4 +77,8 @@ interface DataSource {
     fun getLang(): String?
     fun setIsShownOnBoarding(isShown: Boolean)
     fun isShownOnBoarding(): Boolean?
+    fun setIsGeneralNotifications(isGeneral: Boolean)
+    fun isGeneralNotifications(): Boolean?
+    fun setInvitationLink(link: String)
+    fun getInvitationLink(): String?
 }

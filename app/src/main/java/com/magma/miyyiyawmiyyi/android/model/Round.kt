@@ -42,6 +42,9 @@ class Round(
     @ColumnInfo(name = "cancellation")
     var cancellation: Cancellation?,
 
+    @ColumnInfo(name = "drawResultAt")
+    var drawResultAt: String?,
+
     @ColumnInfo(name = "createdAt")
     var createdAt: String?,
 

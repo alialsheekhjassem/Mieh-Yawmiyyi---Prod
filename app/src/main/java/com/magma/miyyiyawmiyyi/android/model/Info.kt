@@ -4,5 +4,5 @@ class Info (
     val image: String?,
     val birthdate: String?,
     val gender: String?,
-    val country: String?,
+    val country: Country?,
 )

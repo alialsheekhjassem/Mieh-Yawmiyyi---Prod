@@ -1,6 +1,9 @@
 package com.magma.miyyiyawmiyyi.android.presentation.base
 
 import android.app.AlertDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
@@ -33,7 +36,7 @@ open class ProgressBarFragments : Fragment() {
         requireActivity().finish()
     }
 
-    fun showErrorToast(error: String){
+    fun showErrorToast(error: String) {
         MotionToast.darkToast(
             requireActivity(),
             getString(R.string.error),
@@ -45,7 +48,7 @@ open class ProgressBarFragments : Fragment() {
         )
     }
 
-    fun showSuccessToast(success: String){
+    fun showSuccessToast(success: String) {
         MotionToast.darkToast(
             requireActivity(),
             getString(R.string.success),
@@ -57,8 +60,17 @@ open class ProgressBarFragments : Fragment() {
         )
     }
 
-    fun showToast(success: String){
+    fun showToast(success: String) {
         Toast.makeText(requireActivity(), success, Toast.LENGTH_LONG).show()
+    }
+
+    fun copyText(text: String) {
+        val clipboard: ClipboardManager =
+            requireActivity().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clip = ClipData.newPlainText(android.R.attr.label.toString(), text)
+        clipboard.setPrimaryClip(clip)
+        Toast.makeText(requireActivity(), getString(R.string.copied), Toast.LENGTH_SHORT)
+            .show()
     }
 
     open fun Fragment.hideKeyboard() {

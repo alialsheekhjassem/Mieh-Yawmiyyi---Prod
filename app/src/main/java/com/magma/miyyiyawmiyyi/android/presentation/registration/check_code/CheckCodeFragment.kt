@@ -2,6 +2,7 @@ package com.magma.miyyiyawmiyyi.android.presentation.registration.check_code
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.util.Log
@@ -18,17 +19,21 @@ import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.PhoneAuthProvider.ForceResendingToken
 import com.google.firebase.auth.PhoneAuthProvider.OnVerificationStateChangedCallbacks
+import com.google.firebase.dynamiclinks.DynamicLink.AndroidParameters
+import com.google.firebase.dynamiclinks.DynamicLink.IosParameters
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
-import com.magma.miyyiyawmiyyi.android.data.remote.controller.ResponseWrapper
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.LoginRequest
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.LoginResponse
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentCheckCodeBinding
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
+import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
@@ -63,7 +68,7 @@ class CheckCodeFragment : ProgressBarFragments() {
         arguments?.getString(Const.EXTRA_PHONE_NUMBER).let {
             Log.d(TAG, "QQQ onCreateView: phoneNumber: $it")
             phoneNumber = it
-            phoneNumber?.let { phone->
+            phoneNumber?.let { phone ->
                 startPhoneNumberVerification(phone)
             }
         }
@@ -91,8 +96,10 @@ class CheckCodeFragment : ProgressBarFragments() {
                                 resendCode()
                             }
                             CheckCodeActions.EDIT_PHONE_CLICKED -> {
-                                findNavController().navigate(CheckCodeFragmentDirections
-                                    .actionCheckCodeLogin())
+                                findNavController().navigate(
+                                    CheckCodeFragmentDirections
+                                        .actionCheckCodeLogin()
+                                )
                             }
                         }
                     }
@@ -111,7 +118,7 @@ class CheckCodeFragment : ProgressBarFragments() {
                     when (t) {
                         is Resource.Loading -> {
                             // show progress bar and remove no data layout while loading
-                            showLoadingDialog()
+                            //showLoadingDialog()
                         }
                         is Resource.Success -> {
                             // response is ok get the data and display it in the list
@@ -121,6 +128,18 @@ class CheckCodeFragment : ProgressBarFragments() {
                             response.accessToken?.token?.let { viewModel.saveToken(it) }
                             showSuccessToast(getString(R.string.success))
                             countDownTimer?.cancel()
+
+                            //subscribe topics
+                            subscribeTopic(Const.TOPIC_ROUNDS)
+                            subscribeTopic(Const.TOPIC_GRAND_PRIZE)
+                            if (LocalHelper.locale?.language == "ar") {
+                                unSubscribeTopic(Const.TOPIC_GENERAL_EN)
+                                subscribeTopic(Const.TOPIC_GENERAL_AR)
+                            } else {
+                                unSubscribeTopic(Const.TOPIC_GENERAL_AR)
+                                subscribeTopic(Const.TOPIC_GENERAL_EN)
+                            }
+
                             Navigation.findNavController(binding.root)
                                 .navigate(CheckCodeFragmentDirections.actionCheckCodeFinishAccountSetup())
                         }
@@ -144,6 +163,25 @@ class CheckCodeFragment : ProgressBarFragments() {
         )
     }
 
+    private fun subscribeTopic(topic: String) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
+            .addOnCompleteListener { task: Task<Void> ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "subscribeTopics: Success $topic")
+
+                }
+            }
+    }
+
+    private fun unSubscribeTopic(topic: String) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
+            .addOnCompleteListener { task: Task<Void> ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "unSubscribeTopic: Success $topic")
+                }
+            }
+    }
+
     private fun resendCode() {
         binding.txtResendCode.isEnabled = false
         binding.txtResendCode.setTextColor(
@@ -153,7 +191,7 @@ class CheckCodeFragment : ProgressBarFragments() {
             )
         )
         startTimer()
-        phoneNumber?.let { phone->
+        phoneNumber?.let { phone ->
             mResendToken?.let { resendVerificationCode(phone, it) }
         }
     }
@@ -258,8 +296,7 @@ class CheckCodeFragment : ProgressBarFragments() {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
                 binding?.let {
-                    binding.txtResendCode.text = getString(R.string.resend_45s) + "(" +
-                            (millisUntilFinished / 1000).toString() + ")"
+                    binding.txtResendCode.text = "${getString(R.string.resend_45s)} (${(millisUntilFinished / 1000)})"
                 }
             }
 
@@ -311,6 +348,7 @@ class CheckCodeFragment : ProgressBarFragments() {
     // [END resend_verification]
     // [START sign_in_with_phone]
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        showLoadingDialog()
         mAuth?.signInWithCredential(credential)
             ?.addOnCompleteListener(
                 requireActivity()
@@ -321,6 +359,7 @@ class CheckCodeFragment : ProgressBarFragments() {
                     if (user != null) {
                         val idToken = user.getIdToken(false).result.token
                         val userUID = user.uid
+                        createLink()
                         doServerLogin(idToken, userUID)
                     }
                 } else {
@@ -332,6 +371,40 @@ class CheckCodeFragment : ProgressBarFragments() {
                     }
                 }
             }
+    }
+
+
+    /**
+     * create invitation  firebase link and save it
+     */
+    private fun createLink() {
+        Log.d(TAG, "ZZZ createLink: started ")
+        // [START ddl_referral_create_link]
+        val user = FirebaseAuth.getInstance().currentUser!!
+        val uid = user.uid
+        val link = "https://com.magma.miehyawmieh.android/?invitedby=$uid"
+        FirebaseDynamicLinks.getInstance().createDynamicLink()
+            .setLink(Uri.parse(link))
+            .setDomainUriPrefix("https://miehyawmieh.page.link/")
+            .setAndroidParameters(
+                AndroidParameters.Builder("com.magma.miehyawmieh.android")
+                    .setMinimumVersion(125)
+                    .build()
+            )
+            .setIosParameters(
+                IosParameters.Builder("com.magma.miehyawmieh.ios")
+                    .setAppStoreId("123456789")
+                    .setMinimumVersion("1.0.1")
+                    .build()
+            )
+            .buildShortDynamicLink()
+            .addOnSuccessListener { shortDynamicLink ->
+                val mInvitationUrl = shortDynamicLink.shortLink
+                Log.d(TAG, "ZZZ createLink: $mInvitationUrl")
+                mInvitationUrl?.let { viewModel.saveInvitationLink(mInvitationUrl.toString()) }
+            }
+            .addOnFailureListener { Log.d(TAG, "ZZZ createLink: $it") }
+        // [END ddl_referral_create_link]
     }
 
     private fun doServerLogin(idToken: String?, userUID: String) {

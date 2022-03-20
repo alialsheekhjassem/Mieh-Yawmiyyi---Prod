@@ -46,6 +46,10 @@ class CheckCodeViewModel @Inject constructor(
         dataRepository.setApiToken(token)
     }
 
+    fun saveInvitationLink(link: String) {
+        dataRepository.setInvitationLink(link)
+    }
+
     fun onResendCode() {
         actions.value = Event(CheckCodeActions.RESEND_CODE_CLICKED)
     }
