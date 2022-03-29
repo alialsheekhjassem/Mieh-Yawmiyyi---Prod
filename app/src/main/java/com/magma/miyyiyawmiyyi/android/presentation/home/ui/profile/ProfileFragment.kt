@@ -26,11 +26,7 @@ import javax.inject.Inject
 
 class ProfileFragment : ProgressBarFragments() {
 
-    private var _binding: FragmentProfileBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    lateinit var binding: FragmentProfileBinding
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -48,7 +44,7 @@ class ProfileFragment : ProgressBarFragments() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        binding = FragmentProfileBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
         setUp()
@@ -127,7 +123,7 @@ class ProfileFragment : ProgressBarFragments() {
 
         // listen to api result
         viewModel.updateResponse.observe(
-            requireActivity(),
+            viewLifecycleOwner,
             EventObserver
                 (object :
                 EventObserver.EventUnhandledContent<Resource<Account>> {
@@ -168,11 +164,6 @@ class ProfileFragment : ProgressBarFragments() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {

@@ -43,26 +43,26 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:73949297872:android:c8a3c408795942778af2d5",
+        "mobilesdk_app_id": "1:73949297872:android:12c232b56a5da8dd8af2d5",
         "android_client_info": {
           "package_name": "com.magma.miyyiyawmiyyi.android"
         }
       },
       "oauth_client": [
         {
-          "client_id": "73949297872-1u08jegm24rmb4hitpahobl9v94f8o6g.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.magma.miyyiyawmiyyi.android",
-            "certificate_hash": "feb9dd373d278d97bc3b2e97c0e8aa13821f1634"
-          }
-        },
-        {
-          "client_id": "73949297872-reok0gvkrg1e460pnpvcrnf1rgq8sa05.apps.googleusercontent.com",
+          "client_id": "73949297872-4mtfeml57igcqjhupne3lovu47rv5kot.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.magma.miyyiyawmiyyi.android",
             "certificate_hash": "682baee1148d3bad56b4a3c4cbb385f783836694"
+          }
+        },
+        {
+          "client_id": "73949297872-baqcggjas2qsro07eaif2gsav1mmj9to.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magma.miyyiyawmiyyi.android",
+            "certificate_hash": "af4c56a3c0bdb857697bcc21f8b2b6cde04ef39f"
           }
         },
         {

@@ -25,7 +25,9 @@ class ServiceGenerator
     private val CONTENT_TYPE_VALUE = "application/json"
 
     private val okHttpBuilder: OkHttpClient.Builder = OkHttpClient.Builder()
-    private val retrofit: Retrofit
+    private val okHttpBuilderBase: OkHttpClient.Builder = OkHttpClient.Builder()
+    private var retrofit: Retrofit
+    private var retrofitBase: Retrofit
 
     var headerInterceptor = Interceptor { chain ->
         val original = chain.request()
@@ -34,6 +36,18 @@ class ServiceGenerator
             .header(CONTENT_TYPE, CONTENT_TYPE_VALUE)
             .method(original.method, original.body)
             .addHeader("Authorization", "Bearer " + preferences.getString(Const.PREF_API_TOKEN, null))
+            .build()
+
+        chain.proceed(request)
+    }
+
+    var headerInterceptorRefresh = Interceptor { chain ->
+        val original = chain.request()
+
+        val request = original.newBuilder()
+            .header(CONTENT_TYPE, CONTENT_TYPE_VALUE)
+            .method(original.method, original.body)
+            .addHeader("Authorization", "Bearer " + preferences.getString(Const.PREF_REFRESH_TOKEN, null))
             .build()
 
         chain.proceed(request)
@@ -52,6 +66,8 @@ class ServiceGenerator
 
     var client: OkHttpClient
 
+    var clientBase: OkHttpClient
+
     init {
         okHttpBuilder.addInterceptor(headerInterceptor)
         okHttpBuilder.addInterceptor(logger)
@@ -62,11 +78,24 @@ class ServiceGenerator
             .baseUrl(BuildConfig.BASE_URL).client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+
+        okHttpBuilderBase.addInterceptor(headerInterceptorRefresh)
+        okHttpBuilderBase.addInterceptor(logger)
+        okHttpBuilderBase.connectTimeout(TIMEOUT_CONNECT.toLong(), TimeUnit.SECONDS)
+        okHttpBuilderBase.readTimeout(TIMEOUT_READ.toLong(), TimeUnit.SECONDS)
+        clientBase = okHttpBuilderBase.build()
+        retrofitBase = Retrofit.Builder()
+            .baseUrl(BuildConfig.BASE_URL).client(clientBase)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
 
     fun <S> createService(serviceClass: Class<S>): S {
         return retrofit.create(serviceClass)
     }
 
+    fun <S> createServiceLogout(serviceClass: Class<S>): S {
+        return retrofitBase.create(serviceClass)
+    }
 
 }

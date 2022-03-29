@@ -2,23 +2,28 @@ package com.magma.miyyiyawmiyyi.android.presentation.home.ui.quizzes
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.magma.miyyiyawmiyyi.android.R
+import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
+import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.requests.MarkAsDoneTasksRequest
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentQuizzesBinding
 import com.magma.miyyiyawmiyyi.android.model.TaskObj
+import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
+import com.magma.miyyiyawmiyyi.android.presentation.home.HomeActivity
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import javax.inject.Inject
 
-class QuizzesFragment : Fragment() {
+class QuizzesFragment : ProgressBarFragments() {
 
     private var _binding: FragmentQuizzesBinding? = null
 
@@ -28,6 +33,8 @@ class QuizzesFragment : Fragment() {
     private var tasksQuizzes: ArrayList<TaskObj> = arrayListOf()
 
     private var currentQuestionIndex = 0
+
+    private val request = MarkAsDoneTasksRequest()
 
     private val viewModel: QuizzesViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[QuizzesViewModel::class.java]
@@ -105,6 +112,42 @@ class QuizzesFragment : Fragment() {
                 }
             })
         )
+
+        // listen to mark as done tasks api result
+        viewModel.response.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<Any?>> {
+                override fun onEventUnhandledContent(t: Resource<Any?>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            showLoadingDialog()
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            hideLoadingDialog()
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                            findNavController().navigateUp()
+                        }
+                        is Resource.DataError -> {
+                            hideLoadingDialog()
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "response: DataError $response")
+                            showErrorToast(response.failureMessage)
+                        }
+                        is Resource.Exception -> {
+                            hideLoadingDialog()
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                            showErrorToast(response.toString())
+                        }
+                    }
+                }
+            }))
     }
 
     private fun onSolveQuestion(solvedIndex: Int) {
@@ -113,8 +156,14 @@ class QuizzesFragment : Fragment() {
             val correctIndex = tasksQuizzes[currentQuestionIndex].quizTask?.correctIndex
             if (solvedIndex == correctIndex) {
                 Toast.makeText(requireActivity(), "True", Toast.LENGTH_SHORT).show()
+                val activity = requireActivity() as HomeActivity
+                activity.startGame()
+                request.tasks.add(tasksQuizzes[currentQuestionIndex]._id)
             } else {
                 Toast.makeText(requireActivity(), "False", Toast.LENGTH_SHORT).show()
+                val activity = requireActivity() as HomeActivity
+                activity.startGame()
+                request.tasks.add(tasksQuizzes[currentQuestionIndex]._id)
             }
 
             //Next Question
@@ -137,7 +186,7 @@ class QuizzesFragment : Fragment() {
                 binding.txtAnswer3.text =
                     tasksQuizzes[currentQuestionIndex].quizTask?.options?.get(2)
             } else {
-                findNavController().navigateUp()
+                viewModel.doServerMarkAsDone(request)
             }
         }
     }
@@ -152,5 +201,9 @@ class QuizzesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG = "QuizzesFragment"
     }
 }

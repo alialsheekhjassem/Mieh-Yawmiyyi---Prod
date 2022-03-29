@@ -23,6 +23,7 @@ class Const {
 
         //shared pref
         const val PREF_API_TOKEN = "api_token"
+        const val PREF_REFRESH_TOKEN = "refresh_token"
         const val PREF_LANG = "lang"
         const val PREF_INVITATION_LINK = "invitation_link"
         const val PREF_IS_SHOWN_ONBOARDING = "is_shown_onboarding"
@@ -50,11 +51,22 @@ class Const {
 
         //TYPES
         const val FACEBOOK_ID = "621b5e4c2fe9e30f26033cd2"
+        const val INSTAGRAM_ID = "621b5e4c2fe9e30f26033cd1"
+        const val YOUTUBE_ID = "621b5e4c2fe9e30f26033cd3"
         const val TYPE_SOCIAL_MEDIA = "social_media"
         const val TYPE_QUIZ = "quiz"
 
+        //Facebook Ads
+        var FB_NATIVE = "1276188569544209_1276229116206821"
+        var FB_NATIVE_MEDIUM = "1276188569544209_1276268162869583"
+        var FB_BANNER_50 = "xyz11xyz2814xyz_136xyz8767215xyz"
+        var FB_BANNER_90 = "xyz11xyz2814xyz_136xyz8767215xyz"
+        var FB_RECTANGLE = "xyz11xyz2814xyz_136xyz8767215xyz"
+        var FB_INTERSTITIAL = "1276188569544209_1276214102874989"
+        var FB_REWARD = "xyz1462xyz62xyz_67xyz3630456xyz"
+
         //Topics
-        const val TOPIC_ROUNDS = "rounds"
+        const val TOPIC_ROUNDS = "rounds_en"
         const val TOPIC_GRAND_PRIZE = "grand_prize"
         const val TOPIC_GENERAL_AR = "general_ar"
         const val TOPIC_GENERAL_EN = "general_en"

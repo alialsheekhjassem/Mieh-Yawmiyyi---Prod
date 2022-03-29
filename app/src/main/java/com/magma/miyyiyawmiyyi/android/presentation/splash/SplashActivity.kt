@@ -52,7 +52,6 @@ class SplashActivity : AppCompatActivity() {
         if (isShown && token == null)
             goToRegisterActivity()
         else if (isShown && token != null) {
-            viewModel.getMyAccount()
             viewModel.getInfo()
             //viewModel.getRounds(limit = 20, offset = 0, Const.STATUS_ACTIVE, null)
         }
@@ -77,6 +76,7 @@ class SplashActivity : AppCompatActivity() {
                             val response = t.response as InfoResponse
                             Log.d(TAG, "response: Success $response")
                             ContactManager.setInfo(response)
+                            viewModel.getMyAccount()
                         }
                         is Resource.DataError -> {
                             // usually this happening when there is server error

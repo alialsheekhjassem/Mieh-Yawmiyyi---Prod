@@ -6,6 +6,7 @@
     <color name="light_gray">#FEFEFE</color>
     <color name="dark_red">#856953</color>
     <color name="gray">#616265</color>
+    <color name="gray_6">#C2C4C5</color>
 
     <color name="green_100">#56EA2A</color>
     <color name="green_200">#3F9465</color>
@@ -18,7 +19,7 @@
     <color name="dark_blue">#4F496D</color>
     <color name="blue">#3A1ADD</color>
     <color name="light_blue_1">#03BDFD</color>
-    <color name="light_blue_2">#04C1FD</color>
+    <color name="light_blue_2">#216FDB</color>
     <color name="light_blue">#64B5F6</color>
     <color name="pink">#FF58A6</color>
     <color name="red">#FF0000</color>
@@ -31,6 +32,8 @@
     <color name="grey_1">#fefefe</color>
     <color name="grey_3">#f7f7f7</color>
     <color name="grey_5">#f2f2f2</color>
+    <color name="grey_6">#A29797</color>
+    <color name="grey_7">#9D9E9D</color>
     <color name="grey_10">#e6e6e6</color>
     <color name="grey_20">#cccccc</color>
     <color name="grey_40">#999999</color>
@@ -51,7 +54,11 @@
     <color name="orange_4">#E9B01D</color>
     <color name="orange_5">#E8AF1C</color>
     <color name="orange_6">#FFD66D</color>
+    <color name="orange_7">#45FA51</color>
     <color name="light_red">#FE5F5F</color>
+    <color name="insta_dark_red">#FF52C6</color>
+    <color name="insta_red">#D62253</color>
+    <color name="insta_yellow">#FFAE40</color>
     <color name="color_background">#EAE6E0</color>
     <color name="color_hint">#C7C7C7</color>
     <color name="background_header">#F9F9F9</color>

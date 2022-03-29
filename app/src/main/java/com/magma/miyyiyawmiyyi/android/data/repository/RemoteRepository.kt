@@ -51,6 +51,37 @@ class RemoteRepository
         }
     }
 
+    override suspend fun doServerLogout(refreshToken: String?): Resource<Any?> {
+        val authService = serviceGenerator.createServiceLogout(IFoodService::class.java)
+        try {
+            val response = authService.doServerLogout()
+
+            return if (response.isSuccessful) {
+                //Do something with response e.g show to the UI.
+                val loginResponse = response.body()?.successResult
+                Log.d(TAG, "doServerLogout: isSuccessful " + response.code())
+                Log.d(TAG, "doServerLogout: isSuccessful $loginResponse")
+                Resource.Success(loginResponse)
+            } else {
+                Log.d(TAG, "doServerLogout: isSuccessful no " + response.code())
+                Log.d(TAG, "doServerLogout: isSuccessful no " + response.message())
+                val errorBody = gson.fromJson(
+                    response.errorBody()?.stringSuspending(),
+                    ErrorManager::class.java
+                )
+                Resource.DataError(errorBody)
+            }
+        } catch (e: HttpException) {
+            return Resource.Exception(e.message() as String)
+        } catch (e: Throwable) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: SocketTimeoutException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: IOException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        }
+    }
+
     override suspend fun doServerRegister(registerRequest: RegisterRequest): Resource<ResponseWrapper<String>> {
         val authService = serviceGenerator.createService(IFoodService::class.java)
         try {
@@ -158,6 +189,40 @@ class RemoteRepository
                 Log.d(TAG, "getPurchases: isSuccessful " + response.code())
                 Log.d(TAG, "getPurchases: isSuccessful $purchasesResponse")
                 Resource.Success(purchasesResponse)
+            } else {
+                Log.d(TAG, "getPurchases: isSuccessful no " + response.code())
+                Log.d(TAG, "getPurchases: isSuccessful no " + response.message())
+                val errorBody = gson.fromJson(
+                    response.errorBody()?.stringSuspending(),
+                    ErrorManager::class.java
+                )
+                Resource.DataError(errorBody)
+            }
+        } catch (e: HttpException) {
+            return Resource.Exception(e.message() as String)
+        } catch (e: Throwable) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: SocketTimeoutException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: IOException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        }
+    }
+
+    override suspend fun getNotifications(
+        limit: Int,
+        offset: Int
+    ): Resource<NotificationsResponse> {
+        val authService = serviceGenerator.createService(IFoodService::class.java)
+        try {
+            val response = authService.getNotifications(limit, offset)
+
+            return if (response.isSuccessful) {
+                //Do something with response e.g show to the UI.
+                val resResponse = response.body()?.successResult as NotificationsResponse
+                Log.d(TAG, "getPurchases: isSuccessful " + response.code())
+                Log.d(TAG, "getPurchases: isSuccessful $resResponse")
+                Resource.Success(resResponse)
             } else {
                 Log.d(TAG, "getPurchases: isSuccessful no " + response.code())
                 Log.d(TAG, "getPurchases: isSuccessful no " + response.message())
@@ -370,7 +435,6 @@ class RemoteRepository
     }
 
     override suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse> {
-
         val authService = serviceGenerator.createService(IFoodService::class.java)
         try {
             val response = authService.doServerCreatePurchase(gift)
@@ -378,6 +442,37 @@ class RemoteRepository
             return if (response.isSuccessful) {
                 //Do something with response e.g show to the UI.
                 val getResponse = response.body()?.successResult as CreatePurchaseResponse
+                Log.d(TAG, "getResponse: isSuccessful " + response.code())
+                Log.d(TAG, "getResponse: isSuccessful $getResponse")
+                Resource.Success(getResponse)
+            } else {
+                Log.d(TAG, "getResponse: isSuccessful no " + response.code())
+                Log.d(TAG, "getResponse: isSuccessful no " + response.message())
+                val errorBody = gson.fromJson(
+                    response.errorBody()?.stringSuspending(),
+                    ErrorManager::class.java
+                )
+                Resource.DataError(errorBody)
+            }
+        } catch (e: HttpException) {
+            return Resource.Exception(e.message() as String)
+        } catch (e: Throwable) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: SocketTimeoutException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: IOException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        }
+    }
+
+    override suspend fun doServerMarkAsDone(request: MarkAsDoneTasksRequest): Resource<Any?> {
+        val authService = serviceGenerator.createService(IFoodService::class.java)
+        try {
+            val response = authService.doServerMarkAsDoneTasks(request)
+
+            return if (response.isSuccessful) {
+                //Do something with response e.g show to the UI.
+                val getResponse = response.body()?.successResult
                 Log.d(TAG, "getResponse: isSuccessful " + response.code())
                 Log.d(TAG, "getResponse: isSuccessful $getResponse")
                 Resource.Success(getResponse)

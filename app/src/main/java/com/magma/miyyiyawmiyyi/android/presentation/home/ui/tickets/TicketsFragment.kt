@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
@@ -74,6 +75,11 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
             } ?: String.format(getString(R.string.draw_number_1), 0)
         } ?: String.format(getString(R.string.draw_number_1), 0)
         binding.txtDrawNumber.text = goldenRoundNumber
+
+
+        binding.btnGetItNow.setOnClickListener {
+            findNavController().navigate(TicketsFragmentDirections.actionTicketsToTasks())
+        }
     }
 
     private fun setUpObservers() {
@@ -83,7 +89,12 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
                 (object :
                 EventObserver.EventUnhandledContent<List<Ticket>> {
                 override fun onEventUnhandledContent(t: List<Ticket>) {
-                    ticketsAdapter.submitList(t)
+                    val normalList = t.filter { ticket -> ticket.round != null }
+                    val goldenList = t.filter { ticket -> ticket.grandPrize != null }
+                    ticketsAdapter.submitList(normalList)
+                    if (goldenList.isNotEmpty()){
+                        binding.txtTicketNum.text = goldenList.first().number
+                    }
                     if (t.isNotEmpty()) {
                         //binding.progress.visibility = View.GONE
                         //binding.txtEmpty.visibility = View.GONE
@@ -95,7 +106,7 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
         )
         // listen to api result
         viewModel.response.observe(
-            this,
+            viewLifecycleOwner,
             EventObserver
                 (object :
                 EventObserver.EventUnhandledContent<Resource<TicketsResponse>> {

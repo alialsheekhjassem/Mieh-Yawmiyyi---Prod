@@ -96,6 +96,7 @@ class CheckCodeFragment : ProgressBarFragments() {
                                 resendCode()
                             }
                             CheckCodeActions.EDIT_PHONE_CLICKED -> {
+                                countDownTimer?.cancel()
                                 findNavController().navigate(
                                     CheckCodeFragmentDirections
                                         .actionCheckCodeLogin()
@@ -126,11 +127,12 @@ class CheckCodeFragment : ProgressBarFragments() {
                             val response = t.response as LoginResponse
                             Log.d(TAG, "registerResponse: $response")
                             response.accessToken?.token?.let { viewModel.saveToken(it) }
+                            response.refreshToken?.token?.let { viewModel.saveRefreshToken(it) }
                             showSuccessToast(getString(R.string.success))
                             countDownTimer?.cancel()
 
                             //subscribe topics
-                            subscribeTopic(Const.TOPIC_ROUNDS)
+                            /*subscribeTopic(Const.TOPIC_ROUNDS)
                             subscribeTopic(Const.TOPIC_GRAND_PRIZE)
                             if (LocalHelper.locale?.language == "ar") {
                                 unSubscribeTopic(Const.TOPIC_GENERAL_EN)
@@ -138,7 +140,7 @@ class CheckCodeFragment : ProgressBarFragments() {
                             } else {
                                 unSubscribeTopic(Const.TOPIC_GENERAL_AR)
                                 subscribeTopic(Const.TOPIC_GENERAL_EN)
-                            }
+                            }*/
 
                             Navigation.findNavController(binding.root)
                                 .navigate(CheckCodeFragmentDirections.actionCheckCodeFinishAccountSetup())
@@ -164,7 +166,7 @@ class CheckCodeFragment : ProgressBarFragments() {
     }
 
     private fun subscribeTopic(topic: String) {
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
+        FirebaseMessaging.getInstance().subscribeToTopic(topic)
             .addOnCompleteListener { task: Task<Void> ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "subscribeTopics: Success $topic")
@@ -413,6 +415,12 @@ class CheckCodeFragment : ProgressBarFragments() {
         loginRequest.phone = phoneNumber
         Log.d(TAG, "doServerLogin: $userUID")
         viewModel.doServerLogin(loginRequest)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        countDownTimer?.cancel()
+        countDownTimer?.onFinish()
     }
 
     companion object {

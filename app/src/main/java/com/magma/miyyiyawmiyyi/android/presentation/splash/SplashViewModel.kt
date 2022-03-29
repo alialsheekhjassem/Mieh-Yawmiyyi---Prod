@@ -99,4 +99,20 @@ class SplashViewModel @Inject constructor(
             }
         }
     }
+
+    /**
+     * Live data of logout
+     * */
+    internal var logoutResponse = MutableLiveData<Event<Resource<Any?>>>()
+
+    fun doServerLogout() {
+        launch {
+            //val token = dataRepository.getApiToken()
+            logoutResponse.value = Event(Resource.Loading())
+            val result: Resource<Any?> =
+                dataRepository.doServerLogout("Bearer ${dataRepository.getRefreshToken()}")
+            Log.d("TAG", "doServerLogout: $result")
+            logoutResponse.value = Event(result)
+        }
+    }
 }

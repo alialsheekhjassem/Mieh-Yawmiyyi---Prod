@@ -8,6 +8,8 @@ internal interface IRestApiManager {
 
     suspend fun doServerLogin(loginRequest: LoginRequest): Resource<LoginResponse>
 
+    suspend fun doServerLogout(refreshToken: String?): Resource<Any?>
+
     suspend fun doServerRegister(registerRequest: RegisterRequest): Resource<ResponseWrapper<String>>
 
     suspend fun doServerResetPassword(request: ResetPasswordRequest): Resource<ResponseWrapper<String>>
@@ -17,6 +19,8 @@ internal interface IRestApiManager {
     suspend fun getGifts(limit: Int, offset: Int): Resource<GiftStoreResponse>
 
     suspend fun getPurchases(limit: Int, offset: Int): Resource<GiftStorePurchasesResponse>
+
+    suspend fun getNotifications(limit: Int, offset: Int): Resource<NotificationsResponse>
 
     suspend fun getRounds(limit: Int, offset: Int, status: String?, id: String?): Resource<RoundsResponse>
 
@@ -31,4 +35,6 @@ internal interface IRestApiManager {
     suspend fun getInfo(): Resource<InfoResponse>
 
     suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse>
+
+    suspend fun doServerMarkAsDone(request: MarkAsDoneTasksRequest): Resource<Any?>
 }

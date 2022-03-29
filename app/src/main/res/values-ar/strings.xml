@@ -88,6 +88,7 @@
     <string name="title_chats">الدردشة</string>
     <string name="title_notifications">الإشعارات</string>
     <string name="title_my_order">طلباتي</string>
+    <string name="title_orders">الطلبات</string>
     <string name="title_profile">الملف الشخصي</string>
     <string name="restaurant_name_meal">اسم مطعم، وجبة أكل..</string>
     <string name="name">الاسم</string>
@@ -256,6 +257,8 @@
     <string name="what_about_iq">ماذا عن معدل الذكاء؟</string>
     <string name="my_daily_tasks">المهام اليومية الخاصة بي</string>
     <string name="like">إعجاب</string>
+    <string name="follow">متابعة</string>
+    <string name="subscribe">متابعة</string>
     <string name="total_points">إجمالي النقاط</string>
     <string name="google_gift_cards">بطاقات هدايا جوجل</string>
     <string name="exchange_your_points_with_google_gift_cards">استبدل نقاطك ببطاقات هدايا جوجل</string>
@@ -274,6 +277,7 @@
     <string name="claim_your_tickets_now">اطلب التذاكر الخاصة بك الآن!</string>
     <string name="head_now_to_your_tasks_and_collect_tickets">توجه الآن إلى مهامك واجمع التذاكر</string>
     <string name="no_cards">لا بطاقات</string>
+    <string name="no_items_">لا عناصر</string>
     <string name="invitation_link">رابط الدعوة</string>
     <string name="copy_the_url_below_and_invites_your_friends">انسخ عنوان URL أدناه وادعو أصدقائك</string>
     <string name="points">نقاط</string>
@@ -332,5 +336,9 @@
     <string name="terms_text15_about">- تم استلام رسالة تحقق عند التسجيل</string>
     <string name="agree">أوافق</string>
     <string name="draw_number_1">رقم السحب: 1</string>
+    <string name="requested_gift_cards">Requested Gift Cards</string>
+    <string name="here_you_find_your_ordered_gift_cards">Here you find your ordered gift cards</string>
+    <string name="get_code">Get Code</string>
+    <string name="package_">Package</string>
 
 </resources>

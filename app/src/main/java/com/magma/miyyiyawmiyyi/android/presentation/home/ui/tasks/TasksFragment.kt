@@ -16,6 +16,7 @@ import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentTasksBinding
 import com.magma.miyyiyawmiyyi.android.model.TaskObj
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
+import com.magma.miyyiyawmiyyi.android.presentation.home.HomeActivity
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
@@ -86,7 +87,7 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         )
         // listen to api result
         viewModel.response.observe(
-            this,
+            viewLifecycleOwner,
             EventObserver
                 (object :
                 EventObserver.EventUnhandledContent<Resource<TasksResponse>> {
@@ -141,6 +142,7 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         val level = ContactManager.getCurrentInfo()?.activeRound?.let {
             it.config?.tasksPerTicket?.let { tasksCount ->
                 binding.progressRemainingTickets.progress = tasksCount
+                binding.progressRemainingTickets.max = it.config?.maxTicketsPerContestant ?: 0
                 String.format(
                     getString(R.string.task_level_2_of_5_completed),
                     tasksCount,
@@ -156,6 +158,11 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
             0, 0
         )
         binding.txtLevel.text = level
+
+        binding.include1.btnWatchNow.setOnClickListener {
+            val activity = requireActivity() as HomeActivity
+            activity.startGame()
+        }
     }
 
     private fun setupData(tasksList: ArrayList<TaskObj>) {
@@ -174,7 +181,20 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
     }
 
     override fun onItemClicked(item: TaskObj, index: Int) {
-
+        Log.d(TAG, "onItemClicked: app " + item.smTask?.app?._id)
+        Log.d(TAG, "onItemClicked: link " + item.smTask?.link)
+        Log.d(TAG, "onItemClicked: action " + item.smTask?.action)
+        when (item.smTask?.app?._id) {
+            Const.INSTAGRAM_ID -> {
+                item.smTask?.link?.let { openWebUrl(it) }
+            }
+            Const.YOUTUBE_ID -> {
+                item.smTask?.link?.let { openWebUrl(it) }
+            }
+            else -> {
+                item.smTask?.link?.let { openWebUrl(it) }
+            }
+        }
     }
 
     companion object {

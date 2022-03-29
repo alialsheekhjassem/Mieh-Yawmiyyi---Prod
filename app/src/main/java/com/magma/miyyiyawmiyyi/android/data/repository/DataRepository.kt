@@ -20,6 +20,10 @@ constructor(
         return remoteRepository.doServerLogin(loginRequest)
     }
 
+    override suspend fun doServerLogout(refreshToken: String?): Resource<Any?> {
+        return remoteRepository.doServerLogout(refreshToken)
+    }
+
     override suspend fun doServerRegister(registerRequest: RegisterRequest): Resource<ResponseWrapper<String>> {
         return remoteRepository.doServerRegister(registerRequest)
     }
@@ -41,6 +45,13 @@ constructor(
         offset: Int
     ): Resource<GiftStorePurchasesResponse> {
         return remoteRepository.getPurchases(limit, offset)
+    }
+
+    override suspend fun getNotifications(
+        limit: Int,
+        offset: Int
+    ): Resource<NotificationsResponse> {
+        return remoteRepository.getNotifications(limit, offset)
     }
 
     override suspend fun getRounds(limit: Int, offset: Int, status: String?, id: String?): Resource<RoundsResponse> {
@@ -74,6 +85,10 @@ constructor(
 
     override suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse> {
         return remoteRepository.doServerCreatePurchase(gift)
+    }
+
+    override suspend fun doServerMarkAsDone(request: MarkAsDoneTasksRequest): Resource<Any?> {
+        return remoteRepository.doServerMarkAsDone(request)
     }
 
     override fun loadAllTasks(): List<TaskObj> {
@@ -248,6 +263,14 @@ constructor(
 
     override fun getApiToken(): String? {
         return localRepository.getApiToken()
+    }
+
+    override fun setRefreshToken(refreshToken: String) {
+        localRepository.setRefreshToken(refreshToken)
+    }
+
+    override fun getRefreshToken(): String? {
+        return localRepository.getRefreshToken()
     }
 
     override fun setLang(lang: String) {

@@ -153,7 +153,7 @@
                     android:layout_margin="@dimen/spacing_default"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="@string/invitations"
+                    tools:text="@string/invitations"
                     android:textColor="@color/grey_50"
                     android:textSize="@dimen/size_title" />
             </androidx.cardview.widget.CardView>
@@ -181,7 +181,7 @@
                     android:layout_margin="@dimen/spacing_default"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="@string/our_store"
+                    tools:text="@string/our_store"
                     android:textColor="@color/grey_50"
                     android:textSize="@dimen/size_title" />
             </androidx.cardview.widget.CardView>
@@ -209,7 +209,7 @@
                     android:layout_margin="@dimen/spacing_default"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="@string/settings"
+                    tools:text="@string/settings"
                     android:textColor="@color/grey_50"
                     android:textSize="@dimen/size_title" />
             </androidx.cardview.widget.CardView>

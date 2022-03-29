@@ -22,7 +22,7 @@
             app:itemBackground="@drawable/item_bkg_bottom_nav"
             app:itemIconTint="@color/item_bottom_nav_selector"
             app:itemTextColor="@color/item_bottom_nav_selector"
-            app:labelVisibilityMode="labeled"
+            app:labelVisibilityMode="unlabeled"
             android:textSize="@dimen/size_so_tiny"
             app:itemTextAppearanceActive="@style/MaterialTextViewBottomNavItemStyle"
             app:itemTextAppearanceInactive="@style/MaterialTextViewBottomNavItemStyle"

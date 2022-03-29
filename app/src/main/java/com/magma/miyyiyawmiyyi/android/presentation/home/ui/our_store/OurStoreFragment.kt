@@ -93,8 +93,6 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
             viewLifecycleOwner,
             EventObserver
                 (object :
-
-
                 EventObserver.EventUnhandledContent<List<PurchaseCard>> {
                 override fun onEventUnhandledContent(t: List<PurchaseCard>) {
                     purchaseCardsAdapter.submitList(t)

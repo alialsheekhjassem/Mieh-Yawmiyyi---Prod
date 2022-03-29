@@ -70,7 +70,7 @@
                 android:layout_marginHorizontal="@dimen/spacing_default"
                 android:layout_marginTop="@dimen/spacing_default"
                 android:gravity="center"
-                android:text="461237"
+                android:text="--------"
                 android:textColor="@color/orange_3"
                 android:textSize="@dimen/size_header"
                 app:layout_constraintEnd_toEndOf="@id/img_background"

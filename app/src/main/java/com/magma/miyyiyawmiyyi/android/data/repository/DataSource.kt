@@ -10,11 +10,13 @@ interface DataSource {
 
     //Api
     suspend fun doServerLogin(loginRequest: LoginRequest): Resource<LoginResponse>
+    suspend fun doServerLogout(refreshToken: String?): Resource<Any?>
     suspend fun doServerRegister(registerRequest: RegisterRequest): Resource<ResponseWrapper<String>>
     suspend fun doServerResetPassword(request: ResetPasswordRequest): Resource<ResponseWrapper<String>>
     suspend fun getTasks(limit: Int, offset: Int): Resource<TasksResponse>
     suspend fun getGifts(limit: Int, offset: Int): Resource<GiftStoreResponse>
     suspend fun getPurchases(limit: Int, offset: Int): Resource<GiftStorePurchasesResponse>
+    suspend fun getNotifications(limit: Int, offset: Int): Resource<NotificationsResponse>
     suspend fun getRounds(limit: Int, offset: Int, status: String?, id: String?): Resource<RoundsResponse>
     suspend fun getMyAccount(): Resource<MyAccountResponse>
     suspend fun doServerUpdateMyAccount(accountRequest: AccountRequest): Resource<Account>
@@ -22,6 +24,7 @@ interface DataSource {
     suspend fun getTickets(limit: Int, offset: Int, round: String?, populate: Boolean?): Resource<TicketsResponse>
     suspend fun getInfo(): Resource<InfoResponse>
     suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse>
+    suspend fun doServerMarkAsDone(request: MarkAsDoneTasksRequest): Resource<Any?>
 
     //Local
     fun loadAllTasks(): List<TaskObj>
@@ -73,6 +76,8 @@ interface DataSource {
     //Pref
     fun setApiToken(apiToken: String)
     fun getApiToken(): String?
+    fun setRefreshToken(refreshToken: String)
+    fun getRefreshToken(): String?
     fun setLang(lang: String)
     fun getLang(): String?
     fun setIsShownOnBoarding(isShown: Boolean)

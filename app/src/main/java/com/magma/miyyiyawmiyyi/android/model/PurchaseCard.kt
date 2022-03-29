@@ -29,7 +29,7 @@ class PurchaseCard(
     var code: String?,
 
     @ColumnInfo(name = "createdAt")
-    var createdAt: Int?,
+    var createdAt: String?,
 
     @ColumnInfo(name = "modifiedAt")
     var modifiedAt: String?,

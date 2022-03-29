@@ -46,6 +46,7 @@ class FinishAccountViewModel @Inject constructor(
         launch {
             Log.d("TAG", "doServerUpdateMyAccount: ${request.name}")
             Log.d("TAG", "doServerUpdateMyAccount: ${request.birthdate}")
+            Log.d("TAG", "doServerUpdateMyAccount: ${request.firebaseFCMToken}")
             updateResponse.value = Event(Resource.Loading())
             val response: Resource<Account> =
                 dataRepository.doServerUpdateMyAccount(request)

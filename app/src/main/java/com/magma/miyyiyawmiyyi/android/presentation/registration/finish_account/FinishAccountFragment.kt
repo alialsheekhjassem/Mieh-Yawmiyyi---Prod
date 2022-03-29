@@ -13,8 +13,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.tasks.Task
 import com.google.firebase.dynamiclinks.ktx.dynamicLinks
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
@@ -45,6 +47,7 @@ class FinishAccountFragment : ProgressBarFragments() {
     private val accountRequest = AccountRequest()
 
     private var deepLink: String? = null
+    private var fcmToken: String? = null
 
     private val viewModel: FinishAccountViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[FinishAccountViewModel::class.java]
@@ -59,6 +62,7 @@ class FinishAccountFragment : ProgressBarFragments() {
 
         setUp()
         setupObservers()
+        fetchFCMToken()
 
         return binding.root
     }
@@ -135,7 +139,7 @@ class FinishAccountFragment : ProgressBarFragments() {
         )
         // listen to api result
         viewModel.response.observe(
-            this,
+            viewLifecycleOwner,
             EventObserver
                 (object :
                 EventObserver.EventUnhandledContent<Resource<MyAccountResponse>> {
@@ -179,7 +183,7 @@ class FinishAccountFragment : ProgressBarFragments() {
 
         // listen to api result
         viewModel.updateResponse.observe(
-            requireActivity(),
+            viewLifecycleOwner,
             EventObserver
                 (object :
                 EventObserver.EventUnhandledContent<Resource<Account>> {
@@ -219,6 +223,16 @@ class FinishAccountFragment : ProgressBarFragments() {
                 }
             })
         )
+    }
+
+    private fun fetchFCMToken() {
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener { task: Task<String> ->
+                if (task.isSuccessful) {
+                    fcmToken = task.result
+                    accountRequest.firebaseFCMToken = fcmToken
+                }
+            }
     }
 
     private fun onFetchedAccountSuccess(response: MyAccountResponse) {

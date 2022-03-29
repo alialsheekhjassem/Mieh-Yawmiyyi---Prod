@@ -21,280 +21,295 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/img_background"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/lyt_golden"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_default"
-                android:scaleType="fitXY"
-                android:src="@drawable/bg_img_live"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:padding="@dimen/spacing_large"
+                android:background="@drawable/bg_img_live"
+                app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/txt_title"
-                style="@style/MaterialBoldTextStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_default"
-                android:layout_marginTop="40dp"
-                android:gravity="center"
-                android:text="@string/the_remaining_time_for_the_golden_lira_poll_stream"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintEnd_toEndOf="@id/img_background"
-                app:layout_constraintStart_toStartOf="@id/img_background"
-                app:layout_constraintTop_toTopOf="@id/img_background"
-                app:layout_constraintWidth_percent="0.5" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_gold_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.1"/>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lyt_days"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="60dp"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toStartOf="@+id/txt_colon_1"
-                app:layout_constraintStart_toStartOf="@id/img_background"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title_days">
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline_gold_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.9"/>
 
                 <TextView
-                    android:id="@+id/txt_days_1"
+                    android:id="@+id/txt_title"
+                    style="@style/MaterialBoldTextStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_default"
+                    android:layout_marginTop="40dp"
+                    android:gravity="center"
+                    android:text="@string/the_remaining_time_for_the_golden_lira_poll_stream"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_gold_2"
+                    app:layout_constraintStart_toStartOf="@id/guideline_gold_1"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.6" />
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lyt_days"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_default"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_colon_1"
+                    app:layout_constraintStart_toStartOf="@id/guideline_gold_1"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_title_days">
+
+                    <TextView
+                        android:id="@+id/txt_days_1"
+                        style="@style/MaterialBoldTextStyle"
+                        android:layout_width="@dimen/size_number"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_medium"
+                        android:background="@drawable/bg_rounded_primary"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_default"
+                        android:text="@string/init_value"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/txt_days_2"
+                        style="@style/MaterialBoldTextStyle"
+                        android:layout_width="@dimen/size_number"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rounded_primary"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_default"
+                        android:text="@string/init_value"
+                        android:textColor="@color/white" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <TextView
+                    android:id="@+id/txt_title_days"
+                    style="@style/MaterialTextViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_default"
+                    android:text="@string/days"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toTopOf="@id/lyt_days"
+                    app:layout_constraintEnd_toEndOf="@id/lyt_days"
+                    app:layout_constraintStart_toStartOf="@+id/lyt_days"
+                    app:layout_constraintTop_toBottomOf="@id/txt_title" />
+
+                <TextView
+                    android:id="@+id/txt_title_hours"
+                    style="@style/MaterialTextViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_default"
+                    android:text="@string/hours"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toTopOf="@id/lyt_hours"
+                    app:layout_constraintEnd_toEndOf="@id/lyt_hours"
+                    app:layout_constraintStart_toStartOf="@+id/lyt_hours"
+                    app:layout_constraintTop_toBottomOf="@id/txt_title" />
+
+                <TextView
+                    android:id="@+id/txt_title_minutes"
+                    style="@style/MaterialTextViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_default"
+                    android:text="@string/minutes"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toTopOf="@id/lyt_minutes"
+                    app:layout_constraintEnd_toEndOf="@id/lyt_minutes"
+                    app:layout_constraintStart_toStartOf="@+id/lyt_minutes"
+                    app:layout_constraintTop_toBottomOf="@id/txt_title" />
+
+                <TextView
+                    android:id="@+id/txt_title_seconds"
+                    style="@style/MaterialTextViewBodyStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/spacing_medium"
+                    android:layout_marginTop="@dimen/spacing_default"
+                    android:text="@string/seconds"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toTopOf="@id/lyt_seconds"
+                    app:layout_constraintEnd_toEndOf="@id/lyt_seconds"
+                    app:layout_constraintStart_toStartOf="@+id/lyt_seconds"
+                    app:layout_constraintTop_toBottomOf="@id/txt_title" />
+
+                <TextView
+                    android:id="@+id/txt_colon_1"
                     style="@style/MaterialBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/spacing_medium"
-                    android:background="@drawable/bg_rounded_primary"
-                    android:gravity="center"
-                    android:padding="@dimen/spacing_default"
-                    android:text="@string/init_value"
-                    android:textColor="@color/white" />
+                    android:layout_marginHorizontal="@dimen/spacing_medium"
+                    android:text=":"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="@id/lyt_days"
+                    app:layout_constraintEnd_toStartOf="@+id/lyt_hours"
+                    app:layout_constraintStart_toEndOf="@+id/lyt_days"
+                    app:layout_constraintTop_toTopOf="@id/lyt_days" />
 
                 <TextView
-                    android:id="@+id/txt_days_2"
+                    android:id="@+id/txt_colon_2"
                     style="@style/MaterialBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_rounded_primary"
-                    android:gravity="center"
-                    android:padding="@dimen/spacing_default"
-                    android:text="@string/init_value"
-                    android:textColor="@color/white" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <TextView
-                android:id="@+id/txt_title_days"
-                style="@style/MaterialTextViewBodyStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:text="@string/days"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@id/lyt_days"
-                app:layout_constraintEnd_toEndOf="@id/lyt_days"
-                app:layout_constraintStart_toStartOf="@+id/lyt_days"
-                app:layout_constraintTop_toBottomOf="@id/txt_title" />
-
-            <TextView
-                android:id="@+id/txt_title_hours"
-                style="@style/MaterialTextViewBodyStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:text="@string/hours"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@id/lyt_hours"
-                app:layout_constraintEnd_toEndOf="@id/lyt_hours"
-                app:layout_constraintStart_toStartOf="@+id/lyt_hours"
-                app:layout_constraintTop_toBottomOf="@id/txt_title" />
-
-            <TextView
-                android:id="@+id/txt_title_minutes"
-                style="@style/MaterialTextViewBodyStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:text="@string/minutes"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@id/lyt_minutes"
-                app:layout_constraintEnd_toEndOf="@id/lyt_minutes"
-                app:layout_constraintStart_toStartOf="@+id/lyt_minutes"
-                app:layout_constraintTop_toBottomOf="@id/txt_title" />
-
-            <TextView
-                android:id="@+id/txt_title_seconds"
-                style="@style/MaterialTextViewBodyStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:text="@string/seconds"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toTopOf="@id/lyt_seconds"
-                app:layout_constraintEnd_toEndOf="@id/lyt_seconds"
-                app:layout_constraintStart_toStartOf="@+id/lyt_seconds"
-                app:layout_constraintTop_toBottomOf="@id/txt_title" />
-
-            <TextView
-                android:id="@+id/txt_colon_1"
-                style="@style/MaterialBoldTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:text=":"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="@id/lyt_days"
-                app:layout_constraintEnd_toStartOf="@+id/lyt_hours"
-                app:layout_constraintStart_toEndOf="@+id/lyt_days"
-                app:layout_constraintTop_toTopOf="@id/lyt_days" />
-
-            <TextView
-                android:id="@+id/txt_colon_2"
-                style="@style/MaterialBoldTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:text=":"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="@id/lyt_days"
-                app:layout_constraintEnd_toStartOf="@+id/lyt_minutes"
-                app:layout_constraintStart_toEndOf="@+id/lyt_hours"
-                app:layout_constraintTop_toTopOf="@id/lyt_days" />
-
-            <TextView
-                android:id="@+id/txt_colon_3"
-                style="@style/MaterialBoldTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/spacing_medium"
-                android:text=":"
-                android:textColor="@color/colorPrimary"
-                app:layout_constraintBottom_toBottomOf="@id/lyt_days"
-                app:layout_constraintEnd_toStartOf="@+id/lyt_seconds"
-                app:layout_constraintStart_toEndOf="@+id/lyt_minutes"
-                app:layout_constraintTop_toTopOf="@id/lyt_days" />
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lyt_hours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toStartOf="@+id/txt_colon_2"
-                app:layout_constraintStart_toEndOf="@+id/txt_colon_1"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title_hours">
+                    android:layout_marginHorizontal="@dimen/spacing_medium"
+                    android:text=":"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="@id/lyt_days"
+                    app:layout_constraintEnd_toStartOf="@+id/lyt_minutes"
+                    app:layout_constraintStart_toEndOf="@+id/lyt_hours"
+                    app:layout_constraintTop_toTopOf="@id/lyt_days" />
 
                 <TextView
-                    android:id="@+id/txt_hours_1"
+                    android:id="@+id/txt_colon_3"
                     style="@style/MaterialBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/spacing_medium"
-                    android:background="@drawable/bg_rounded_primary"
-                    android:gravity="center"
-                    android:padding="@dimen/spacing_default"
-                    android:text="@string/init_value"
-                    android:textColor="@color/white" />
+                    android:layout_marginHorizontal="@dimen/spacing_medium"
+                    android:text=":"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintBottom_toBottomOf="@id/lyt_days"
+                    app:layout_constraintEnd_toStartOf="@+id/lyt_seconds"
+                    app:layout_constraintStart_toEndOf="@+id/lyt_minutes"
+                    app:layout_constraintTop_toTopOf="@id/lyt_days" />
 
-                <TextView
-                    android:id="@+id/txt_hours_2"
-                    style="@style/MaterialBoldTextStyle"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lyt_hours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_rounded_primary"
-                    android:gravity="center"
-                    android:padding="@dimen/spacing_default"
-                    android:text="@string/init_value"
-                    android:textColor="@color/white" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_marginTop="@dimen/spacing_default"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_colon_2"
+                    app:layout_constraintStart_toEndOf="@+id/txt_colon_1"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_title_hours">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lyt_minutes"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toStartOf="@+id/txt_colon_3"
-                app:layout_constraintStart_toEndOf="@+id/txt_colon_2"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title_minutes">
+                    <TextView
+                        android:id="@+id/txt_hours_1"
+                        style="@style/MaterialBoldTextStyle"
+                        android:layout_width="@dimen/size_number"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_medium"
+                        android:background="@drawable/bg_rounded_primary"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_default"
+                        android:text="@string/init_value"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:id="@+id/txt_minutes_1"
-                    style="@style/MaterialBoldTextStyle"
+                    <TextView
+                        android:id="@+id/txt_hours_2"
+                        style="@style/MaterialBoldTextStyle"
+                        android:layout_width="@dimen/size_number"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rounded_primary"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_default"
+                        android:text="@string/init_value"
+                        android:textColor="@color/white" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lyt_minutes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/spacing_medium"
-                    android:background="@drawable/bg_rounded_primary"
-                    android:gravity="center"
-                    android:padding="@dimen/spacing_default"
-                    android:text="@string/init_value"
-                    android:textColor="@color/white" />
+                    android:layout_marginTop="@dimen/spacing_default"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toStartOf="@+id/txt_colon_3"
+                    app:layout_constraintStart_toEndOf="@+id/txt_colon_2"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_title_minutes">
 
-                <TextView
-                    android:id="@+id/txt_minutes_2"
-                    style="@style/MaterialBoldTextStyle"
+                    <TextView
+                        android:id="@+id/txt_minutes_1"
+                        style="@style/MaterialBoldTextStyle"
+                        android:layout_width="@dimen/size_number"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_medium"
+                        android:background="@drawable/bg_rounded_primary"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_default"
+                        android:text="@string/init_value"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:id="@+id/txt_minutes_2"
+                        style="@style/MaterialBoldTextStyle"
+                        android:layout_width="@dimen/size_number"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rounded_primary"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_default"
+                        android:text="@string/init_value"
+                        android:textColor="@color/white" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/lyt_seconds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_rounded_primary"
-                    android:gravity="center"
-                    android:padding="@dimen/spacing_default"
-                    android:text="@string/init_value"
-                    android:textColor="@color/white" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_marginTop="@dimen/spacing_default"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@id/guideline_gold_2"
+                    app:layout_constraintStart_toEndOf="@+id/txt_colon_3"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_title_seconds">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/lyt_seconds"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/spacing_default"
-                android:layout_marginEnd="60dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="@id/img_background"
-                app:layout_constraintStart_toEndOf="@+id/txt_colon_3"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title_seconds">
+                    <TextView
+                        android:id="@+id/txt_seconds_1"
+                        style="@style/MaterialBoldTextStyle"
+                        android:layout_width="@dimen/size_number"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/spacing_medium"
+                        android:background="@drawable/bg_rounded_primary"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_default"
+                        android:text="@string/init_value"
+                        android:textColor="@color/white" />
 
-                <TextView
-                    android:id="@+id/txt_seconds_1"
-                    style="@style/MaterialBoldTextStyle"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/txt_seconds_2"
+                        style="@style/MaterialBoldTextStyle"
+                        android:layout_width="@dimen/size_number"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_rounded_primary"
+                        android:gravity="center"
+                        android:padding="@dimen/spacing_default"
+                        android:text="@string/init_value"
+                        android:textColor="@color/white" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_watch_now_golden"
+                    style="@style/MaterialButtonStyle"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/spacing_medium"
-                    android:background="@drawable/bg_rounded_primary"
-                    android:gravity="center"
-                    android:padding="@dimen/spacing_default"
-                    android:text="@string/init_value"
-                    android:textColor="@color/white" />
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="@dimen/spacing_large"
+                    android:backgroundTint="@color/grey_13"
+                    android:minHeight="0dp"
+                    android:paddingVertical="@dimen/nav_header_vertical_spacing"
+                    android:text="@string/watch_now"
+                    android:textColor="@color/grey_14"
+                    android:textSize="@dimen/size_small"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lyt_days"
+                    app:layout_constraintWidth_percent="0.55" />
 
-                <TextView
-                    android:id="@+id/txt_seconds_2"
-                    style="@style/MaterialBoldTextStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_rounded_primary"
-                    android:gravity="center"
-                    android:padding="@dimen/spacing_default"
-                    android:text="@string/init_value"
-                    android:textColor="@color/white" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btn_get_it_now"
-                style="@style/MaterialButtonStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/spacing_large"
-                android:backgroundTint="@color/grey_13"
-                android:minHeight="0dp"
-                android:paddingVertical="@dimen/nav_header_vertical_spacing"
-                android:text="@string/watch_now"
-                android:textColor="@color/grey_14"
-                android:textSize="@dimen/size_small"
-                app:layout_constraintBottom_toBottomOf="@id/img_background"
-                app:layout_constraintEnd_toEndOf="@id/img_background"
-                app:layout_constraintStart_toStartOf="@id/img_background"
-                app:layout_constraintTop_toBottomOf="@+id/lyt_days"
-                app:layout_constraintWidth_percent="0.55" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_watch_last_100_draw"
@@ -304,7 +319,7 @@
                 android:layout_marginBottom="@dimen/spacing_large"
                 android:layout_marginTop="@dimen/spacing_default"
                 android:layout_marginHorizontal="@dimen/spacing_large"
-                android:backgroundTint="@color/orange_5"
+                android:backgroundTint="@color/light_blue_2"
                 android:minHeight="0dp"
                 app:icon="@drawable/ic_facebook"
                 app:iconTint="@color/white"
@@ -315,7 +330,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/barrier"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_background" />
+                app:layout_constraintTop_toBottomOf="@+id/lyt_golden" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/barrier"
@@ -346,7 +361,7 @@
                         android:gravity="center"
                         android:text="@string/the_remaining_time_for_the_golden_lira_poll_stream"
                         android:textColor="@color/green_700"
-                        app:layout_constraintWidth_percent="0.5"
+                        app:layout_constraintWidth_percent="0.6"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -365,7 +380,7 @@
                         <TextView
                             android:id="@+id/txt_days_1_1"
                             style="@style/MaterialBoldTextStyle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/size_number"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/spacing_medium"
                             android:background="@drawable/bg_rounded_green"
@@ -377,7 +392,7 @@
                         <TextView
                             android:id="@+id/txt_days_1_2"
                             style="@style/MaterialBoldTextStyle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/size_number"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
@@ -494,7 +509,7 @@
                         <TextView
                             android:id="@+id/txt_hours_1_1"
                             style="@style/MaterialBoldTextStyle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/size_number"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/spacing_medium"
                             android:background="@drawable/bg_rounded_green"
@@ -506,7 +521,7 @@
                         <TextView
                             android:id="@+id/txt_hours_1_2"
                             style="@style/MaterialBoldTextStyle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/size_number"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
@@ -528,7 +543,7 @@
                         <TextView
                             android:id="@+id/txt_minutes_1_1"
                             style="@style/MaterialBoldTextStyle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/size_number"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/spacing_medium"
                             android:background="@drawable/bg_rounded_green"
@@ -540,7 +555,7 @@
                         <TextView
                             android:id="@+id/txt_minutes_1_2"
                             style="@style/MaterialBoldTextStyle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/size_number"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
@@ -563,7 +578,7 @@
                         <TextView
                             android:id="@+id/txt_seconds_1_1"
                             style="@style/MaterialBoldTextStyle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/size_number"
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/spacing_medium"
                             android:background="@drawable/bg_rounded_green"
@@ -575,7 +590,7 @@
                         <TextView
                             android:id="@+id/txt_seconds_1_2"
                             style="@style/MaterialBoldTextStyle"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/size_number"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_rounded_green"
                             android:gravity="center"
@@ -610,7 +625,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        app:layout_constraintGuide_percent="0.5"/>
+                        app:layout_constraintGuide_percent="0.55"/>
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/img_left"
@@ -643,7 +658,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.71"/>
+                app:layout_constraintGuide_percent="0.725"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_gift"

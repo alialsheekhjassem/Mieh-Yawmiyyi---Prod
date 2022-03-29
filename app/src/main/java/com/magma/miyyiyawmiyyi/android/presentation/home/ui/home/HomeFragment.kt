@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.magma.miyyiyawmiyyi.android.R
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentHomeBinding
@@ -23,11 +24,7 @@ import javax.inject.Inject
 
 class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
 
-    private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    lateinit var binding: FragmentHomeBinding
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -47,7 +44,7 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
         setup()
@@ -66,6 +63,13 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
 
     private fun setUp() {
         viewModel.loadAllTickets()
+
+        binding.cardPoints.txtView.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeToInvitations())
+        }
+        binding.cardTickets.txtView.setOnClickListener {
+            findNavController().navigate(HomeFragmentDirections.actionHomeToTickets())
+        }
     }
 
     private fun setupData(roundDb: Round?) {
@@ -82,7 +86,7 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
         Log.d(TAG, "QQQ setupData: info $info")
 
         info?.let { inf ->
-            binding.cardPoints.value = "${inf.userPoints} ${getString(R.string.points)}"
+            binding.cardPoints.value = "${inf.userPoints ?: 0} ${getString(R.string.points)}"
             binding.cardTickets.value =
                 round?.config?.let { config ->
                     config.tasksPerTicket?.let { tPTicket ->
@@ -90,9 +94,9 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
                             "$tPTicket/$max ${
                                 getString(R.string.ticket)
                             }"
-                        }?: "0/0 ${getString(R.string.ticket)}"
-                    }?: "0/0 ${getString(R.string.ticket)}"
-                }?: "0/0 ${getString(R.string.ticket)}"
+                        } ?: "0/0 ${getString(R.string.ticket)}"
+                    } ?: "0/0 ${getString(R.string.ticket)}"
+                } ?: "0/0 ${getString(R.string.ticket)}"
 
             Log.d(TAG, "QQQ setupData: settings ${inf.settings}")
             Log.d(TAG, "QQQ setupData: roundWinner ${inf.roundWinner?.number}")
@@ -139,11 +143,6 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onItemClicked(item: Winner, index: Int) {

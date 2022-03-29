@@ -1,8 +1,13 @@
 package com.magma.miyyiyawmiyyi.android.presentation.home
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -21,7 +26,10 @@ import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.NavigationUI.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.facebook.ads.*
+import com.google.android.gms.tasks.Task
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import dagger.android.AndroidInjection
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
@@ -30,7 +38,10 @@ import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
 import com.magma.miyyiyawmiyyi.android.databinding.ActivityHomeBinding
+import com.magma.miyyiyawmiyyi.android.presentation.registration.RegistrationActivity
 import com.magma.miyyiyawmiyyi.android.presentation.splash.SplashViewModel
+import com.magma.miyyiyawmiyyi.android.utils.CommonUtils.showLoadingDialog
+import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
@@ -48,8 +59,18 @@ class HomeActivity : AppCompatActivity() {
     lateinit var mDrawerToggle: ActionBarDrawerToggle
     var mToolBarNavigationListenerIsRegistered = false
 
+    private lateinit var alertDialog: AlertDialog
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
+
+    var mInterstitialAd: InterstitialAd? = null
+    var canShowFullscreenAd = false
+
+    private var mCountDownTimer: CountDownTimer? = null
+    private var mGameIsInProgress = false
+    private var mAdIsLoading: Boolean = false
+    private var mTimerMilliseconds = 0L
 
     private val TAG = "HomeActivity"
 
@@ -70,6 +91,13 @@ class HomeActivity : AppCompatActivity() {
         val toolbar = binding.appBar.toolbar
         val drawerLayout = binding.drawerLayout
         setSupportActionBar(toolbar)
+
+        // Instantiate an InterstitialAd object.
+        // NOTE: the placement ID will eventually identify this as your App, you can ignore it for
+        // now, while you are testing and replace it later when you have signed up.
+        // While you are using this temporary code you will only get test ads and if you release
+        // your code like this to the Google Play your users will not receive ads (you will get a no fill error).
+        mInterstitialAd = InterstitialAd(this, Const.FB_INTERSTITIAL)
 
         mDrawerToggle = object : ActionBarDrawerToggle(
             this, drawerLayout,
@@ -138,10 +166,26 @@ class HomeActivity : AppCompatActivity() {
         mDrawerToggle.syncState()
         toolbar.setNavigationIcon(R.drawable.ic_feather_menu)
 
-        if (ContactManager.getCurrentAccount()?.account == null){
-            setObservers()
+        setObservers()
+
+        if (ContactManager.getCurrentAccount()?.account == null) {
             viewModel.getMyAccount()
             viewModel.getInfo()
+        }
+
+        binding.txtLogout.setOnClickListener {
+            viewModel.doServerLogout()
+        }
+
+        //subscribe topics
+        subscribeTopic(Const.TOPIC_ROUNDS)
+        subscribeTopic(Const.TOPIC_GRAND_PRIZE)
+        if (LocalHelper.locale?.language == "ar") {
+            unSubscribeTopic(Const.TOPIC_GENERAL_EN)
+            subscribeTopic(Const.TOPIC_GENERAL_AR)
+        } else {
+            unSubscribeTopic(Const.TOPIC_GENERAL_AR)
+            subscribeTopic(Const.TOPIC_GENERAL_EN)
         }
     }
 
@@ -194,6 +238,43 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
+        // listen to api result
+        viewModel.logoutResponse.observe(
+            this,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<Any?>> {
+                override fun onEventUnhandledContent(t: Resource<Any?>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            showLoadingDialog()
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                            ContactManager.refreshInstance()
+                            hideLoadingDialog()
+                            goToRegistration()
+                        }
+                        is Resource.DataError -> {
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "response: DataError $response")
+                            hideLoadingDialog()
+                            showToast(response.failureMessage)
+                        }
+                        is Resource.Exception -> {
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                            hideLoadingDialog()
+                            showToast(response.toString())
+                        }
+                    }
+                }
+            })
+        )
         // listen to api result
         viewModel.infoResponse.observe(
             this,
@@ -311,12 +392,30 @@ class HomeActivity : AppCompatActivity() {
         )
     }
 
+    private fun goToRegistration() {
+        val intent = Intent(baseContext, RegistrationActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     private fun onFailure() {
 
     }
 
     private fun onFetchedAccountSuccess(response: MyAccountResponse) {
         ContactManager.setAccount(response)
+    }
+
+    fun showLoadingDialog() {
+        alertDialog = showLoadingDialog(this)
+    }
+
+    fun hideLoadingDialog() {
+        alertDialog.cancel()
+    }
+
+    fun showToast(success: String) {
+        Toast.makeText(this, success, Toast.LENGTH_LONG).show()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
@@ -329,4 +428,142 @@ class HomeActivity : AppCompatActivity() {
         return (navigateUp(navController, appBarConfiguration)
                 || super.onSupportNavigateUp())
     }
+
+    private fun subscribeTopic(topic: String) {
+        FirebaseMessaging.getInstance().subscribeToTopic(topic)
+            .addOnCompleteListener { task: Task<Void> ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "subscribeTopics: Success $topic")
+                }
+            }
+            .addOnFailureListener {
+                Log.d(TAG, "subscribeTopics: Failure $it")
+            }
+    }
+
+    private fun unSubscribeTopic(topic: String) {
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic)
+            .addOnCompleteListener { task: Task<Void> ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "unSubscribeTopic: Success $topic")
+                }
+            }
+    }
+
+
+    // Create the game timer, which counts down to the end of the level
+    // and shows the "retry" button.
+    private fun createTimer(milliseconds: Long) {
+        mCountDownTimer?.cancel()
+
+        mCountDownTimer = object : CountDownTimer(milliseconds, 50) {
+            override fun onTick(millisUntilFinished: Long) {
+                mTimerMilliseconds = millisUntilFinished
+                //timer.text = "seconds remaining: ${ millisUntilFinished / 1000 + 1 }"
+            }
+
+            override fun onFinish() {
+                mGameIsInProgress = false
+                //timer.text = "done!"
+            }
+        }
+    }
+
+    // Request a new ad if one isn't already loaded, hide the button, and kick off the timer.
+    fun startGame() {
+        /*if (!mAdIsLoading && mInterstitialAd == null) {
+            mAdIsLoading = true
+            loadAd()
+        }
+        resumeGame(Const.GAME_LENGTH_MILLISECONDS)*/
+
+        loadAd()
+        /*if (!mAdIsLoading && mInterstitialAd == null){
+            mAdIsLoading = true
+            loadAd()
+        }*/
+    }
+
+    override fun onPause() {
+        super.onPause()
+        canShowFullscreenAd = false
+    }
+
+    override fun onResume() {
+        super.onResume()
+        canShowFullscreenAd = true
+    }
+
+    private fun loadAd() {
+        AudienceNetworkAds.initialize(this)
+        mInterstitialAd = InterstitialAd(this, Const.FB_INTERSTITIAL)
+
+        // Create listeners for the Interstitial Ad
+        val interstitialAdListener: InterstitialAdListener = object : InterstitialAdListener {
+            override fun onInterstitialDisplayed(ad: Ad) {
+                // Interstitial ad displayed callback
+                Log.e(TAG, "Interstitial ad displayed.")
+            }
+
+            override fun onInterstitialDismissed(ad: Ad) {
+                // Interstitial dismissed callback
+                Log.e(TAG, "Interstitial ad dismissed.")
+            }
+
+            override fun onError(ad: Ad?, adError: AdError) {
+                // Ad error callback
+                Log.e(TAG, "Interstitial ad failed to load: " + adError.errorMessage)
+                Toast.makeText(
+                    this@HomeActivity,
+                    "Error loading ad: " + adError.errorMessage, Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onAdLoaded(ad: Ad) {
+                // Interstitial ad is loaded and ready to be displayed
+                Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!")
+                if (canShowFullscreenAd) {
+                    mInterstitialAd?.show()
+                }
+            }
+
+            override fun onAdClicked(ad: Ad) {
+                // Ad clicked callback
+                Log.d(TAG, "Interstitial ad clicked!")
+            }
+
+            override fun onLoggingImpression(ad: Ad) {
+                // Ad impression logged callback
+                Log.d(TAG, "Interstitial ad impression logged!")
+            }
+        }
+
+        val interstitialLoadAdConfig =
+            mInterstitialAd?.buildLoadAdConfig()
+                ?.withAdListener(interstitialAdListener)
+                ?.build()
+        mInterstitialAd?.loadAd(interstitialLoadAdConfig)
+
+        showAdWithDelay()
+    }
+
+    private fun showAdWithDelay() {
+        /**
+         * Here is an example for displaying the ad with delay;
+         * Please do not copy the Handler into your project
+         */
+        Looper.myLooper()?.let {
+            Handler(it).postDelayed({ // Check if interstitialAd has been loaded successfully
+                if (mInterstitialAd == null || mInterstitialAd?.isAdLoaded == false) {
+                    return@postDelayed
+                }
+                // Check if ad is already expired or invalidated, and do not show ad if that is the case. You will not get paid to show an invalidated ad.
+                if (mInterstitialAd?.isAdInvalidated == true) {
+                    return@postDelayed
+                }
+                // Show the ad
+                mInterstitialAd?.show()
+            }, 1000 * 60 * 15)
+        }
+    } // Show the ad after 15 minutes
 }

@@ -28,6 +28,7 @@
     <dimen name="spacing_xlarge">15dp</dimen>
     <dimen name="spacing_card_padding">15dp</dimen>
     <dimen name="spacing_icon_padding">10dp</dimen>
+    <dimen name="size_number">30dp</dimen>
     <dimen name="design_bottom_navigation_height">52dp</dimen>
 
     <dimen name="size_header">32sp</dimen>

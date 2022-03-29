@@ -14,23 +14,20 @@
         android:layout_marginHorizontal="@dimen/spacing_large"
         android:gravity="center"
         android:padding="@dimen/spacing_medium"
-        android:textColor="@color/gray"
+        android:textColor="@color/gray_6"
         android:text="@string/powered_by"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/txt_title_company"/>
+        app:layout_constraintStart_toStartOf="parent"/>
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/txt_title_company"
         style="@style/MaterialTextTitleStyle"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/spacing_large"
-        android:layout_marginBottom="@dimen/spacing_profile_top"
-        android:text="@string/magma"
-        android:textColor="@color/colorPrimary"
-        android:gravity="center"
+        android:src="@drawable/magma_logo"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

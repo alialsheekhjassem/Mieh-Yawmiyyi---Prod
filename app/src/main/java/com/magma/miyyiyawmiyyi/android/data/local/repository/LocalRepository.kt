@@ -26,6 +26,14 @@ class LocalRepository
         return preferences.getString(Const.PREF_API_TOKEN, null)
     }
 
+    fun setRefreshToken(refreshToken: String) {
+        preferences.edit().putString(Const.PREF_REFRESH_TOKEN, refreshToken).apply()
+    }
+
+    fun getRefreshToken(): String? {
+        return preferences.getString(Const.PREF_REFRESH_TOKEN, null)
+    }
+
     fun setLang(lang: String) {
         preferences.edit().putString(Const.PREF_LANG, lang).apply()
     }

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.magma.miyyiyawmiyyi.android.R
@@ -20,6 +21,7 @@ import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.DateUtils
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
+import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
 class LiveStreamFragment : ProgressBarFragments() {
@@ -45,42 +47,28 @@ class LiveStreamFragment : ProgressBarFragments() {
         _binding = FragmentLiveStreamBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
+        setUp()
         setUpObservers()
 
         return binding.root
     }
 
-    private fun setupData(items: ArrayList<Round>) {
-        if (items.isNotEmpty()) {
-            val activeRounds = items.filter { round -> round.status.equals("active") }
-
-            if (activeRounds.isNotEmpty()) {
-                val activeRound = activeRounds.first()
-                activeRound.type?.let {
-                    setStreamView(it)
-                    if (it == Const.TYPE_ROUND_START_DRAW) {
-                        val date = activeRound.drawResultAt
-                        viewModel.onStartCountDown(DateUtils.formatDateTimeToLong(date))
-                    } else if (it == Const.TYPE_ROUND_TICKETS_DRAW) {
-                        activeRound.fixedTicketsDraw?.maxTickets?.let { maxTickets ->
-                            val percentage = 2 * 100 / maxTickets
-                            binding.txtPercentage.text = percentage.toString()
-                            binding.imgProgress.progress = percentage
-                        }
-                    }
-                }
-            }
-
-        }
-    }
-
-    private fun setStreamView(type: String) {
-        if (type == Const.TYPE_ROUND_START_DRAW) {
-            binding.groupTime.visibility = View.VISIBLE
-            binding.cardTickets.visibility = View.GONE
-        } else if (type == Const.TYPE_ROUND_TICKETS_DRAW) {
-            binding.groupTime.visibility = View.GONE
-            binding.cardTickets.visibility = View.VISIBLE
+    private fun setUp() {
+        val info = ContactManager.getCurrentInfo()
+        info?.let { inf ->
+            if (inf.activeGrandPrize != null) {
+                val date = inf.activeGrandPrize.drawResultAt
+                viewModel.onStartGoldenCountDown(DateUtils.formatDateTimeToLong(date))
+            } /*else {
+                binding.btnWatchNowGolden.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.light_blue_2)
+            }*/
+            /*inf.activeGrandPrize?.let { grandPrize ->
+                val date = grandPrize.drawResultAt
+                viewModel.onStartGoldenCountDown(DateUtils.formatDateTimeToLong(date))
+            } ?: {
+                binding.btnWatchNowGolden.visibility = View.INVISIBLE
+            }*/
         }
     }
 
@@ -92,25 +80,51 @@ class LiveStreamFragment : ProgressBarFragments() {
                     override fun onEventUnhandledContent(t: LiveStreamActions) {
                         when (t) {
                             LiveStreamActions.TASKS_CLICKED -> {
-                                findNavController().navigate(R.id.navigation_tasks)
+                                Log.d(TAG, "TRT onEventUnhandledContent: TASKS_CLICKED")
+                                findNavController().navigate(
+                                    LiveStreamFragmentDirections.actionLiveStreamToTasks()
+                                )
                             }
                         }
                     }
                 })
         )
 
+        //observe 100$ round
         viewModel.responseCountDown.observe(
-            viewLifecycleOwner, {
-                if (it <= 0) {
-                    setViewsTime(Const.INIT_COUNT_DOWN)
-                } else {
-                    DateUtils.formatLongToCountDown(it)?.let { it1 -> setViewsTime(it1) }
-                }
+            viewLifecycleOwner
+        ) {
+            if (it <= 0) {
+                setViewsTime(Const.INIT_COUNT_DOWN)
+                binding.btnWatchNow.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.light_blue_2)
+                binding.btnWatchNow.isEnabled = true
+            } else {
+                DateUtils.formatLongToCountDown(it)?.let { it1 -> setViewsTime(it1) }
+                binding.btnWatchNow.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.grey_13)
+                binding.btnWatchNow.isEnabled = false
             }
-        )
+        }
+        //observe Golden Lira round
+        viewModel.responseGoldenCountDown.observe(
+            viewLifecycleOwner
+        ) {
+            if (it <= 0) {
+                setGoldenViewsTime(Const.INIT_COUNT_DOWN)
+                binding.btnWatchNowGolden.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.light_blue_2)
+                binding.btnWatchNow.isEnabled = true
+            } else {
+                DateUtils.formatLongToCountDown(it)?.let { it1 -> setGoldenViewsTime(it1) }
+                binding.btnWatchNowGolden.backgroundTintList =
+                    ContextCompat.getColorStateList(requireContext(), R.color.grey_13)
+                binding.btnWatchNow.isEnabled = false
+            }
+        }
         // listen to api result
         viewModel.response.observe(
-            this,
+            viewLifecycleOwner,
             EventObserver
                 (object :
                 EventObserver.EventUnhandledContent<Resource<RoundsResponse>> {
@@ -150,6 +164,40 @@ class LiveStreamFragment : ProgressBarFragments() {
         )
     }
 
+    private fun setupData(items: ArrayList<Round>) {
+        if (items.isNotEmpty()) {
+            val activeRounds = items.filter { round -> round.status.equals("active") }
+
+            if (activeRounds.isNotEmpty()) {
+                val activeRound = activeRounds.first()
+                activeRound.type?.let {
+                    setStreamView(it)
+                    if (it == Const.TYPE_ROUND_START_DRAW) {
+                        val date = activeRound.drawResultAt
+                        viewModel.onStartCountDown(DateUtils.formatDateTimeToLong(date))
+                    } else if (it == Const.TYPE_ROUND_TICKETS_DRAW) {
+                        activeRound.fixedTicketsDraw?.maxTickets?.let { maxTickets ->
+                            val percentage = 2 * 100 / maxTickets
+                            binding.txtPercentage.text = percentage.toString()
+                            binding.imgProgress.progress = percentage
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+    private fun setStreamView(type: String) {
+        if (type == Const.TYPE_ROUND_START_DRAW) {
+            binding.groupTime.visibility = View.VISIBLE
+            binding.cardTickets.visibility = View.GONE
+        } else if (type == Const.TYPE_ROUND_TICKETS_DRAW) {
+            binding.groupTime.visibility = View.GONE
+            binding.cardTickets.visibility = View.VISIBLE
+        }
+    }
+
     private fun setViewsTime(time: String) {
         val timeArray = time.split(":")
         if (timeArray.size == 4) {
@@ -172,6 +220,31 @@ class LiveStreamFragment : ProgressBarFragments() {
             binding.txtSeconds11.text = timeArray[3][0].toString()
             if (timeArray[3].length == 1) binding.txtSeconds12.text = "0"
             else binding.txtSeconds12.text = timeArray[3][1].toString()
+        }
+    }
+
+    private fun setGoldenViewsTime(time: String) {
+        val timeArray = time.split(":")
+        if (timeArray.size == 4) {
+            //Day
+            binding.txtDays1.text = timeArray[0][0].toString()
+            if (timeArray[0].length == 1) binding.txtDays2.text = "0"
+            else binding.txtDays2.text = timeArray[0][1].toString()
+
+            //Hour
+            binding.txtHours1.text = timeArray[1][0].toString()
+            if (timeArray[1].length == 1) binding.txtHours2.text = "0"
+            else binding.txtHours2.text = timeArray[1][1].toString()
+
+            //Minute
+            binding.txtMinutes1.text = timeArray[2][0].toString()
+            if (timeArray[2].length == 1) binding.txtMinutes2.text = "0"
+            else binding.txtMinutes2.text = timeArray[2][1].toString()
+
+            //Second
+            binding.txtSeconds1.text = timeArray[3][0].toString()
+            if (timeArray[3].length == 1) binding.txtSeconds2.text = "0"
+            else binding.txtSeconds2.text = timeArray[3][1].toString()
         }
     }
 

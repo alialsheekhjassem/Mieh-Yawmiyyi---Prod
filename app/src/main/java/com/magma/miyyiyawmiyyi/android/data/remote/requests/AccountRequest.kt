@@ -22,4 +22,7 @@ class AccountRequest {
     @SerializedName("locale")
     var locale:String? = ""
 
+    @SerializedName("firebaseFCMToken")
+    var firebaseFCMToken:String? = null
+
 }

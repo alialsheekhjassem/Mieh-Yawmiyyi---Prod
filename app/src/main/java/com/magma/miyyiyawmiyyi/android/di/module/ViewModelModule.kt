@@ -12,6 +12,7 @@ import com.magma.miyyiyawmiyyi.android.presentation.details.cart.CartViewModel
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.HomeViewModel
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.invitations.InvitationsViewModel
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.live_stream.LiveStreamViewModel
+import com.magma.miyyiyawmiyyi.android.presentation.home.ui.notifications.NotificationsViewModel
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.orders.OrdersViewModel
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store.OurStoreViewModel
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.profile.ProfileViewModel
@@ -95,7 +96,7 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(TicketsViewModel::class)
-    abstract fun bindNotificationsViewModel(viewModel: TicketsViewModel): ViewModel
+    abstract fun bindTicketsViewModel(viewModel: TicketsViewModel): ViewModel
 
     @Binds
     @IntoMap
@@ -126,6 +127,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(OrdersViewModel::class)
     abstract fun bindOrdersViewModel(viewModel: OrdersViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(NotificationsViewModel::class)
+    abstract fun bindNotificationsViewModel(viewModel: NotificationsViewModel): ViewModel
     
 
 }

@@ -46,6 +46,10 @@ class CheckCodeViewModel @Inject constructor(
         dataRepository.setApiToken(token)
     }
 
+    fun saveRefreshToken(token: String) {
+        dataRepository.setRefreshToken(token)
+    }
+
     fun saveInvitationLink(link: String) {
         dataRepository.setInvitationLink(link)
     }

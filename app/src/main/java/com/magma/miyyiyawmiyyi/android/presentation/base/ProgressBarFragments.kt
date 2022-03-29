@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -20,14 +21,14 @@ import www.sanju.motiontoast.MotionToastStyle
  * */
 open class ProgressBarFragments : Fragment() {
 
-    private lateinit var alertDialog: AlertDialog
+    private var alertDialog: AlertDialog? = null
 
     fun showLoadingDialog() {
         alertDialog = CommonUtils.showLoadingDialog(requireActivity())
     }
 
     fun hideLoadingDialog() {
-        alertDialog.cancel()
+        alertDialog?.cancel()
     }
 
     fun goToHomeActivity() {
@@ -71,6 +72,21 @@ open class ProgressBarFragments : Fragment() {
         clipboard.setPrimaryClip(clip)
         Toast.makeText(requireActivity(), getString(R.string.copied), Toast.LENGTH_SHORT)
             .show()
+    }
+
+    fun openFacebookUrl(url: String) {
+        val intent = try {
+            requireActivity().packageManager.getPackageInfo("com.facebook.katana", 0)
+            Intent(Intent.ACTION_VIEW, Uri.parse("fb://facewebmodal/f?href=$url"))
+        } catch (e: Exception) {
+            Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/"))
+        }
+        startActivity(intent)
+    }
+
+    fun openWebUrl(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 
     open fun Fragment.hideKeyboard() {

@@ -1,6 +1,5 @@
 package com.magma.miyyiyawmiyyi.android.data.remote.services
 
-import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ResponseWrapper
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.*
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.*
@@ -30,6 +29,9 @@ interface IFoodService {
     suspend fun doServerLogin(
         @Body loginRequest: LoginRequest?
     ): Response<ResponseWrapper<LoginResponse>>
+
+    @POST(Urls.END_POINT_LOGOUT)
+    suspend fun doServerLogout(): Response<ResponseWrapper<Any?>>
 
     @PATCH(Urls.END_POINT_UPDATE_MY_ACCOUNT)
     suspend fun doServerUpdateMyAccount(
@@ -69,6 +71,12 @@ interface IFoodService {
         @Query("offset") offset: Int?
     ): Response<ResponseWrapper<GiftStorePurchasesResponse>>
 
+    @GET(Urls.END_POINT_INBOX)
+    suspend fun getNotifications(
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?
+    ): Response<ResponseWrapper<NotificationsResponse>>
+
     @GET(Urls.END_POINT_ROUNDS)
     suspend fun getRounds(
         @Query("limit") limit: Int?,
@@ -93,7 +101,12 @@ interface IFoodService {
 
     @POST(Urls.END_POINT_CREATE_PURCHASE)
     suspend fun doServerCreatePurchase(
-        @Query("gift") gift: String?,
+        @Path("gift") gift: String?,
     ): Response<ResponseWrapper<CreatePurchaseResponse>>
+
+    @PATCH(Urls.END_POINT_MARK_AS_DONE)
+    suspend fun doServerMarkAsDoneTasks(
+        @Body request: MarkAsDoneTasksRequest,
+    ): Response<ResponseWrapper<Any?>>
 
 }

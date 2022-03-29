@@ -25,12 +25,13 @@ class LiveStreamViewModel @Inject constructor(
     internal var response = MutableLiveData<Event<Resource<RoundsResponse>>>()
     val actions = MutableLiveData<Event<LiveStreamActions>>()
     internal var responseCountDown = MutableLiveData<Long>()
+    internal var responseGoldenCountDown = MutableLiveData<Long>()
 
-    fun onTasks(){
+    fun onTasks() {
         actions.value = Event(LiveStreamActions.TASKS_CLICKED)
     }
 
-    fun onStartCountDown(longDate: Long){
+    fun onStartCountDown(longDate: Long) {
         if (longDate != 0L) {
             Executors.newSingleThreadScheduledExecutor()
                 .scheduleAtFixedRate({
@@ -39,6 +40,21 @@ class LiveStreamViewModel @Inject constructor(
                     if (elapsedTime <= 0) {
                         responseCountDown.postValue(0L)
                     } else responseCountDown.postValue(
+                        elapsedTime
+                    )
+                }, 0, 1, TimeUnit.SECONDS)
+        }
+    }
+
+    fun onStartGoldenCountDown(longDate: Long) {
+        if (longDate != 0L) {
+            Executors.newSingleThreadScheduledExecutor()
+                .scheduleAtFixedRate({
+                    val elapsedTime: Long =
+                        longDate - System.currentTimeMillis()
+                    if (elapsedTime <= 0) {
+                        responseGoldenCountDown.postValue(0L)
+                    } else responseGoldenCountDown.postValue(
                         elapsedTime
                     )
                 }, 0, 1, TimeUnit.SECONDS)
