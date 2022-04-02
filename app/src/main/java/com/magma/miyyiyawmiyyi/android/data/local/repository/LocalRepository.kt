@@ -14,6 +14,7 @@ class LocalRepository
     private val purchaseCardDao: PurchaseCardDao,
     private val ticketDao: TicketDao,
     private val roundDao: RoundDao,
+    private val countryDao: CountryDao,
     private val preferences: SharedPreferences
 ) {
 
@@ -234,6 +235,39 @@ class LocalRepository
 
     fun deleteAllRounds() {
         roundDao.deleteAll()
+    }
+
+    //Country
+    fun loadAllCountries(): List<Country> {
+        return countryDao.loadAll()
+    }
+
+    fun loadCountry(id: String): Country {
+        return countryDao.load(id)
+    }
+
+    fun insertCountry(item: Country) {
+        countryDao.insert(item)
+    }
+
+    fun insertCountryList(items: List<Country>) {
+        countryDao.insertAll(items)
+    }
+
+    fun updateCountry(item: Country) {
+        countryDao.update(item)
+    }
+
+    fun updateCountries(items: List<Country>) {
+        countryDao.updateAll(items)
+    }
+
+    fun deleteCountry(item: Country) {
+        countryDao.delete(item)
+    }
+
+    fun deleteAllCountries() {
+        countryDao.deleteAll()
     }
 
 }

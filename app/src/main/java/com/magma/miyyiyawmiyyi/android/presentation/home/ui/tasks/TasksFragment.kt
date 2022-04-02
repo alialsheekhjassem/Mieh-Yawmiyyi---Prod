@@ -6,22 +6,26 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.magma.miyyiyawmiyyi.android.MAGMA
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.requests.MarkAsDoneTasksRequest
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.TasksResponse
-import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentTasksBinding
 import com.magma.miyyiyawmiyyi.android.model.TaskObj
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
-import com.magma.miyyiyawmiyyi.android.presentation.home.HomeActivity
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemListener
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
 class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
@@ -33,6 +37,17 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
     @Inject
     lateinit var tasksAdapter: TasksAdapter
+
+    private lateinit var quizzesTasks: List<TaskObj>
+    private lateinit var adTasks: List<TaskObj>
+
+    //waiting time settings
+    var startTime: Long = 0
+    var fraction: Long = 0
+
+    //time in mel
+    var maxWaitingTime = 8000
+    var minWaitingTime = 3000
 
     private val viewModel: TasksViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[TasksViewModel::class.java]
@@ -79,6 +94,11 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                     if (t.isNotEmpty()) {
                         binding.progress.visibility = View.GONE
                         binding.txtEmpty.visibility = View.GONE
+
+                        //Quizzes Tasks
+                        quizzesTasks = t.filter { taskObj -> taskObj.type == Const.TYPE_QUIZ }
+                        adTasks = t.filter { taskObj -> taskObj.type == Const.TYPE_AD }
+
                     } else {
                         binding.txtEmpty.visibility = View.VISIBLE
                     }
@@ -105,20 +125,64 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             Log.d(TAG, "response: $response")
 
                             viewModel.deleteAndSaveTasks(response)
-                            //setupData(response.items)
+
+                            if (response.items.isEmpty())
+                                viewModel.generateTasks()
                         }
                         is Resource.DataError -> {
                             binding.progress.visibility = View.GONE
                             // usually this happening when there is server error
                             val response = t.response as ErrorManager
                             Log.d(TAG, "response: DataError $response")
+                            binding.recyclerTasks.visibility = View.GONE
                             showErrorToast(response.failureMessage)
                         }
                         is Resource.Exception -> {
                             binding.progress.visibility = View.GONE
+                            binding.recyclerTasks.visibility = View.GONE
                             // usually this happening when there is no internet
                             val response = t.response
                             Log.d(TAG, "response: $response")
+                            showErrorToast(response.toString())
+                        }
+                    }
+                }
+            })
+        )
+        // listen to api result
+        viewModel.responseGenerate.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<Any?>> {
+                override fun onEventUnhandledContent(t: Resource<Any?>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            // show progress bar and remove no data layout while loading
+                            binding.progress.visibility = View.VISIBLE
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            binding.progress.visibility = View.GONE
+                            val response = t.response
+                            Log.d(TAG, "responseGenerate: $response")
+
+                            viewModel.getTasks(limit = 20, offset = 0)
+                        }
+                        is Resource.DataError -> {
+                            binding.progress.visibility = View.GONE
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "responseGenerate: DataError $response")
+                            binding.recyclerTasks.visibility = View.GONE
+                            showErrorToast(response.failureMessage)
+                        }
+                        is Resource.Exception -> {
+                            binding.progress.visibility = View.GONE
+                            binding.recyclerTasks.visibility = View.GONE
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "responseGenerate: $response")
                             showErrorToast(response.toString())
                         }
                     }
@@ -129,14 +193,17 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
     private fun setup() {
 
-        viewModel.loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
+        if (ContactManager.getCurrentInfo()?.activeRound != null)
+            viewModel.loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
 
         tasksAdapter.setListener(this)
         tasksAdapter.submitList(arrayListOf())
         binding.recyclerTasks.adapter = tasksAdapter
 
         binding.include2.btnWatchNow.setOnClickListener {
-            viewModel.onQuizzesClicked()
+            if (quizzesTasks.isNotEmpty())
+                viewModel.onQuizzesClicked()
+            else showToast(getString(R.string.no_items_))
         }
 
         val level = ContactManager.getCurrentInfo()?.activeRound?.let {
@@ -160,17 +227,61 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         binding.txtLevel.text = level
 
         binding.include1.btnWatchNow.setOnClickListener {
-            val activity = requireActivity() as HomeActivity
-            activity.startGame()
+            //val activity = requireActivity() as HomeActivity
+            //activity.startGame()
+
+            if (adTasks.isNotEmpty()) {
+                showAd()
+            } else {
+                showErrorToast(getString(R.string.reach_max_tickets))
+            }
         }
     }
 
-    private fun setupData(tasksList: ArrayList<TaskObj>) {
-        val list = tasksList.filter { taskObj ->
-            taskObj.smTask != null &&
-                    taskObj.type.equals(Const.TYPE_SOCIAL_MEDIA)
+    private fun showAd() {
+        if (MAGMA.getInstance().rewardedAd == null && !MAGMA.getInstance().isLoading) {
+            Toast.makeText(requireContext(), "just a second", Toast.LENGTH_SHORT).show()
+            MAGMA.getInstance()
+            return
         }
-        tasksAdapter.submitList(list)
+
+        MAGMA.getInstance().rewardedAd?.fullScreenContentCallback =
+            object : FullScreenContentCallback() {
+                override fun onAdShowedFullScreenContent() {
+                    // Called when ad is shown.
+                }
+
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    // Don't forget to set the ad reference to null so you
+                    // don't show the ad a second time.
+                    MAGMA.getInstance().rewardedAd = null
+                    showErrorToast(adError.message)
+                }
+
+                override fun onAdDismissedFullScreenContent() {
+                    // Called when ad is dismissed.
+                    // Don't forget to set the ad reference to null so you
+                    // don't show the ad a second time.
+                    MAGMA.getInstance().rewardedAd = null
+                    startTime = System.currentTimeMillis()
+                    //waiting time
+                    fraction =
+                        (Math.random() * (maxWaitingTime - minWaitingTime)).toLong() + minWaitingTime
+                    // Preload the next rewarded ad.
+                    MAGMA.getInstance().loadRewardedAd()
+                }
+            }
+
+        MAGMA.getInstance().rewardedAd?.show(
+            requireActivity()
+        ) {
+            //Mark As Done
+            if (adTasks.isNotEmpty()) {
+                val request = MarkAsDoneTasksRequest()
+                request.tasks.add(adTasks.first()._id)
+                viewModel.doServerMarkAsDone(request)
+            }
+        }
     }
 
     override fun onAttach(context: Context) {

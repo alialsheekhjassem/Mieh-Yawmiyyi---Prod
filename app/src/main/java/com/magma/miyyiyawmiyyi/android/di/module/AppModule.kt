@@ -28,6 +28,10 @@ class AppModule {
 
     @Singleton
     @Provides
+    fun provideCountryDao(db: AppDatabase) = db.countryDao()
+
+    @Singleton
+    @Provides
     fun provideRoundDao(db: AppDatabase) = db.roundDao()
 
     @Singleton

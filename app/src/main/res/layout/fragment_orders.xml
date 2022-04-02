@@ -67,6 +67,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginVertical="@dimen/spacing_large"
                 android:orientation="vertical"
+                tools:listitem="@layout/item_purchase_card"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/guideline2"

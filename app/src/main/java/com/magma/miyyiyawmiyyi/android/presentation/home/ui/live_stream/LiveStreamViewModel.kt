@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundStatisticsResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
 import kotlinx.coroutines.CoroutineScope
 import com.magma.miyyiyawmiyyi.android.data.repository.DataRepository
@@ -23,12 +24,17 @@ class LiveStreamViewModel @Inject constructor(
      * Live data of requests list response.
      * */
     internal var response = MutableLiveData<Event<Resource<RoundsResponse>>>()
+    internal var responseStatistics = MutableLiveData<Event<Resource<RoundStatisticsResponse>>>()
     val actions = MutableLiveData<Event<LiveStreamActions>>()
     internal var responseCountDown = MutableLiveData<Long>()
     internal var responseGoldenCountDown = MutableLiveData<Long>()
 
     fun onTasks() {
         actions.value = Event(LiveStreamActions.TASKS_CLICKED)
+    }
+
+    fun onWatchLastDraw() {
+        actions.value = Event(LiveStreamActions.SHOW_LAST_DRAW_CLICKED)
     }
 
     fun onStartCountDown(longDate: Long) {
@@ -69,6 +75,17 @@ class LiveStreamViewModel @Inject constructor(
                 dataRepository.getRounds(limit, offset, status, id)
             Log.d("TAG", "getRounds: $result")
             response.value = Event(result)
+        }
+    }
+
+    fun getRoundStatistics(isActiveRound: Boolean) {
+        launch {
+            //val token = dataRepository.getApiToken()
+            responseStatistics.value = Event(Resource.Loading())
+            val result: Resource<RoundStatisticsResponse> =
+                dataRepository.getRoundStatistics(isActiveRound)
+            Log.d("TAG", "getRoundStatistics: $result")
+            responseStatistics.value = Event(result)
         }
     }
 }

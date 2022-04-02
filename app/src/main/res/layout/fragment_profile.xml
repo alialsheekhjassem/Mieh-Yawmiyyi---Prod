@@ -161,19 +161,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/spn_yob"/>
 
-            <TextView
+            <Spinner
                 android:id="@+id/spn_location"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/product_sans_bold"
-                android:paddingHorizontal="@dimen/spacing_large"
-                android:paddingVertical="@dimen/spacing_default"
-                android:gravity="center"
-                android:textColor="@color/color_hint"
-                android:textSize="@dimen/size_title"
-                android:text="Lebanon"
+                android:entries="@array/yob"
                 android:background="@drawable/bg_rounded"
                 android:layout_marginTop="@dimen/spacing_default"
+                tools:listitem="@layout/item_yob_spinner_profile"
                 android:layout_marginHorizontal="@dimen/spacing_default"
                 app:layout_constraintTop_toBottomOf="@id/txt_location" />
 

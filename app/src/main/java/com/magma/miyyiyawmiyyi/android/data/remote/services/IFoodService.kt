@@ -59,6 +59,9 @@ interface IFoodService {
         @Query("offset") offset: Int?
     ): Response<ResponseWrapper<TasksResponse>>
 
+    @POST(Urls.END_POINT_TASKS)
+    suspend fun generateTasks(): Response<ResponseWrapper<Any?>>
+
     @GET(Urls.END_POINT_GIFT_STORE)
     suspend fun getGifts(
         @Query("limit") limit: Int?,
@@ -108,5 +111,16 @@ interface IFoodService {
     suspend fun doServerMarkAsDoneTasks(
         @Body request: MarkAsDoneTasksRequest,
     ): Response<ResponseWrapper<Any?>>
+
+    @GET(Urls.END_POINT_ROUND_STATISTICS)
+    suspend fun getRoundStatistics(
+        @Query("activeRound") isActiveRound: Boolean
+    ): Response<ResponseWrapper<RoundStatisticsResponse>>
+
+    @GET(Urls.END_POINT_COUNTRIES)
+    suspend fun getAllCountries(
+        @Query("limit") limit: Int?,
+        @Query("offset") offset: Int?,
+    ): Response<ResponseWrapper<CountriesResponse>>
 
 }

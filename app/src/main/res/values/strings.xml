@@ -14,6 +14,8 @@
         This is an ad unit ID for an interstitial test ad. Replace with your own interstitial ad unit id.
         For more information, see https://support.google.com/admob/answer/3052638
     <!- -->
+    <string name="admob_rewarded_ad_id" translatable="false">ca-app-pub-2559564046715323/7743978013</string>
+    <string name="admob_rewarded_ad_id10" translatable="false">ca-app-pub-2559564046715323/2388898922</string>
     <string name="admob_initial" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
     <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
     <string name="admob_native_ad_id" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
@@ -348,6 +350,20 @@
     <string name="here_you_find_your_ordered_gift_cards">Here you find your ordered gift cards</string>
     <string name="get_code">Get Code</string>
     <string name="package_">Package</string>
+    <string name="round_activate">Round Activate</string>
+    <string name="round_close">Round Close</string>
+    <string name="round_finish">Round Finish</string>
+    <string name="round_cancel">Round Cancel</string>
+    <string name="round_update">Round Update</string>
+    <string name="points_reward">Points Reward</string>
+    <string name="purchase_code_ready">Purchase code ready</string>
+    <string name="purchase_rejected">Purchase rejected</string>
+    <string name="purchase_accepted">Purchase accepted</string>
+    <string name="finish_grand_prize">Finish grand prize</string>
+    <string name="update_grand_prize">Update grand prize</string>
+    <string name="win_ticket">Win ticket</string>
+    <string name="activate_grand_prize">Activate grand prize</string>
+    <string name="reach_max_tickets">You have exceeded the maximum number of tickets</string>
 
     <string-array name="languages">
         <item>English</item>

@@ -1,5 +1,6 @@
 package com.magma.miyyiyawmiyyi.android.presentation.home.ui.live_stream
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundStatisticsResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentLiveStreamBinding
@@ -31,6 +33,8 @@ class LiveStreamFragment : ProgressBarFragments() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    private var lastDrawUrl: String? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -70,6 +74,10 @@ class LiveStreamFragment : ProgressBarFragments() {
                 binding.btnWatchNowGolden.visibility = View.INVISIBLE
             }*/
         }
+
+        binding.swipeRefresh.setOnRefreshListener {
+            viewModel.getRoundStatistics(true)
+        }
     }
 
     private fun setUpObservers() {
@@ -84,6 +92,9 @@ class LiveStreamFragment : ProgressBarFragments() {
                                 findNavController().navigate(
                                     LiveStreamFragmentDirections.actionLiveStreamToTasks()
                                 )
+                            }
+                            LiveStreamActions.SHOW_LAST_DRAW_CLICKED -> {
+                                lastDrawUrl?.let { openWebUrl(it) }
                             }
                         }
                     }
@@ -162,11 +173,53 @@ class LiveStreamFragment : ProgressBarFragments() {
                 }
             })
         )
+        // listen to api result
+        viewModel.responseStatistics.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<RoundStatisticsResponse>> {
+                override fun onEventUnhandledContent(t: Resource<RoundStatisticsResponse>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            // show progress bar and remove no data layout while loading
+                            binding.swipeRefresh.isRefreshing = true
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            binding.swipeRefresh.isRefreshing = false
+                            val response = t.response as RoundStatisticsResponse
+                            Log.d(TAG, "response: $response")
+                            setTicketsProgress(response)
+                        }
+                        is Resource.DataError -> {
+                            // usually this happening when there is server error
+                            binding.swipeRefresh.isRefreshing = false
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "response: DataError $response")
+                            showErrorToast(response.failureMessage)
+                        }
+                        is Resource.Exception -> {
+                            binding.swipeRefresh.isRefreshing = false
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                            showErrorToast(response.toString())
+                        }
+                    }
+                }
+            })
+        )
     }
 
     private fun setupData(items: ArrayList<Round>) {
         if (items.isNotEmpty()) {
-            val activeRounds = items.filter { round -> round.status.equals("active") }
+            val activeRounds = items.filter { round -> round.status.equals(Const.STATUS_ACTIVE) }
+            val completedRounds =
+                items.filter { round -> round.status.equals(Const.STATUS_COMPLETED) }
+            if (completedRounds.isNotEmpty()) {
+                lastDrawUrl = completedRounds.first().url
+            }
 
             if (activeRounds.isNotEmpty()) {
                 val activeRound = activeRounds.first()
@@ -175,17 +228,27 @@ class LiveStreamFragment : ProgressBarFragments() {
                     if (it == Const.TYPE_ROUND_START_DRAW) {
                         val date = activeRound.drawResultAt
                         viewModel.onStartCountDown(DateUtils.formatDateTimeToLong(date))
-                    } else if (it == Const.TYPE_ROUND_TICKETS_DRAW) {
+                    } /*else if (it == Const.TYPE_ROUND_TICKETS_DRAW) {
                         activeRound.fixedTicketsDraw?.maxTickets?.let { maxTickets ->
                             val percentage = 2 * 100 / maxTickets
                             binding.txtPercentage.text = percentage.toString()
                             binding.imgProgress.progress = percentage
                         }
-                    }
+                    }*/
                 }
             }
 
         }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setTicketsProgress(response: RoundStatisticsResponse) {
+        val maxTickets = response.maxTickets ?: 0
+        val availableTickets = response.availableTickets ?: 0
+        val percentage = availableTickets * 100 / maxTickets
+        binding.txtPercentage.text = availableTickets.toString()
+        binding.txtPercent.text = "/$maxTickets"
+        binding.imgProgress.progress = percentage
     }
 
     private fun setStreamView(type: String) {
@@ -253,6 +316,7 @@ class LiveStreamFragment : ProgressBarFragments() {
         AndroidSupportInjection.inject(this)
 
         viewModel.getRounds(limit = 20, offset = 0, Const.STATUS_ACTIVE, null)
+        viewModel.getRoundStatistics(true)
     }
 
     override fun onDestroyView() {

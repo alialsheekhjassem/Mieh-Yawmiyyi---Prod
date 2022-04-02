@@ -243,7 +243,12 @@ class RemoteRepository
         }
     }
 
-    override suspend fun getRounds(limit: Int, offset: Int, status: String?, id: String?): Resource<RoundsResponse> {
+    override suspend fun getRounds(
+        limit: Int,
+        offset: Int,
+        status: String?,
+        id: String?
+    ): Resource<RoundsResponse> {
         val authService = serviceGenerator.createService(IFoodService::class.java)
         try {
             val response = authService.getRounds(limit, offset, status, id)
@@ -526,6 +531,103 @@ class RemoteRepository
             return Resource.Exception(errorMessage = e.message as String)
         }
     }
+
+    override suspend fun getRoundStatistics(isActiveRound: Boolean): Resource<RoundStatisticsResponse> {
+        val authService = serviceGenerator.createService(IFoodService::class.java)
+        try {
+            val response = authService.getRoundStatistics(isActiveRound)
+
+            return if (response.isSuccessful) {
+                //Do something with response e.g show to the UI.
+                val tasksResponse = response.body()?.successResult as RoundStatisticsResponse
+                Log.d(TAG, "getRoundStatistics: isSuccessful " + response.code())
+                Log.d(TAG, "getRoundStatistics: isSuccessful $tasksResponse")
+                Resource.Success(tasksResponse)
+            } else {
+                Log.d(TAG, "getRoundStatistics: isSuccessful no " + response.code())
+                Log.d(TAG, "getRoundStatistics: isSuccessful no " + response.message())
+                val errorBody = gson.fromJson(
+                    response.errorBody()?.stringSuspending(),
+                    ErrorManager::class.java
+                )
+                Resource.DataError(errorBody)
+            }
+        } catch (e: HttpException) {
+            return Resource.Exception(e.message() as String)
+        } catch (e: Throwable) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: SocketTimeoutException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: IOException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        }
+    }
+
+    override suspend fun generateTasks(): Resource<Any?> {
+        val authService = serviceGenerator.createService(IFoodService::class.java)
+        try {
+            val response = authService.generateTasks()
+
+            return if (response.isSuccessful) {
+                //Do something with response e.g show to the UI.
+                val tasksResponse = response.body()?.successResult
+                Log.d(TAG, "generateTasks: isSuccessful " + response.code())
+                Log.d(TAG, "generateTasks: isSuccessful $tasksResponse")
+                Resource.Success(tasksResponse)
+            } else {
+                Log.d(TAG, "generateTasks: isSuccessful no " + response.code())
+                Log.d(TAG, "generateTasks: isSuccessful no " + response.message())
+                val errorBody = gson.fromJson(
+                    response.errorBody()?.stringSuspending(),
+                    ErrorManager::class.java
+                )
+                Resource.DataError(errorBody)
+            }
+        } catch (e: HttpException) {
+            return Resource.Exception(e.message() as String)
+        } catch (e: Throwable) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: SocketTimeoutException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: IOException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        }
+    }
+
+    override suspend fun getAllCountries(
+        limit: Int,
+        offset: Int
+    ): Resource<CountriesResponse> {
+        val authService = serviceGenerator.createService(IFoodService::class.java)
+        try {
+            val response = authService.getAllCountries(limit, offset)
+
+            return if (response.isSuccessful) {
+                //Do something with response e.g show to the UI.
+                val tasksResponse = response.body()?.successResult as CountriesResponse
+                Log.d(TAG, "getAllCountries: isSuccessful " + response.code())
+                Log.d(TAG, "getAllCountries: isSuccessful $tasksResponse")
+                Resource.Success(tasksResponse)
+            } else {
+                Log.d(TAG, "getAllCountries: isSuccessful no " + response.code())
+                Log.d(TAG, "getAllCountries: isSuccessful no " + response.message())
+                val errorBody = gson.fromJson(
+                    response.errorBody()?.stringSuspending(),
+                    ErrorManager::class.java
+                )
+                Resource.DataError(errorBody)
+            }
+        } catch (e: HttpException) {
+            return Resource.Exception(e.message() as String)
+        } catch (e: Throwable) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: SocketTimeoutException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: IOException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        }
+    }
+
 
     @Suppress("BlockingMethodInNonBlockingContext")
     suspend fun ResponseBody.stringSuspending() =

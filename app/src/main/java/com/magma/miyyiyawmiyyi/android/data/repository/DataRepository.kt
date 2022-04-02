@@ -91,6 +91,18 @@ constructor(
         return remoteRepository.doServerMarkAsDone(request)
     }
 
+    override suspend fun generateTasks(): Resource<Any?> {
+        return remoteRepository.generateTasks()
+    }
+
+    override suspend fun getRoundStatistics(isActiveRound: Boolean): Resource<RoundStatisticsResponse> {
+        return remoteRepository.getRoundStatistics(isActiveRound)
+    }
+
+    override suspend fun getAllCountries(limit: Int, offset: Int): Resource<CountriesResponse> {
+        return remoteRepository.getAllCountries(limit, offset)
+    }
+
     override fun loadAllTasks(): List<TaskObj> {
         return localRepository.loadAllTasks()
     }
@@ -253,6 +265,38 @@ constructor(
 
     override fun deleteAllRounds() {
         localRepository.deleteAllRounds()
+    }
+
+    override fun loadAllCountries(): List<Country> {
+        return localRepository.loadAllCountries()
+    }
+
+    override fun loadCountry(id: String): Country {
+        return localRepository.loadCountry(id)
+    }
+
+    override fun insertCountryList(items: List<Country>) {
+        localRepository.insertCountryList(items)
+    }
+
+    override fun insertCountry(item: Country) {
+        localRepository.insertCountry(item)
+    }
+
+    override fun updateCountry(item: Country) {
+        localRepository.updateCountry(item)
+    }
+
+    override fun updateCountries(items: List<Country>) {
+        localRepository.updateCountries(items)
+    }
+
+    override fun deleteCountry(item: Country) {
+        localRepository.deleteCountry(item)
+    }
+
+    override fun deleteAllCountries() {
+        localRepository.deleteAllCountries()
     }
 
 

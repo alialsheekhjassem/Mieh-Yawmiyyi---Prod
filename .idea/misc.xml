@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable-ar/drawer_bkg.xml" value="0.176" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable-rtl/drawer_bkg.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/app_bar_bkg.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/app_bar_bkg_1.xml" value="0.2203125" />
@@ -22,7 +23,7 @@
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/bg_rounded_spinner.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/bg_splash.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/bottom_nav_bkg.xml" value="0.2203125" />
-        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/drawer_bkg.xml" value="0.2203125" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/drawer_bkg.xml" value="0.14" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/ic_arrow_circle_right.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/ic_awesome_ticket.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/ic_done.xml" value="0.2203125" />
@@ -75,8 +76,8 @@
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_onboarding_3.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_onboarding_4.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_onboarding_pager.xml" value="0.2" />
-        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_orders.xml" value="0.25" />
-        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_our_store.xml" value="0.2" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_orders.xml" value="0.22" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_our_store.xml" value="0.18" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_profile.xml" value="0.22" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_quizzes.xml" value="0.22" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/fragment_register.xml" value="0.20416666666666666" />
@@ -103,7 +104,7 @@
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/item_image_slider.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/item_notification.xml" value="0.22" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/item_order.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/item_purchase_card.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/item_purchase_card.xml" value="0.2" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/item_restaurant.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/item_setting_spinner.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/item_task.xml" value="0.22" />

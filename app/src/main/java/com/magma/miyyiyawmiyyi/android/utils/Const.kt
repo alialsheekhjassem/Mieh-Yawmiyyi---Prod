@@ -15,6 +15,8 @@ class Const {
         const val TYPE_GOLDEN_LIRA = "golden_lira"
         const val DATE_FORMAT = "yyyy-MM-dd_HHmmss"
         const val INIT_COUNT_DOWN = "00:00:00:00"
+        const val HAS_ACTION_KEYWORD: String = "has_action"
+        const val NOTIFICATION_KEYWORD: String = "notification"
 
         const val TAG_FoodMenuFragment = "FoodMenuFragment"
         const val TAG_ForgetPasswordFragment = "ForgetPasswordFragment"
@@ -55,6 +57,7 @@ class Const {
         const val YOUTUBE_ID = "621b5e4c2fe9e30f26033cd3"
         const val TYPE_SOCIAL_MEDIA = "social_media"
         const val TYPE_QUIZ = "quiz"
+        const val TYPE_AD = "ad"
 
         //Facebook Ads
         var FB_NATIVE = "1276188569544209_1276229116206821"
@@ -73,6 +76,30 @@ class Const {
 
         //STATUS
         const val STATUS_ACTIVE = "active"
+        const val STATUS_PENDING = "pending"
+        const val STATUS_PROCESSING = "processing"
+        const val STATUS_REJECTED = "rejected"
+        const val STATUS_COMPLETED = "completed"
+
+        //Notification Type
+        const val TYPE_ROUND_ACTIVATE = "\"round_activate\""
+        const val TYPE_ROUND_CLOSE = "\"round_close\""
+        const val TYPE_ROUND_CANCEL = "\"round_cancel\""
+        const val TYPE_ROUND_FINISH = "\"round_finish\""
+        const val TYPE_ROUND_UPDATE = "\"update_round\""
+        const val TYPE_ROUND_START = "\"round_draw_start\""
+        const val TYPE_GRAND_PRIZE_ACTIVATE = "\"grand_prize_activate\""
+        const val TYPE_ROUND_TICKET = "\"round_ticket\""
+        const val TYPE_GRAND_PRIZE_UPDATE = "\"grand_prize_update\""
+        const val TYPE_GRAND_PRIZE_FINISH = "\"grand_prize_finish\""
+        const val TYPE_PROCESSING_PURCHASE = "\"processing_purchase\""
+        const val TYPE_PURCHASE_REJECTED = "\"rejected_purchase\""
+        const val TYPE_GIFT_CODE = "\"gift_code\""
+        const val TYPE_GOT_POINTS = "\"got_points\""
+
+        const val NOTIFICATION_TYPE_KEYWORD: String = "type"
+        const val NOTIFICATION_ROUND_KEYWORD: String = "round"
+
 
         const val TYPE_ROUND_START_DRAW = "fixed_start_draw"
         const val TYPE_ROUND_TICKETS_DRAW = "fixed_tickets_draw"

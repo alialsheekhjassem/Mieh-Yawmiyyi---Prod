@@ -13,9 +13,11 @@ import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.CountriesResponse
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentProfileBinding
 import com.magma.miyyiyawmiyyi.android.model.Account
+import com.magma.miyyiyawmiyyi.android.model.Country
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
 import com.magma.miyyiyawmiyyi.android.utils.DateUtils
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
@@ -34,6 +36,9 @@ class ProfileFragment : ProgressBarFragments() {
     private val accountRequest = AccountRequest()
 
     var listYear: Array<String> = arrayOf()
+
+    var countryList: Array<Country> = arrayOf()
+    private var selectedCountry: Country? = null
 
     private val viewModel: ProfileViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[ProfileViewModel::class.java]
@@ -78,6 +83,23 @@ class ProfileFragment : ProgressBarFragments() {
             ) {
                 val year = listYear.getOrNull(i)
                 accountRequest.birthdate = year
+            }
+
+            override fun onNothingSelected(adapterView: AdapterView<*>?) {
+                return
+            }
+        }
+
+        binding.spnLocation.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>?,
+                view: View?,
+                i: Int,
+                l: Long
+            ) {
+                val country = countryList.getOrNull(i)
+                selectedCountry = country
+                accountRequest.country = country?._id
             }
 
             override fun onNothingSelected(adapterView: AdapterView<*>?) {
@@ -159,11 +181,68 @@ class ProfileFragment : ProgressBarFragments() {
                 }
             })
         )
+
+        viewModel.countriesDb.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<List<Country>> {
+                override fun onEventUnhandledContent(t: List<Country>) {
+                    if (t.isNotEmpty()) {
+                        countryList = t.toTypedArray()
+                        val adapterCountry =
+                            ArrayAdapter(requireActivity(), R.layout.item_yob_spinner_profile, t)
+                        binding.spnLocation.adapter = adapterCountry
+
+                        val accountCountry = ContactManager.getCurrentAccount()?.account?.info?.country
+                        val country = t.first { cot -> cot._id == accountCountry?._id }
+                        val index = adapterCountry.getPosition(country)
+                        Log.d(TAG, "onEventUnhandledContent: $accountCountry = $index")
+                        binding.spnLocation.setSelection(index)
+                    } else {
+                        viewModel.getCountries(limit = 20, offset = 0)
+                    }
+                }
+            })
+        )
+        // listen to api result
+        viewModel.response.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<CountriesResponse>> {
+                override fun onEventUnhandledContent(t: Resource<CountriesResponse>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            val response = t.response as CountriesResponse
+                            Log.d(TAG, "response: $response")
+
+                            viewModel.deleteAndSaveCountries(response)
+                        }
+                        is Resource.DataError -> {
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "response: DataError $response")
+                        }
+                        is Resource.Exception -> {
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                        }
+                    }
+                }
+            })
+        )
     }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
+
+        viewModel.loadAllCountries()
     }
 
     companion object {

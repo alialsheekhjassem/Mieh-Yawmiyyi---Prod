@@ -336,9 +336,23 @@
     <string name="terms_text15_about">- تم استلام رسالة تحقق عند التسجيل</string>
     <string name="agree">أوافق</string>
     <string name="draw_number_1">رقم السحب: 1</string>
-    <string name="requested_gift_cards">Requested Gift Cards</string>
-    <string name="here_you_find_your_ordered_gift_cards">Here you find your ordered gift cards</string>
-    <string name="get_code">Get Code</string>
-    <string name="package_">Package</string>
+    <string name="requested_gift_cards">بطاقات الهدايا المطلوبة</string>
+    <string name="here_you_find_your_ordered_gift_cards">هنا تجد بطاقات الهدايا التي طلبتها</string>
+    <string name="get_code">الحصول على رمز</string>
+    <string name="package_">صفقة</string>
+    <string name="round_activate">تم تفعيل السحب</string>
+    <string name="round_close">تم إغلاق السحب</string>
+    <string name="round_finish">تم إنهاء السحب</string>
+    <string name="round_cancel">تم إلغاء السحب</string>
+    <string name="round_update">تعديل السحب</string>
+    <string name="points_reward">مكافأة النقاط</string>
+    <string name="purchase_code_ready">كود الشراء جاهز</string>
+    <string name="purchase_rejected">تم رفض الشراء</string>
+    <string name="purchase_accepted">تم قبول الشراء</string>
+    <string name="finish_grand_prize">تم إنهاء الجائزة الكبرى</string>
+    <string name="update_grand_prize">تم تعديل الجائزة الكبرى</string>
+    <string name="win_ticket">ربح تذكرة</string>
+    <string name="activate_grand_prize">تفعيل الجائزة الكبرى</string>
+    <string name="reach_max_tickets">لقد تخطيت الحد الأعلى من التذاكر</string>
 
 </resources>

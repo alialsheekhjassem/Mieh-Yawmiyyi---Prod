@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.requests.MarkAsDoneTasksRequest
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.TasksResponse
 import kotlinx.coroutines.CoroutineScope
 import com.magma.miyyiyawmiyyi.android.data.repository.DataRepository
@@ -25,11 +26,23 @@ class TasksViewModel @Inject constructor(
      * Live data of requests list response.
      * */
     internal var response = MutableLiveData<Event<Resource<TasksResponse>>>()
+    internal var responseGenerate = MutableLiveData<Event<Resource<Any?>>>()
     val tasksDb = MutableLiveData<Event<List<TaskObj>>>()
     val actions = MutableLiveData<Event<TasksActions>>()
 
     fun onQuizzesClicked() {
         actions.value = Event(TasksActions.QUIZZES_CLICKED)
+    }
+
+    fun generateTasks() {
+        launch {
+            //val token = dataRepository.getApiToken()
+            responseGenerate.value = Event(Resource.Loading())
+            val result: Resource<Any?> =
+                dataRepository.generateTasks()
+            Log.d("TAG", "generateTasks: $result")
+            responseGenerate.value = Event(result)
+        }
     }
 
     fun getTasks(limit: Int, offset: Int) {
@@ -87,6 +100,23 @@ class TasksViewModel @Inject constructor(
                 loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
                 Log.d("TAG", "saveTasks: $ids")
             }
+        }
+    }
+
+
+    /**
+     * Live data of requests list response.
+     * */
+    internal var responseMarkAsDone = MutableLiveData<Event<Resource<Any?>>>()
+
+    fun doServerMarkAsDone(request: MarkAsDoneTasksRequest) {
+        launch {
+            //val token = dataRepository.getApiToken()
+            responseMarkAsDone.value = Event(Resource.Loading())
+            val result: Resource<Any?> =
+                dataRepository.doServerMarkAsDone(request)
+            Log.d("TAG", "doServerMarkAsDone: $result")
+            responseMarkAsDone.value = Event(result)
         }
     }
 

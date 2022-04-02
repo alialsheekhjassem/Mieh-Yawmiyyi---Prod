@@ -16,6 +16,10 @@ internal interface IRestApiManager {
 
     suspend fun getTasks(limit: Int, offset: Int): Resource<TasksResponse>
 
+    suspend fun generateTasks(): Resource<Any?>
+
+    suspend fun getRoundStatistics(isActiveRound: Boolean): Resource<RoundStatisticsResponse>
+
     suspend fun getGifts(limit: Int, offset: Int): Resource<GiftStoreResponse>
 
     suspend fun getPurchases(limit: Int, offset: Int): Resource<GiftStorePurchasesResponse>
@@ -37,4 +41,6 @@ internal interface IRestApiManager {
     suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse>
 
     suspend fun doServerMarkAsDone(request: MarkAsDoneTasksRequest): Resource<Any?>
+
+    suspend fun getAllCountries(limit: Int, offset: Int): Resource<CountriesResponse>
 }

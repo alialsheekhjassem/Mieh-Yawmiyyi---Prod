@@ -54,8 +54,7 @@ class SplashActivity : AppCompatActivity() {
         else if (isShown && token != null) {
             viewModel.getInfo()
             //viewModel.getRounds(limit = 20, offset = 0, Const.STATUS_ACTIVE, null)
-        }
-        else
+        } else
             goToOnBoardingActivity()
 
     }
@@ -203,8 +202,8 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goToHomeActivity() {
-        val intent = Intent(this@SplashActivity, HomeActivity::class.java)
-        startActivity(intent)
+        val mIntent = Intent(this@SplashActivity, HomeActivity::class.java)
+        startActivity(mIntent)
         finish()
     }
 

@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.magma.miyyiyawmiyyi.android.MAGMA
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
@@ -16,7 +19,6 @@ import com.magma.miyyiyawmiyyi.android.data.remote.requests.MarkAsDoneTasksReque
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentQuizzesBinding
 import com.magma.miyyiyawmiyyi.android.model.TaskObj
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
-import com.magma.miyyiyawmiyyi.android.presentation.home.HomeActivity
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
@@ -33,6 +35,14 @@ class QuizzesFragment : ProgressBarFragments() {
     private var tasksQuizzes: ArrayList<TaskObj> = arrayListOf()
 
     private var currentQuestionIndex = 0
+
+    //waiting time settings
+    var startTime: Long = 0
+    var fraction: Long = 0
+
+    //time in mel
+    var maxWaitingTime = 8000
+    var minWaitingTime = 3000
 
     private val request = MarkAsDoneTasksRequest()
 
@@ -156,16 +166,56 @@ class QuizzesFragment : ProgressBarFragments() {
             val correctIndex = tasksQuizzes[currentQuestionIndex].quizTask?.correctIndex
             if (solvedIndex == correctIndex) {
                 Toast.makeText(requireActivity(), "True", Toast.LENGTH_SHORT).show()
-                val activity = requireActivity() as HomeActivity
-                activity.startGame()
-                request.tasks.add(tasksQuizzes[currentQuestionIndex]._id)
+                showAd()
             } else {
                 Toast.makeText(requireActivity(), "False", Toast.LENGTH_SHORT).show()
-                val activity = requireActivity() as HomeActivity
+                /*val activity = requireActivity() as HomeActivity
                 activity.startGame()
-                request.tasks.add(tasksQuizzes[currentQuestionIndex]._id)
+                request.tasks.add(tasksQuizzes[currentQuestionIndex]._id)*/
+                showAd()
+            }
+        }
+    }
+
+    private fun showAd() {
+        if (MAGMA.getInstance().rewardedAd == null && !MAGMA.getInstance().isLoading) {
+            Toast.makeText(requireContext(), "just a second", Toast.LENGTH_SHORT).show()
+            MAGMA.getInstance()
+            return
+        }
+
+        MAGMA.getInstance().rewardedAd?.fullScreenContentCallback =
+            object : FullScreenContentCallback() {
+                override fun onAdShowedFullScreenContent() {
+                    // Called when ad is shown.
+                }
+
+                override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                    // Don't forget to set the ad reference to null so you
+                    // don't show the ad a second time.
+                    MAGMA.getInstance().rewardedAd = null
+                    showErrorToast(adError.message)
+                }
+
+                override fun onAdDismissedFullScreenContent() {
+                    // Called when ad is dismissed.
+                    // Don't forget to set the ad reference to null so you
+                    // don't show the ad a second time.
+                    MAGMA.getInstance().rewardedAd = null
+                    startTime = System.currentTimeMillis()
+                    //waiting time
+                    fraction =
+                        (Math.random() * (maxWaitingTime - minWaitingTime)).toLong() + minWaitingTime
+                    // Preload the next rewarded ad.
+                    MAGMA.getInstance().loadRewardedAd()
+                }
             }
 
+        MAGMA.getInstance().rewardedAd?.show(
+            requireActivity()
+        ) {
+            //Mark As Done
+            request.tasks.add(tasksQuizzes[currentQuestionIndex]._id)
             //Next Question
             currentQuestionIndex++
 

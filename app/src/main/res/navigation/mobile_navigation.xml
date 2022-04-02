@@ -67,6 +67,21 @@
             app:destination="@id/navigation_tickets"
             app:popUpTo="@id/navigation_home"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_home_to_orders"
+            app:destination="@id/navigation_your_orders"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_home_to_gifts"
+            app:destination="@id/navigation_our_store"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_home_to_live_stream"
+            app:destination="@id/navigation_live_stream"
+            app:popUpTo="@id/navigation_home"
+            app:popUpToInclusive="true"/>
 
     </fragment>
 

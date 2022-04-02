@@ -8,6 +8,7 @@
     <color name="gray">#616265</color>
     <color name="gray_6">#C2C4C5</color>
 
+    <color name="green_light">#45FA51</color>
     <color name="green_100">#56EA2A</color>
     <color name="green_200">#3F9465</color>
     <color name="green_500">#1B8059</color>
@@ -23,6 +24,7 @@
     <color name="light_blue">#64B5F6</color>
     <color name="pink">#FF58A6</color>
     <color name="red">#FF0000</color>
+    <color name="red_light">#FD6262</color>
     <color name="colorTransparency">#6F000000</color>
     <color name="transparent">#00000000</color>
     <color name="eggshell">#EFF3CF</color>

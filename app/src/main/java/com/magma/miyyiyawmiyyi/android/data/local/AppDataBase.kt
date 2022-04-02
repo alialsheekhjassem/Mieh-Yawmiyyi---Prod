@@ -9,7 +9,7 @@ import com.magma.miyyiyawmiyyi.android.model.converters.*
 
 @Database(
     entities = [TaskObj::class, GiftCard::class, PurchaseCard::class,
-        Ticket::class, Round::class],
+        Ticket::class, Round::class, Country::class],
     version = 1,
     exportSchema = false
 )
@@ -33,4 +33,5 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun purchaseCardDao(): PurchaseCardDao
     abstract fun ticketDao(): TicketDao
     abstract fun roundDao(): RoundDao
+    abstract fun countryDao(): CountryDao
 }

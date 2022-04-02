@@ -15,6 +15,8 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -59,6 +61,63 @@ object BindingUtils {
                     }
                 }
             })
+    }
+
+    @JvmStatic
+    @BindingAdapter("txt_status", "view_header")
+    fun setTextStatus(textView: TextView, status: String?, viewHeader: View) {
+        Log.d(TAG, "setTextStatus: $status")
+        if (status == null) return
+        when (status) {
+            Const.STATUS_PENDING -> {
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.orange_4))
+                viewHeader.setBackgroundColor(ContextCompat.getColor(textView.context, R.color.orange_4))
+                textView.setCompoundDrawables(
+                    ResourcesCompat.getDrawable(
+                        textView.resources,
+                        R.drawable.ic_pending,
+                        textView.context.theme
+                    ),
+                    null, null, null
+                )
+            }
+            Const.STATUS_PROCESSING -> {
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.orange_4))
+                viewHeader.setBackgroundColor(ContextCompat.getColor(textView.context, R.color.orange_4))
+                textView.setCompoundDrawables(
+                    ResourcesCompat.getDrawable(
+                        textView.resources,
+                        R.drawable.ic_pending,
+                        textView.context.theme
+                    ),
+                    null, null, null
+                )
+            }
+            Const.STATUS_REJECTED -> {
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.red_light))
+                viewHeader.setBackgroundColor(ContextCompat.getColor(textView.context, R.color.red_light))
+                textView.setCompoundDrawables(
+                    ResourcesCompat.getDrawable(
+                        textView.resources,
+                        R.drawable.ic_rejected,
+                        textView.context.theme
+                    ),
+                    null, null, null
+                )
+            }
+            Const.STATUS_COMPLETED -> {
+                textView.setTextColor(ContextCompat.getColor(textView.context, R.color.green_light))
+                viewHeader.setBackgroundColor(ContextCompat.getColor(textView.context, R.color.green_light))
+                textView.setCompoundDrawables(
+                    ResourcesCompat.getDrawable(
+                        textView.resources,
+                        R.drawable.ic_check_circle,
+                        textView.context.theme
+                    ),
+                    null, null, null
+                )
+            }
+        }
     }
 
     @JvmStatic

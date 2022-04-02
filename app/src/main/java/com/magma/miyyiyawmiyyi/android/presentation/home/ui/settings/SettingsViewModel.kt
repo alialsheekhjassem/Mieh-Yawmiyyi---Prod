@@ -25,5 +25,4 @@ class SettingsViewModel @Inject constructor(
     fun setIsGeneralNotifications(isGeneral: Boolean) {
         dataRepository.setIsGeneralNotifications(isGeneral)
     }
-
 }

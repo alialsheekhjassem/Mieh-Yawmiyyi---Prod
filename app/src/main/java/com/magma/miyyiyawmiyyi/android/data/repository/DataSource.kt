@@ -25,6 +25,9 @@ interface DataSource {
     suspend fun getInfo(): Resource<InfoResponse>
     suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse>
     suspend fun doServerMarkAsDone(request: MarkAsDoneTasksRequest): Resource<Any?>
+    suspend fun generateTasks(): Resource<Any?>
+    suspend fun getRoundStatistics(isActiveRound: Boolean): Resource<RoundStatisticsResponse>
+    suspend fun getAllCountries(limit: Int, offset: Int): Resource<CountriesResponse>
 
     //Local
     fun loadAllTasks(): List<TaskObj>
@@ -72,6 +75,15 @@ interface DataSource {
     fun updateRounds(items: List<Round>)
     fun deleteRound(item: Round)
     fun deleteAllRounds()
+    //Country
+    fun loadAllCountries(): List<Country>
+    fun loadCountry(id: String): Country
+    fun insertCountryList(items: List<Country>)
+    fun insertCountry(item: Country)
+    fun updateCountry(item: Country)
+    fun updateCountries(items: List<Country>)
+    fun deleteCountry(item: Country)
+    fun deleteAllCountries()
 
     //Pref
     fun setApiToken(apiToken: String)

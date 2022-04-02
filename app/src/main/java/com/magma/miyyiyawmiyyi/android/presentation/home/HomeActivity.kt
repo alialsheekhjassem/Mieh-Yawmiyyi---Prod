@@ -38,6 +38,8 @@ import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
 import com.magma.miyyiyawmiyyi.android.databinding.ActivityHomeBinding
+import com.magma.miyyiyawmiyyi.android.model.NotificationType
+import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.HomeFragmentDirections
 import com.magma.miyyiyawmiyyi.android.presentation.registration.RegistrationActivity
 import com.magma.miyyiyawmiyyi.android.presentation.splash.SplashViewModel
 import com.magma.miyyiyawmiyyi.android.utils.CommonUtils.showLoadingDialog
@@ -70,6 +72,7 @@ class HomeActivity : AppCompatActivity() {
     private var mCountDownTimer: CountDownTimer? = null
     private var mGameIsInProgress = false
     private var mAdIsLoading: Boolean = false
+    private var mIsLoaded: Boolean = false
     private var mTimerMilliseconds = 0L
 
     private val TAG = "HomeActivity"
@@ -166,6 +169,7 @@ class HomeActivity : AppCompatActivity() {
         mDrawerToggle.syncState()
         toolbar.setNavigationIcon(R.drawable.ic_feather_menu)
 
+        //startGame()
         setObservers()
 
         if (ContactManager.getCurrentAccount()?.account == null) {
@@ -175,6 +179,12 @@ class HomeActivity : AppCompatActivity() {
 
         binding.txtLogout.setOnClickListener {
             viewModel.doServerLogout()
+        }
+
+        intent?.extras?.get(Const.HAS_ACTION_KEYWORD)?.let { action ->
+            when(action){
+                Const.NOTIFICATION_KEYWORD -> notificationClicked()
+            }
         }
 
         //subscribe topics
@@ -187,6 +197,45 @@ class HomeActivity : AppCompatActivity() {
             unSubscribeTopic(Const.TOPIC_GENERAL_AR)
             subscribeTopic(Const.TOPIC_GENERAL_EN)
         }
+    }
+
+    private fun notificationClicked() {
+        val type = intent?.extras?.get(Const.NOTIFICATION_TYPE_KEYWORD)
+        Log.d(TAG, "notificationClicked: $type")
+        type?.let { notificationType ->
+            when(notificationType){
+                Const.TYPE_ROUND_ACTIVATE -> roundNotification()
+                Const.TYPE_ROUND_CLOSE -> roundNotification()
+                Const.TYPE_ROUND_CANCEL -> roundNotification()
+                Const.TYPE_ROUND_FINISH -> roundNotification()
+                Const.TYPE_ROUND_UPDATE -> roundNotification()
+                Const.TYPE_ROUND_START -> roundNotification()
+                Const.TYPE_GRAND_PRIZE_ACTIVATE -> roundNotification()
+                Const.TYPE_ROUND_TICKET -> ticketsNotification()
+                Const.TYPE_GRAND_PRIZE_UPDATE -> ticketsNotification()
+                Const.TYPE_GRAND_PRIZE_FINISH -> ticketsNotification()
+                Const.TYPE_PROCESSING_PURCHASE -> ordersNotification()
+                Const.TYPE_PURCHASE_REJECTED -> ordersNotification()
+                Const.TYPE_GIFT_CODE -> giftNotification()
+                Const.TYPE_GOT_POINTS -> giftNotification()
+            }
+        }
+    }
+
+    private fun roundNotification() {
+        navController.navigate(HomeFragmentDirections.actionHomeToLiveStream())
+    }
+
+    private fun ticketsNotification() {
+        navController.navigate(HomeFragmentDirections.actionHomeToTickets())
+    }
+
+    private fun ordersNotification() {
+        navController.navigate(HomeFragmentDirections.actionHomeToOrders())
+    }
+
+    private fun giftNotification() {
+        navController.navigate(HomeFragmentDirections.actionHomeToGifts())
     }
 
     private fun screensWithHumbIcon(
@@ -477,11 +526,14 @@ class HomeActivity : AppCompatActivity() {
         }
         resumeGame(Const.GAME_LENGTH_MILLISECONDS)*/
 
-        loadAd()
-        /*if (!mAdIsLoading && mInterstitialAd == null){
+        //loadAd()
+        if (!mAdIsLoading && mInterstitialAd?.isAdLoaded == false) {
             mAdIsLoading = true
             loadAd()
-        }*/
+        } else {
+            if (mIsLoaded)
+                mInterstitialAd?.show()
+        }
     }
 
     override fun onPause() {
@@ -523,6 +575,7 @@ class HomeActivity : AppCompatActivity() {
                 // Interstitial ad is loaded and ready to be displayed
                 Log.d(TAG, "Interstitial ad is loaded and ready to be displayed!")
                 if (canShowFullscreenAd) {
+                    mIsLoaded = true
                     mInterstitialAd?.show()
                 }
             }

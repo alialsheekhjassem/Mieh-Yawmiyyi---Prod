@@ -37,8 +37,8 @@
                 android:layout_height="@dimen/image_product_create_size"
                 android:scaleType="fitCenter"
                 android:padding="@dimen/spacing_large"
-                image_url="@{item.image}"
                 android:src="@drawable/logo"
+                image_url="@{item.image}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>

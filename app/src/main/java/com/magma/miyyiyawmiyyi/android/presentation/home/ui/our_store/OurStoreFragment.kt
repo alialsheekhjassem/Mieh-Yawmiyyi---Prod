@@ -98,16 +98,16 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
                     purchaseCardsAdapter.submitList(t)
                     if (t.isNotEmpty()) {
                         binding.progress.visibility = View.GONE
-                        binding.txtEmptyPurchases.visibility = View.GONE
+                        binding.txtEmpty.visibility = View.GONE
                     } else {
-                        binding.txtEmptyPurchases.visibility = View.VISIBLE
+                        binding.txtEmpty.visibility = View.VISIBLE
                     }
                 }
             })
         )
         // listen to api result
         viewModel.response.observe(
-            this,
+            viewLifecycleOwner,
             EventObserver
                 (object :
                 EventObserver.EventUnhandledContent<Resource<GiftStoreResponse>> {
@@ -147,7 +147,7 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
         )
         // listen to api result
         viewModel.responsePurchases.observe(
-            this,
+            viewLifecycleOwner,
             EventObserver
                 (object :
                 EventObserver.EventUnhandledContent<Resource<GiftStorePurchasesResponse>> {
