@@ -362,8 +362,18 @@
     <string name="finish_grand_prize">Finish grand prize</string>
     <string name="update_grand_prize">Update grand prize</string>
     <string name="win_ticket">Win ticket</string>
+    <string name="win_golden_ticket">Win golden ticket</string>
+    <string name="grand_prize_winner">Grand prize winner</string>
+    <string name="round_winner">Round winner</string>
     <string name="activate_grand_prize">Activate grand prize</string>
-    <string name="reach_max_tickets">You have exceeded the maximum number of tickets</string>
+    <string name="reach_max_tickets">You have reached allowance of max tickets per current round</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="confirm_task">Confirm task</string>
+    <string name="confirm_task_body">Did you complete this task?</string>
+    <string name="google_play_card">Google Play Card</string>
+    <string name="gift_code">Gift Code</string>
+    <string name="not_completed_card">Not completed gift card</string>
 
     <string-array name="languages">
         <item>English</item>

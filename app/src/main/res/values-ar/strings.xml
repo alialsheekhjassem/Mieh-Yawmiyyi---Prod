@@ -352,7 +352,17 @@
     <string name="finish_grand_prize">تم إنهاء الجائزة الكبرى</string>
     <string name="update_grand_prize">تم تعديل الجائزة الكبرى</string>
     <string name="win_ticket">ربح تذكرة</string>
+    <string name="win_golden_ticket">ربح تذكرة ذهبية</string>
+    <string name="grand_prize_winner">فائز الجائزة الكبرى</string>
+    <string name="round_winner">فائز السحب</string>
     <string name="activate_grand_prize">تفعيل الجائزة الكبرى</string>
-    <string name="reach_max_tickets">لقد تخطيت الحد الأعلى من التذاكر</string>
+    <string name="reach_max_tickets">لقد وصلت الحد الأعظمي من التذاكر</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
+    <string name="confirm_task">تأكيد المهمة</string>
+    <string name="confirm_task_body">هل قمت بإنهاء هذه المهمة؟</string>
+    <string name="google_play_card">بطاقة جوجل بلاي</string>
+    <string name="gift_code">كود البطاقة</string>
+    <string name="not_completed_card">بطاقة هدية غير مكتملة</string>
 
 </resources>

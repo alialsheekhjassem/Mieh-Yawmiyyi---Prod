@@ -43,7 +43,7 @@ class PurchaseCardsAdapter :
         }
 
         init {
-            itemView.setOnClickListener(this)
+            binding.btnAction.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {

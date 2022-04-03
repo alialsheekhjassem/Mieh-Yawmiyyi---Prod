@@ -11,7 +11,6 @@
     <dimen name="no_space">0dp</dimen>
     <dimen name="key_width_profile_items">140dp</dimen>
     <dimen name="center_profile">200dp</dimen>
-    <dimen name="text_tab_size">14sp</dimen>
     <dimen name="image_height">80dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -31,6 +30,7 @@
     <dimen name="size_number">30dp</dimen>
     <dimen name="design_bottom_navigation_height">52dp</dimen>
 
+    <dimen name="text_tab_size">14sp</dimen>
     <dimen name="size_header">32sp</dimen>
     <dimen name="size_tablet_title">32sp</dimen>
     <dimen name="size_title">18sp</dimen>
@@ -40,16 +40,16 @@
     <dimen name="size_body">12sp</dimen>
     <dimen name="size_tiny">10sp</dimen>
     <dimen name="size_so_tiny">7sp</dimen>
-    <dimen name="size_circle">58dp</dimen>
     <dimen name="size_toolbar_title">24sp</dimen>
     <dimen name="size_keypad_title">24sp</dimen>
     <dimen name="size_20sp">20sp</dimen>
     <dimen name="size_sale_title">28sp</dimen>
+
+    <dimen name="size_circle">58dp</dimen>
     <dimen name="spacing_navigation_top">40dp</dimen>
     <dimen name="spacing_profile_top">25dp</dimen>
     <dimen name="card_corner">30dp</dimen>
     <dimen name="default_icon_size">24dp</dimen>
-
     <dimen name="image_product_size">56dp</dimen>
     <dimen name="image_category_item_size">45dp</dimen>
     <dimen name="size_icon_refund">16dp</dimen>

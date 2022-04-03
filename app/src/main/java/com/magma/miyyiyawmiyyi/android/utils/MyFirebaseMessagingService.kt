@@ -46,7 +46,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     private fun handleNotification(remoteMessage: RemoteMessage) {
         val intent = Intent(this, HomeActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-        intent.putExtra(Const.HAS_ACTION_KEYWORD,Const.NOTIFICATION_KEYWORD)
+        intent.putExtra(Const.HAS_ACTION_KEYWORD, Const.NOTIFICATION_KEYWORD)
         Log.d("TAG", "MMM handleNotification: getData " + remoteMessage.data)
         if (remoteMessage.notification != null) {
             Log.d("TAG", "MMM handleNotification: " + remoteMessage.notification?.title)
@@ -73,57 +73,76 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             title = remoteMessage.notification?.title
             body = remoteMessage.notification?.body
         } else {
-            when (Locale.getDefault().language) {
-                "en" -> {
-                    body = remoteMessage.data["en"]
-                }
-                "ar" -> {
-                    body = remoteMessage.data["ar"]
+            if (type == Const.TYPE_ROUND_TICKET || type == Const.TYPE_ROUND_WINNER
+                || type == Const.TYPE_GRAND_PRIZE_TICKET
+                || type == Const.TYPE_GRAND_PRIZE_WINNER
+                || type == Const.TYPE_PROCESSING_PURCHASE
+                || type == Const.TYPE_PURCHASE_REJECTED
+                || type == Const.TYPE_GOT_POINTS
+            ) {
+                body = remoteMessage.data["body"]
+            } else {
+                when (Locale.getDefault().language) {
+                    "en" -> {
+                        body = remoteMessage.data["en"]
+                    }
+                    "ar" -> {
+                        body = remoteMessage.data["ar"]
+                    }
                 }
             }
 
             Log.d("TAG", "KKK handleNotification: $type")
+        }
 
-            when (type) {
-                Const.TYPE_ROUND_ACTIVATE -> {
-                    title = getString(R.string.round_activate)
-                }
-                Const.TYPE_ROUND_CLOSE -> {
-                    title = getString(R.string.round_close)
-                }
-                Const.TYPE_ROUND_FINISH -> {
-                    title = getString(R.string.round_finish)
-                }
-                Const.TYPE_ROUND_CANCEL -> {
-                    title = getString(R.string.round_cancel)
-                }
-                Const.TYPE_ROUND_UPDATE -> {
-                    title = getString(R.string.round_update)
-                }
-                Const.TYPE_GRAND_PRIZE_ACTIVATE -> {
-                    title = getString(R.string.activate_grand_prize)
-                }
-                Const.TYPE_ROUND_TICKET -> {
-                    title = getString(R.string.win_ticket)
-                }
-                Const.TYPE_GRAND_PRIZE_UPDATE -> {
-                    title = getString(R.string.update_grand_prize)
-                }
-                Const.TYPE_GRAND_PRIZE_FINISH -> {
-                    title = getString(R.string.finish_grand_prize)
-                }
-                Const.TYPE_PROCESSING_PURCHASE -> {
-                    title = getString(R.string.purchase_accepted)
-                }
-                Const.TYPE_PURCHASE_REJECTED -> {
-                    title = getString(R.string.purchase_rejected)
-                }
-                Const.TYPE_GIFT_CODE -> {
-                    title = getString(R.string.purchase_code_ready)
-                }
-                Const.TYPE_GOT_POINTS -> {
-                    title = getString(R.string.points_reward)
-                }
+        when (type) {
+            Const.TYPE_ROUND_ACTIVATE -> {
+                title = getString(R.string.round_activate)
+            }
+            Const.TYPE_ROUND_CLOSE -> {
+                title = getString(R.string.round_close)
+            }
+            Const.TYPE_ROUND_FINISH -> {
+                title = getString(R.string.round_finish)
+            }
+            Const.TYPE_ROUND_CANCEL -> {
+                title = getString(R.string.round_cancel)
+            }
+            Const.TYPE_ROUND_UPDATE -> {
+                title = getString(R.string.round_update)
+            }
+            Const.TYPE_GRAND_PRIZE_ACTIVATE -> {
+                title = getString(R.string.activate_grand_prize)
+            }
+            Const.TYPE_ROUND_TICKET -> {
+                title = getString(R.string.win_ticket)
+            }
+            Const.TYPE_GRAND_PRIZE_TICKET -> {
+                title = getString(R.string.win_golden_ticket)
+            }
+            Const.TYPE_GRAND_PRIZE_WINNER -> {
+                title = getString(R.string.grand_prize_winner)
+            }
+            Const.TYPE_ROUND_WINNER -> {
+                title = getString(R.string.round_winner)
+            }
+            Const.TYPE_GRAND_PRIZE_UPDATE -> {
+                title = getString(R.string.update_grand_prize)
+            }
+            Const.TYPE_GRAND_PRIZE_FINISH -> {
+                title = getString(R.string.finish_grand_prize)
+            }
+            Const.TYPE_PROCESSING_PURCHASE -> {
+                title = getString(R.string.purchase_accepted)
+            }
+            Const.TYPE_PURCHASE_REJECTED -> {
+                title = getString(R.string.purchase_rejected)
+            }
+            Const.TYPE_GIFT_CODE -> {
+                title = getString(R.string.purchase_code_ready)
+            }
+            Const.TYPE_GOT_POINTS -> {
+                title = getString(R.string.points_reward)
             }
         }
 

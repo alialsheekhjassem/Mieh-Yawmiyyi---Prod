@@ -195,10 +195,12 @@ class ProfileFragment : ProgressBarFragments() {
                         binding.spnLocation.adapter = adapterCountry
 
                         val accountCountry = ContactManager.getCurrentAccount()?.account?.info?.country
-                        val country = t.first { cot -> cot._id == accountCountry?._id }
-                        val index = adapterCountry.getPosition(country)
-                        Log.d(TAG, "onEventUnhandledContent: $accountCountry = $index")
-                        binding.spnLocation.setSelection(index)
+                        if (accountCountry != null) {
+                            val country = t.first { cot -> cot._id == accountCountry._id }
+                            val index = adapterCountry.getPosition(country)
+                            Log.d(TAG, "onEventUnhandledContent: $accountCountry = $index")
+                            binding.spnLocation.setSelection(index)
+                        }
                     } else {
                         viewModel.getCountries(limit = 20, offset = 0)
                     }

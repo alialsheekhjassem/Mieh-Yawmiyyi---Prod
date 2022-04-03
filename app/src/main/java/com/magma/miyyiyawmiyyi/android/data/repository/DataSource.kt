@@ -28,6 +28,7 @@ interface DataSource {
     suspend fun generateTasks(): Resource<Any?>
     suspend fun getRoundStatistics(isActiveRound: Boolean): Resource<RoundStatisticsResponse>
     suspend fun getAllCountries(limit: Int, offset: Int): Resource<CountriesResponse>
+    suspend fun getGiftCode(id: String?): Resource<Any?>
 
     //Local
     fun loadAllTasks(): List<TaskObj>
@@ -38,6 +39,7 @@ interface DataSource {
     fun updateTask(item: TaskObj)
     fun updateTasks(items: List<TaskObj>)
     fun deleteTask(item: TaskObj)
+    fun deleteTask(id: String)
     fun deleteAllTasks()
     //Gift
     fun loadAllGiftCards(): List<GiftCard>

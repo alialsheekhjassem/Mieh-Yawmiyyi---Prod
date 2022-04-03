@@ -2,6 +2,7 @@ package com.magma.miyyiyawmiyyi.android.presentation.home.ui.tasks
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -20,12 +21,15 @@ import com.magma.miyyiyawmiyyi.android.data.remote.responses.TasksResponse
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentTasksBinding
 import com.magma.miyyiyawmiyyi.android.model.TaskObj
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
+import com.magma.miyyiyawmiyyi.android.presentation.home.ui.confirm_task.ConfirmEndTaskFragment
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
+import com.magma.miyyiyawmiyyi.android.utils.OnConfirmTaskListener
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemListener
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import dagger.android.support.AndroidSupportInjection
+import java.util.*
 import javax.inject.Inject
 
 class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
@@ -38,8 +42,11 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
     @Inject
     lateinit var tasksAdapter: TasksAdapter
 
-    private lateinit var quizzesTasks: List<TaskObj>
-    private lateinit var adTasks: List<TaskObj>
+    private var quizzesTasks: List<TaskObj> = arrayListOf()
+    private var adTasks: List<TaskObj> = arrayListOf()
+
+    private var isTaskOpened = false
+    private var taskId: String? = null
 
     //waiting time settings
     var startTime: Long = 0
@@ -94,11 +101,6 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                     if (t.isNotEmpty()) {
                         binding.progress.visibility = View.GONE
                         binding.txtEmpty.visibility = View.GONE
-
-                        //Quizzes Tasks
-                        quizzesTasks = t.filter { taskObj -> taskObj.type == Const.TYPE_QUIZ }
-                        adTasks = t.filter { taskObj -> taskObj.type == Const.TYPE_AD }
-
                     } else {
                         binding.txtEmpty.visibility = View.VISIBLE
                     }
@@ -128,6 +130,11 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
                             if (response.items.isEmpty())
                                 viewModel.generateTasks()
+                            else {
+                                //Quizzes & Ad Tasks
+                                adTasks = response.items.filter { taskObj -> taskObj.type == Const.TYPE_AD }
+                                quizzesTasks = response.items.filter { taskObj -> taskObj.type == Const.TYPE_QUIZ }
+                            }
                         }
                         is Resource.DataError -> {
                             binding.progress.visibility = View.GONE
@@ -189,6 +196,43 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                 }
             })
         )
+        // listen to api result
+        viewModel.responseMarkAsDone.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<Any?>> {
+                override fun onEventUnhandledContent(t: Resource<Any?>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            // show progress bar and remove no data layout while loading
+                            showLoadingDialog()
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            hideLoadingDialog()
+                            val response = t.response
+                            Log.d(TAG, "responseGenerate: $response")
+                            taskId?.let { viewModel.deleteTask(it) }
+                        }
+                        is Resource.DataError -> {
+                            hideLoadingDialog()
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "responseGenerate: DataError $response")
+                            showErrorToast(response.failureMessage)
+                        }
+                        is Resource.Exception -> {
+                            hideLoadingDialog()
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "responseGenerate: $response")
+                            showErrorToast(response.toString())
+                        }
+                    }
+                }
+            })
+        )
     }
 
     private fun setup() {
@@ -229,7 +273,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         binding.include1.btnWatchNow.setOnClickListener {
             //val activity = requireActivity() as HomeActivity
             //activity.startGame()
-
+            Log.d(TAG, "MPL setup: adTasks $adTasks")
+            Log.d(TAG, "MPL setup: quizzesTasks $quizzesTasks")
             if (adTasks.isNotEmpty()) {
                 showAd()
             } else {
@@ -284,6 +329,50 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         }
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        if (isTaskOpened) {
+            isTaskOpened = false
+            val timer = Timer()
+            val task: TimerTask = object : TimerTask() {
+                override fun run() {
+                    if (isAdded) {
+                        val fm = requireActivity().supportFragmentManager
+                        val dialog = ConfirmEndTaskFragment()
+                        fm.beginTransaction().commitAllowingStateLoss()
+                        dialog.setOnConfirmTaskListener(object : OnConfirmTaskListener {
+                            override fun onConfirm() {
+                                //Mark as Done
+                                taskId?.let { id ->
+                                    val request = MarkAsDoneTasksRequest()
+                                    request.tasks.add(id)
+                                    viewModel.doServerMarkAsDone(request)
+                                }
+                            }
+                        })
+                        try {
+                            dialog.show(fm, "Dialog")
+                        } catch (ignored: IllegalStateException) {
+                        }
+                    }
+                }
+            }
+            //[force waiting]
+            try {
+                showLoadingDialog()
+            } catch (ignored: Exception) {
+            }
+            //[timing]
+            val handler = Handler()
+            handler.postDelayed(
+                { hideLoadingDialog() },
+                3650
+            )
+            timer.schedule(task, 4000)
+        }
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
@@ -306,6 +395,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                 item.smTask?.link?.let { openWebUrl(it) }
             }
         }
+        isTaskOpened = true
+        taskId = item._id
     }
 
     companion object {

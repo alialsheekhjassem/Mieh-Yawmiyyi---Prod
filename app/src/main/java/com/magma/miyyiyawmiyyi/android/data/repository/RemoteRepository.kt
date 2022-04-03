@@ -628,6 +628,37 @@ class RemoteRepository
         }
     }
 
+    override suspend fun getGiftCode(id: String?): Resource<Any?> {
+        val authService = serviceGenerator.createService(IFoodService::class.java)
+        try {
+            val response = authService.getGiftCode(id)
+
+            return if (response.isSuccessful) {
+                //Do something with response e.g show to the UI.
+                val tasksResponse = response.body()?.successResult
+                Log.d(TAG, "getGiftCode: isSuccessful " + response.code())
+                Log.d(TAG, "getGiftCode: isSuccessful $tasksResponse")
+                Resource.Success(tasksResponse)
+            } else {
+                Log.d(TAG, "getGiftCode: isSuccessful no " + response.code())
+                Log.d(TAG, "getGiftCode: isSuccessful no " + response.message())
+                val errorBody = gson.fromJson(
+                    response.errorBody()?.stringSuspending(),
+                    ErrorManager::class.java
+                )
+                Resource.DataError(errorBody)
+            }
+        } catch (e: HttpException) {
+            return Resource.Exception(e.message() as String)
+        } catch (e: Throwable) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: SocketTimeoutException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: IOException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        }
+    }
+
 
     @Suppress("BlockingMethodInNonBlockingContext")
     suspend fun ResponseBody.stringSuspending() =

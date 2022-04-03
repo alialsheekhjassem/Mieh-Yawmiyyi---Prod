@@ -69,7 +69,7 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
         binding.recycler100YawCards.adapter = purchaseCardsAdapter
 
         viewModel.loadAllGiftStoreCards()
-        viewModel.loadAllPurchaseCards()
+        //viewModel.loadAllPurchaseCards()
     }
 
     private fun setObservers() {
@@ -231,7 +231,7 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
         AndroidSupportInjection.inject(this)
 
         viewModel.getGiftStore(limit = 20, offset = 0)
-        viewModel.getPurchaseCards(limit = 20, offset = 0)
+        //viewModel.getPurchaseCards(limit = 20, offset = 0)
     }
 
     override fun onItemClicked(item: GiftCard, index: Int) {

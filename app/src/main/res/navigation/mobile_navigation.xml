@@ -82,6 +82,10 @@
             app:destination="@id/navigation_live_stream"
             app:popUpTo="@id/navigation_home"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_home_to_notifications"
+            app:destination="@id/navigation_notifications"
+            app:popUpToInclusive="false"/>
 
     </fragment>
 
@@ -97,6 +101,12 @@
             app:popUpToInclusive="true"/>
 
     </fragment>
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.magma.miyyiyawmiyyi.android.presentation.home.ui.notifications.NotificationsFragment"
+        android:label="@string/title_notifications"
+        tools:layout="@layout/fragment_notifications" />
 
     <fragment
         android:id="@+id/navigation_profile"

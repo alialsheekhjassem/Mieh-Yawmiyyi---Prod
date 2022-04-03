@@ -24,5 +24,6 @@ class Urls {
         const val END_POINT_MARK_AS_DONE = "/api/v1/tasks"
         const val END_POINT_ROUND_STATISTICS = "/api/v1/rounds/statistics"
         const val END_POINT_COUNTRIES = "/api/v1/countries"
+        const val END_POINT_GIFT_CODE = "/api/v1/gift_store/purchase/code"
     }
 }

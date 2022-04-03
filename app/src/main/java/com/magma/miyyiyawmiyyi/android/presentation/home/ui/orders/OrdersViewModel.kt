@@ -21,7 +21,19 @@ class OrdersViewModel @Inject constructor(
 ) : ViewModel(), CoroutineScope {
 
     internal var responsePurchases = MutableLiveData<Event<Resource<GiftStorePurchasesResponse>>>()
+    internal var responseCode = MutableLiveData<Event<Resource<Any?>>>()
     val purchasesCardsDb = MutableLiveData<Event<List<PurchaseCard>>>()
+
+    fun getGiftCode(id: String) {
+        launch {
+            //val token = dataRepository.getApiToken()
+            responseCode.value = Event(Resource.Loading())
+            val result: Resource<Any?> =
+                dataRepository.getGiftCode(id)
+            Log.d("TAG", "getGiftCode: $result")
+            responseCode.value = Event(result)
+        }
+    }
 
     fun getPurchaseCards(limit: Int, offset: Int) {
         launch {

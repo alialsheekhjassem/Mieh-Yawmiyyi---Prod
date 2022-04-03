@@ -3,9 +3,7 @@ package com.magma.miyyiyawmiyyi.android.presentation.home.ui.home
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.magma.miyyiyawmiyyi.android.R
@@ -47,21 +45,19 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
-        setup()
+        setUp()
+        setUpObservers()
 
         return binding.root
     }
 
-    private fun setup() {
+    private fun setUp() {
         winnersAdapter.setListener(this)
         winnersAdapter.submitList(arrayListOf())
         binding.recyclerWinners.adapter = winnersAdapter
 
-        setUp()
-        setUpObservers()
-    }
+        setHasOptionsMenu(true)
 
-    private fun setUp() {
         viewModel.loadAllTickets()
 
         binding.cardPoints.txtView.setOnClickListener {
@@ -147,6 +143,20 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
 
     override fun onItemClicked(item: Winner, index: Int) {
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.navigation_notifications -> {
+                findNavController().navigate(HomeFragmentDirections.actionHomeToNotifications())
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

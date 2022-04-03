@@ -103,6 +103,10 @@ constructor(
         return remoteRepository.getAllCountries(limit, offset)
     }
 
+    override suspend fun getGiftCode(id: String?): Resource<Any?> {
+        return remoteRepository.getGiftCode(id)
+    }
+
     override fun loadAllTasks(): List<TaskObj> {
         return localRepository.loadAllTasks()
     }
@@ -133,6 +137,10 @@ constructor(
 
     override fun deleteTask(item: TaskObj) {
         localRepository.deleteTask(item)
+    }
+
+    override fun deleteTask(id: String) {
+        localRepository.deleteTask(id)
     }
 
     override fun deleteAllTasks() {

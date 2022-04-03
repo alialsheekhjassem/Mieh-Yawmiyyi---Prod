@@ -6,4 +6,8 @@ class App(
 
     var name: Title?,
 
+    var image: String?,
+
+    var color: String?,
+
 )

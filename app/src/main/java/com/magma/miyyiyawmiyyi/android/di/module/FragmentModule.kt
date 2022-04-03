@@ -8,6 +8,7 @@ import  com.magma.miyyiyawmiyyi.android.presentation.details.RestaurantDetailsFr
 import  com.magma.miyyiyawmiyyi.android.presentation.details.address.AddressFragment
 import  com.magma.miyyiyawmiyyi.android.presentation.details.cart.CartFragment
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.about_us.AboutUsFragment
+import com.magma.miyyiyawmiyyi.android.presentation.home.ui.confirm_task.ConfirmEndTaskFragment
 import  com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.HomeFragment
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.invitations.InvitationsFragment
 import  com.magma.miyyiyawmiyyi.android.presentation.home.ui.live_stream.LiveStreamFragment
@@ -102,5 +103,8 @@ internal abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeNotificationsFragment(): NotificationsFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeConfirmEndTaskFragment(): ConfirmEndTaskFragment
 
 }

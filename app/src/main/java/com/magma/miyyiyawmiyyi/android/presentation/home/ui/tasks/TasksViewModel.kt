@@ -79,6 +79,17 @@ class TasksViewModel @Inject constructor(
         }
     }
 
+    fun deleteTask(taskId: String) {
+        // save feed list into database
+        launch {
+            withContext(Dispatchers.IO)
+            {
+                val items = dataRepository.deleteTask(taskId)
+                Log.d("TAG", "deleteAndSaveTasks: $items")
+            }
+        }
+    }
+
     private fun deleteAndSaveTasks(tasksResponse: ArrayList<TaskObj>) {
         // save feed list into database
         launch {

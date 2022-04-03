@@ -28,6 +28,9 @@ interface TaskDao {
     @Query("SELECT * FROM task_obj WHERE _id LIKE :id")
     fun load(id: String): TaskObj
 
+    @Query("DELETE FROM task_obj WHERE _id LIKE :id")
+    fun delete(id: String)
+
     @Delete
     fun delete(item: TaskObj?)
 

@@ -43,4 +43,6 @@ internal interface IRestApiManager {
     suspend fun doServerMarkAsDone(request: MarkAsDoneTasksRequest): Resource<Any?>
 
     suspend fun getAllCountries(limit: Int, offset: Int): Resource<CountriesResponse>
+
+    suspend fun getGiftCode(id: String?): Resource<Any?>
 }

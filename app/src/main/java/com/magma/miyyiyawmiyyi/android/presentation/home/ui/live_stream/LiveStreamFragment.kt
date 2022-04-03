@@ -245,10 +245,17 @@ class LiveStreamFragment : ProgressBarFragments() {
     private fun setTicketsProgress(response: RoundStatisticsResponse) {
         val maxTickets = response.maxTickets ?: 0
         val availableTickets = response.availableTickets ?: 0
-        val percentage = availableTickets * 100 / maxTickets
-        binding.txtPercentage.text = availableTickets.toString()
-        binding.txtPercent.text = "/$maxTickets"
-        binding.imgProgress.progress = percentage
+        if (maxTickets != 0) {
+            val percentage = availableTickets * 100 / maxTickets
+            binding.txtPercentage.text = availableTickets.toString()
+            binding.txtPercent.text = "/$maxTickets"
+            binding.imgProgress.progress = percentage
+        } else {
+            binding.txtPercentage.text = availableTickets.toString()
+            binding.txtPercent.text = "/$maxTickets"
+            binding.imgProgress.progress = 0
+        }
+
     }
 
     private fun setStreamView(type: String) {

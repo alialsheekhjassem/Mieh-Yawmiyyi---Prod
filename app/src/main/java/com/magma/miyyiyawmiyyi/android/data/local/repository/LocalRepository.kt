@@ -101,6 +101,10 @@ class LocalRepository
         taskDao.delete(item)
     }
 
+    fun deleteTask(id: String) {
+        taskDao.delete(id)
+    }
+
     fun deleteAllTasks() {
         taskDao.deleteAll()
     }

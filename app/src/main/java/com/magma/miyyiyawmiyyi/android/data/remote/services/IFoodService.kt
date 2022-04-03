@@ -123,4 +123,9 @@ interface IFoodService {
         @Query("offset") offset: Int?,
     ): Response<ResponseWrapper<CountriesResponse>>
 
+    @GET(Urls.END_POINT_GIFT_CODE)
+    suspend fun getGiftCode(
+        @Query("_id") id: String?,
+    ): Response<ResponseWrapper<Any?>>
+
 }

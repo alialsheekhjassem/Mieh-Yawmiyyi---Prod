@@ -45,23 +45,33 @@ class TasksAdapter :
 
             when (item.smTask?.app?._id) {
                 Const.INSTAGRAM_ID -> {
-                    binding.txtTitle.setTextColor(Color.parseColor("#DE3E4F"))
+                    val color = item.smTask?.app?.color?:"#DE3E4F"
+                    binding.txtTitle.setTextColor(Color.parseColor(color))
                     binding.btnAction.text = binding.root.context.getString(R.string.follow)
                     binding.btnAction.backgroundTintList = null
                     binding.btnAction.background = AppCompatResources.getDrawable(context, R.drawable.bg_gradient_insta)
-                    binding.imgCard.setImageResource(R.drawable.instagram)
+                    //binding.imgCard.setImageResource(R.drawable.instagram)
                 }
                 Const.YOUTUBE_ID -> {
-                    binding.txtTitle.setTextColor(Color.parseColor("#E51C03"))
+                    val color = item.smTask?.app?.color?:"#E51C03"
+                    binding.txtTitle.setTextColor(Color.parseColor(color))
                     binding.btnAction.text = binding.root.context.getString(R.string.subscribe)
-                    binding.btnAction.setBackgroundColor(Color.parseColor("#E51C03"))
-                    binding.imgCard.setImageResource(R.drawable.youtube)
+                    binding.btnAction.setBackgroundColor(Color.parseColor(color))
+                    //binding.imgCard.setImageResource(R.drawable.youtube)
+                }
+                Const.FACEBOOK_ID -> {
+                    val color = item.smTask?.app?.color?:"#216FDB"
+                    binding.txtTitle.setTextColor(Color.parseColor(color))
+                    binding.btnAction.text = binding.root.context.getString(R.string.like)
+                    binding.btnAction.setBackgroundColor(Color.parseColor(color))
+                    //binding.imgCard.setImageResource(R.drawable.facebook)
                 }
                 else -> {
-                    binding.txtTitle.setTextColor(Color.parseColor("#216FDB"))
-                    binding.btnAction.text = binding.root.context.getString(R.string.like)
-                    binding.btnAction.setBackgroundColor(Color.parseColor("#216FDB"))
-                    binding.imgCard.setImageResource(R.drawable.facebook)
+                    val color = item.smTask?.app?.color?:"#216FDB"
+                    binding.txtTitle.setTextColor(Color.parseColor(color))
+                    binding.btnAction.text = item.smTask?.action
+                    binding.btnAction.setBackgroundColor(Color.parseColor(color))
+                    //binding.imgCard.setImageResource(R.drawable.facebook)
                 }
             }
 
