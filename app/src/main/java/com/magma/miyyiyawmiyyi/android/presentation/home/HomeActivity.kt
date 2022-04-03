@@ -210,6 +210,8 @@ class HomeActivity : AppCompatActivity() {
                 Const.TYPE_ROUND_FINISH -> roundNotification()
                 Const.TYPE_ROUND_UPDATE -> roundNotification()
                 Const.TYPE_ROUND_START -> roundNotification()
+                Const.TYPE_ROUND_WINNER -> roundWinnerNotification()
+                Const.TYPE_GRAND_PRIZE_WINNER -> roundWinnerNotification()
                 Const.TYPE_GRAND_PRIZE_ACTIVATE -> roundNotification()
                 Const.TYPE_ROUND_TICKET -> ticketsNotification()
                 Const.TYPE_GRAND_PRIZE_UPDATE -> ticketsNotification()
@@ -220,6 +222,10 @@ class HomeActivity : AppCompatActivity() {
                 Const.TYPE_GOT_POINTS -> giftNotification()
             }
         }
+    }
+
+    private fun roundWinnerNotification() {
+        navController.navigate(HomeFragmentDirections.actionHomeToHome(true))
     }
 
     private fun roundNotification() {

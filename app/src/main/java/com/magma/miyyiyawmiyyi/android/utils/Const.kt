@@ -25,6 +25,7 @@ class Const {
 
         //shared pref
         const val PREF_API_TOKEN = "api_token"
+        const val PREF_GIFT_CODE = "gift_code"
         const val PREF_REFRESH_TOKEN = "refresh_token"
         const val PREF_LANG = "lang"
         const val PREF_INVITATION_LINK = "invitation_link"

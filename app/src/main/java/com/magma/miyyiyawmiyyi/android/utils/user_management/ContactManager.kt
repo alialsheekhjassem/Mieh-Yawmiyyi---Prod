@@ -9,6 +9,7 @@ class ContactManager {
 
     private var account: MyAccountResponse? = null
     private var info: InfoResponse? = null
+    private var giftCode: String? = null
 
     init {
         Log.i("ContactManager","Initiating")
@@ -40,6 +41,15 @@ class ContactManager {
 
         fun getCurrentInfo(): InfoResponse? {
             return instance.info
+        }
+
+        fun setGiftCode(giftCode: String?){
+            Log.i("ContactManager", "Add giftCode ...$giftCode")
+            instance.giftCode = giftCode
+        }
+
+        fun getGiftCode(): String? {
+            return instance.giftCode
         }
 
         fun refreshInstance() {

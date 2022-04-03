@@ -6,9 +6,12 @@ import com.facebook.ads.AdSettings
 import com.facebook.ads.AudienceNetworkAds
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.magma.miyyiyawmiyyi.android.di.component.DaggerAppComponent
+import com.magma.miyyiyawmiyyi.android.utils.CommonUtils
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -32,11 +35,16 @@ open class MAGMA : Application(), HasAndroidInjector {
         //This will make the ad run on the test device, let's say your Android AVD emulator
         AdSettings.setTestMode(true)
         AdSettings.setIntegrationErrorMode(AdSettings.IntegrationErrorMode.INTEGRATION_ERROR_CALLBACK_MODE)
+
+        val testDeviceIds = listOf(CommonUtils.getDeviceId(this))
+        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+        MobileAds.setRequestConfiguration(configuration)
+
         loadRewardedAd()
     }
 
     companion object {
-        lateinit var mApp : MAGMA
+        lateinit var mApp: MAGMA
 
         fun getInstance(): MAGMA {
             return mApp
@@ -47,6 +55,7 @@ open class MAGMA : Application(), HasAndroidInjector {
      * load Rewarded ad
      */
     fun loadRewardedAd() {
+
         if (rewardedAd == null) {
             val reworded = intArrayOf(
                 R.string.admob_rewarded_ad_id,

@@ -377,7 +377,7 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
 
-        viewModel.getTasks(limit = 20, offset = 0)
+        viewModel.getTasks(limit = 50, offset = 0)
     }
 
     override fun onItemClicked(item: TaskObj, index: Int) {

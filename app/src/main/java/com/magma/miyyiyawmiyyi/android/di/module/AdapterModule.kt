@@ -4,7 +4,6 @@ import dagger.Module
 import dagger.Provides
 import com.magma.miyyiyawmiyyi.android.presentation.details.FoodAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.details.cart.CartAdapter
-import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.AdapterSliderView
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.WinnersAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.notifications.NotificationsAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.orders.OrdersAdapter
@@ -16,11 +15,6 @@ import com.magma.miyyiyawmiyyi.android.presentation.home.ui.tickets.TicketsAdapt
 
 @Module
 class AdapterModule {
-
-    @Provides
-    fun provideAdapterSliderView(): AdapterSliderView {
-        return AdapterSliderView()
-    }
 
     @Provides
     fun provideNotificationsAdapter(): NotificationsAdapter {

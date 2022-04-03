@@ -24,6 +24,10 @@ class OrdersViewModel @Inject constructor(
     internal var responseCode = MutableLiveData<Event<Resource<Any?>>>()
     val purchasesCardsDb = MutableLiveData<Event<List<PurchaseCard>>>()
 
+    fun getGiftCodePref(): String?{
+        return dataRepository.getGiftCodePref()
+    }
+
     fun getGiftCode(id: String) {
         launch {
             //val token = dataRepository.getApiToken()

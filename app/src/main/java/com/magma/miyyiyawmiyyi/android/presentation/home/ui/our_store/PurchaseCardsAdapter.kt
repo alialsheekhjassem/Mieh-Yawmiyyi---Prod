@@ -4,11 +4,15 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.databinding.ItemPurchaseCardBinding
 import com.magma.miyyiyawmiyyi.android.model.PurchaseCard
+import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemCardListener
 
 class PurchaseCardsAdapter :
@@ -39,6 +43,16 @@ class PurchaseCardsAdapter :
         RecyclerView.ViewHolder(binding.root), View.OnClickListener {
         fun bind(item: PurchaseCard) {
             binding.item = item
+
+            when (item.status) {
+                Const.STATUS_COMPLETED -> {
+                    binding.btnAction.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.btnAction.visibility = View.GONE
+                }
+            }
+
             binding.executePendingBindings()
         }
 

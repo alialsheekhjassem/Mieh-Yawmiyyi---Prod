@@ -88,6 +88,8 @@ interface DataSource {
     fun deleteAllCountries()
 
     //Pref
+    fun setGiftCode(giftCode: String)
+    fun getGiftCodePref(): String?
     fun setApiToken(apiToken: String)
     fun getApiToken(): String?
     fun setRefreshToken(refreshToken: String)

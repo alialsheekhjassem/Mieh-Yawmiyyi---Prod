@@ -77,7 +77,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/spacing_default"
                     android:layout_marginHorizontal="@dimen/spacing_default"
-                    android:text="@{item.code}"
                     android:textColor="@color/orange_8"
                     android:textSize="@dimen/size_toolbar_title"
                     app:layout_constraintBottom_toBottomOf="parent"

@@ -23,6 +23,7 @@ import com.magma.miyyiyawmiyyi.android.utils.Const
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
+import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
 class QuizzesFragment : ProgressBarFragments() {
@@ -103,7 +104,13 @@ class QuizzesFragment : ProgressBarFragments() {
                 EventObserver.EventUnhandledContent<List<TaskObj>> {
                 override fun onEventUnhandledContent(t: List<TaskObj>) {
                     tasksQuizzes.clear()
-                    tasksQuizzes.addAll(t)
+                    val tasksPerTicket =
+                        ContactManager.getCurrentInfo()?.activeRound?.config?.tasksPerTicket ?: 0
+                    if (tasksPerTicket != 0) {
+                        if (tasksPerTicket < t.size)
+                            tasksQuizzes.addAll(t.subList(0, tasksPerTicket))
+                        else tasksQuizzes.addAll(t)
+                    }
 
                     if (tasksQuizzes.isNotEmpty()) {
                         val level = String.format(
@@ -157,7 +164,8 @@ class QuizzesFragment : ProgressBarFragments() {
                         }
                     }
                 }
-            }))
+            })
+        )
     }
 
     private fun onSolveQuestion(solvedIndex: Int) {

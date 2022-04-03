@@ -19,6 +19,13 @@ class LocalRepository
 ) {
 
     //Preferences
+    fun setGiftCode(giftCode: String) {
+        preferences.edit().putString(Const.PREF_GIFT_CODE, giftCode).apply()
+    }
+
+    fun getGiftCode(): String? {
+        return preferences.getString(Const.PREF_GIFT_CODE, null)
+    }
     fun setApiToken(apiToken: String) {
         preferences.edit().putString(Const.PREF_API_TOKEN, apiToken).apply()
     }

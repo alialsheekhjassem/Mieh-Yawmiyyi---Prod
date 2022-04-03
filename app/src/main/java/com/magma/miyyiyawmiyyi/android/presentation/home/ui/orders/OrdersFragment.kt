@@ -3,6 +3,7 @@ package com.magma.miyyiyawmiyyi.android.presentation.home.ui.orders
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,7 @@ import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemCardListener
+import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
 class OrdersFragment : ProgressBarFragments(), RecyclerItemCardListener<PurchaseCard> {
@@ -138,11 +140,23 @@ class OrdersFragment : ProgressBarFragments(), RecyclerItemCardListener<Purchase
                         }
                         is Resource.Success -> {
                             // response is ok get the data and display it in the list
-                            hideLoadingDialog()
                             val response = t.response
                             Log.d(TAG, "response: $response")
 
-                            selectedCard?.let { showGetCodeDialog(it) }
+                            val timer = object: CountDownTimer(20000, 1000) {
+                                override fun onTick(millisUntilFinished: Long) {
+                                    if (!ContactManager.getGiftCode().isNullOrEmpty()) {
+                                        cancel()
+                                        onFinish()
+                                    }
+                                }
+
+                                override fun onFinish() {
+                                    hideLoadingDialog()
+                                    selectedCard?.let { showGetCodeDialog(it) }
+                                }
+                            }
+                            timer.start()
                         }
                         is Resource.DataError -> {
                             hideLoadingDialog()
@@ -194,6 +208,8 @@ class OrdersFragment : ProgressBarFragments(), RecyclerItemCardListener<Purchase
         val alertDialog = builder.create()
         alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialogBinding.item = item
+        val code = ContactManager.getGiftCode()
+        dialogBinding.txtCode.text = code
         dialogBinding.imgCopy.setOnClickListener {
             item.code?.let { it1 -> copyText(it1) }
         }

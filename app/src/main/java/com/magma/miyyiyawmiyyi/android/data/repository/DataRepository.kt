@@ -309,6 +309,15 @@ constructor(
 
 
     //Pref
+
+    override fun setGiftCode(giftCode: String) {
+        localRepository.setGiftCode(giftCode)
+    }
+
+    override fun getGiftCodePref(): String? {
+        return localRepository.getGiftCode()
+    }
+
     override fun setApiToken(apiToken: String) {
         localRepository.setApiToken(apiToken)
     }

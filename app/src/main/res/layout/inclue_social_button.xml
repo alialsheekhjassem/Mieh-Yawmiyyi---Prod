@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@drawable/bg_rounded"
-        android:backgroundTint="@color/quantum_vanillablueA700"
+        android:backgroundTint="@color/light_blue"
         android:layout_marginHorizontal="@dimen/spacing_large">
 
 

@@ -10,12 +10,14 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.presentation.home.HomeActivity
+import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import java.util.*
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -79,6 +81,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 || type == Const.TYPE_PROCESSING_PURCHASE
                 || type == Const.TYPE_PURCHASE_REJECTED
                 || type == Const.TYPE_GOT_POINTS
+                || type == Const.TYPE_GIFT_CODE
             ) {
                 body = remoteMessage.data["body"]
             } else {
@@ -139,6 +142,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 title = getString(R.string.purchase_rejected)
             }
             Const.TYPE_GIFT_CODE -> {
+                /*val preferences = application.getSharedPreferences(Const.PREF_NAME, AppCompatActivity.MODE_PRIVATE)
+                preferences.edit().putString(Const.PREF_GIFT_CODE, remoteMessage.data["code"]).apply()*/
+                ContactManager.setGiftCode(remoteMessage.data["code"])
                 title = getString(R.string.purchase_code_ready)
             }
             Const.TYPE_GOT_POINTS -> {

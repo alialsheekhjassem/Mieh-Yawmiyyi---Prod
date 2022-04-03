@@ -17,7 +17,8 @@
     <string name="admob_rewarded_ad_id" translatable="false">ca-app-pub-2559564046715323/7743978013</string>
     <string name="admob_rewarded_ad_id10" translatable="false">ca-app-pub-2559564046715323/2388898922</string>
     <string name="admob_initial" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+   <!-- <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>-->
+    <string name="admob_app_id" translatable="false">ca-app-pub-2559564046715323~8859756741</string>
     <string name="admob_native_ad_id" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
     <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
     <!--<string name="interstitial_ad_unit_id">ca-app-pub-2559564046715323~6653115980</string>-->
@@ -225,7 +226,7 @@
     <string name="success">Success</string>
     <string name="enter_phone_number">Enter Phone Number</string>
     <string name="please_enter_the_number_you_signed_up_with">Please enter the number you signed up with</string>
-    <string name="a_verfication_code_has_been_sent_to_your_mobile_number">A verfication code has been sent to your mobile number.</string>
+    <string name="a_verfication_code_has_been_sent_to_your_mobile_number">A verification code has been sent to your mobile number.</string>
     <string name="verify">Verify</string>
     <string name="reset_password">Reset Password</string>
     <string name="save_new_password">Save New Password</string>

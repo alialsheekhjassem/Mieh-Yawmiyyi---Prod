@@ -15,9 +15,11 @@ import com.magma.miyyiyawmiyyi.android.model.WinnerObj
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
+import com.magma.miyyiyawmiyyi.android.utils.Presets
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemListener
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
+import nl.dionsegijn.konfetti.xml.KonfettiView
 import javax.inject.Inject
 
 class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
@@ -28,10 +30,9 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
     lateinit var viewModelFactory: ViewModelFactory
 
     @Inject
-    lateinit var mAdapterSliderView: AdapterSliderView
-
-    @Inject
     lateinit var winnersAdapter: WinnersAdapter
+
+    private lateinit var viewKonfetti: KonfettiView
 
     private val viewModel: HomeViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
@@ -52,6 +53,13 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
     }
 
     private fun setUp() {
+        arguments?.getBoolean("IS_WINNER")?.let {
+            if (it) {
+                viewKonfetti = binding.konfettiView
+                viewKonfetti.start(Presets.rain())
+            }
+        }
+
         winnersAdapter.setListener(this)
         winnersAdapter.submitList(arrayListOf())
         binding.recyclerWinners.adapter = winnersAdapter

@@ -156,7 +156,6 @@
                 android:text="@string/get_code"
                 android:textColor="@color/grey_6"
                 android:textSize="@dimen/size_small"
-                android:visibility="@{item.status == `completed`? View.VISIBLE : View.GONE}"
                 app:cornerRadius="@dimen/dimen_0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
