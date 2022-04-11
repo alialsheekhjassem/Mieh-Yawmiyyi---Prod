@@ -14,7 +14,7 @@ internal interface IRestApiManager {
 
     suspend fun doServerResetPassword(request: ResetPasswordRequest): Resource<ResponseWrapper<String>>
 
-    suspend fun getTasks(limit: Int, offset: Int): Resource<TasksResponse>
+    suspend fun getTasks(limit: Int, offset: Int, done: Boolean?, type: String?): Resource<TasksResponse>
 
     suspend fun generateTasks(): Resource<Any?>
 

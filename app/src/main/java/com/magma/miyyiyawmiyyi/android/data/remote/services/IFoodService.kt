@@ -56,7 +56,9 @@ interface IFoodService {
     @GET(Urls.END_POINT_TASKS)
     suspend fun getTasks(
         @Query("limit") limit: Int?,
-        @Query("offset") offset: Int?
+        @Query("offset") offset: Int?,
+        @Query("done") done: Boolean?,
+        @Query("type") type: String?,
     ): Response<ResponseWrapper<TasksResponse>>
 
     @POST(Urls.END_POINT_TASKS)
@@ -104,7 +106,7 @@ interface IFoodService {
 
     @POST(Urls.END_POINT_CREATE_PURCHASE)
     suspend fun doServerCreatePurchase(
-        @Path("gift") gift: String?,
+        @Query("gift") gift: String?,
     ): Response<ResponseWrapper<CreatePurchaseResponse>>
 
     @PATCH(Urls.END_POINT_MARK_AS_DONE)

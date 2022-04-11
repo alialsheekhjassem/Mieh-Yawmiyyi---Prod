@@ -10,6 +10,7 @@ class ContactManager {
     private var account: MyAccountResponse? = null
     private var info: InfoResponse? = null
     private var giftCode: String? = null
+    private var isRefreshInfo: Boolean = false
 
     init {
         Log.i("ContactManager","Initiating")
@@ -50,6 +51,15 @@ class ContactManager {
 
         fun getGiftCode(): String? {
             return instance.giftCode
+        }
+
+        fun setIsRefreshInfo(isRefreshInfo: Boolean){
+            Log.i("ContactManager", "Add isRefreshInfo ...$isRefreshInfo")
+            instance.isRefreshInfo = isRefreshInfo
+        }
+
+        fun getIsRefreshInfo(): Boolean {
+            return instance.isRefreshInfo
         }
 
         fun refreshInstance() {

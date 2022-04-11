@@ -56,7 +56,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_default"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/facebook"
+                android:src="@drawable/logo"
                 image_url="@{item.image}"
                 app:layout_constraintBottom_toTopOf="@id/line_1"
                 app:layout_constraintEnd_toEndOf="parent"

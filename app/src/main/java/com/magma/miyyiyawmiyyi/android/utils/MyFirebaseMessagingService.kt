@@ -150,6 +150,13 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             Const.TYPE_GOT_POINTS -> {
                 title = getString(R.string.points_reward)
             }
+            else -> {
+                title = remoteMessage.data["title"]
+            }
+        }
+
+        if (type == Const.TOPIC_ROUNDS || type == Const.TOPIC_GRAND_PRIZE) {
+            ContactManager.setIsRefreshInfo(true)
         }
 
         notificationBuilder

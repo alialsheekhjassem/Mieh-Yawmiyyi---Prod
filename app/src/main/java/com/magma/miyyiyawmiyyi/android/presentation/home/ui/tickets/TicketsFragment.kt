@@ -60,7 +60,8 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
         ticketsAdapter.submitList(arrayListOf())
         binding.recyclerTickets.adapter = ticketsAdapter
 
-        viewModel.loadAllTickets()
+        if (ContactManager.getCurrentInfo()?.activeRound != null)
+            viewModel.loadAllTickets()
 
         val dRoundNumber = ContactManager.getCurrentInfo()?.activeRound?.let {
             it.number?.let { num ->
@@ -92,7 +93,7 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
                     val normalList = t.filter { ticket -> ticket.round != null }
                     val goldenList = t.filter { ticket -> ticket.grandPrize != null }
                     ticketsAdapter.submitList(normalList)
-                    if (goldenList.isNotEmpty()){
+                    if (goldenList.isNotEmpty()) {
                         binding.txtTicketNum.text = goldenList.first().number
                     }
                     if (t.isNotEmpty()) {
@@ -149,7 +150,8 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
 
-        viewModel.getTickets(limit = 20, offset = 0, null, null)
+        val round = ContactManager.getCurrentInfo()?.activeRound?._id
+        round?.let { viewModel.getTickets(limit = 20, offset = 0, round, null) }
     }
 
     override fun onDestroyView() {

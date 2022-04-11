@@ -13,7 +13,7 @@ interface DataSource {
     suspend fun doServerLogout(refreshToken: String?): Resource<Any?>
     suspend fun doServerRegister(registerRequest: RegisterRequest): Resource<ResponseWrapper<String>>
     suspend fun doServerResetPassword(request: ResetPasswordRequest): Resource<ResponseWrapper<String>>
-    suspend fun getTasks(limit: Int, offset: Int): Resource<TasksResponse>
+    suspend fun getTasks(limit: Int, offset: Int, done: Boolean?, type: String?): Resource<TasksResponse>
     suspend fun getGifts(limit: Int, offset: Int): Resource<GiftStoreResponse>
     suspend fun getPurchases(limit: Int, offset: Int): Resource<GiftStorePurchasesResponse>
     suspend fun getNotifications(limit: Int, offset: Int): Resource<NotificationsResponse>
@@ -30,7 +30,8 @@ interface DataSource {
     suspend fun getAllCountries(limit: Int, offset: Int): Resource<CountriesResponse>
     suspend fun getGiftCode(id: String?): Resource<Any?>
 
-    //Local
+    /**Local Db*/
+    //Task
     fun loadAllTasks(): List<TaskObj>
     fun loadAllTasks(type: String): List<TaskObj>
     fun loadTask(id: String): TaskObj
@@ -41,6 +42,7 @@ interface DataSource {
     fun deleteTask(item: TaskObj)
     fun deleteTask(id: String)
     fun deleteAllTasks()
+    fun deleteAllTasks(type: String)
     //Gift
     fun loadAllGiftCards(): List<GiftCard>
     fun loadGiftCard(id: String): GiftCard

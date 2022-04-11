@@ -37,6 +37,9 @@ interface TaskDao {
     @Query("DELETE FROM task_obj")
     fun deleteAll()
 
+    @Query("DELETE FROM task_obj WHERE type = :type")
+    fun deleteAll(type: String)
+
     @Update
     fun update(item: TaskObj?)
 

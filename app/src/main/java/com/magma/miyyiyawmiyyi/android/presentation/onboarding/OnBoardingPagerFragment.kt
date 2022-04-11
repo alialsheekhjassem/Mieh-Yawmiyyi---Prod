@@ -16,6 +16,7 @@ import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentOnboardingPagerBinding
 import com.magma.miyyiyawmiyyi.android.presentation.registration.RegistrationActivity
+import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import javax.inject.Inject
 
 class OnBoardingPagerFragment : Fragment() {
@@ -34,6 +35,8 @@ class OnBoardingPagerFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        //lang
+        LocalHelper.onCreate(requireActivity())
         binding = FragmentOnboardingPagerBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 

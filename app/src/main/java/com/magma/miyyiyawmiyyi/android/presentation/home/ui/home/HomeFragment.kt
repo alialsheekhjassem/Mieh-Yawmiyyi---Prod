@@ -7,6 +7,9 @@ import android.view.*
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.magma.miyyiyawmiyyi.android.R
+import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
+import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentHomeBinding
 import com.magma.miyyiyawmiyyi.android.model.Round
@@ -60,19 +63,27 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
             }
         }
 
+        if (ContactManager.getIsRefreshInfo()) {
+            viewModel.getInfo()
+        }
+
         winnersAdapter.setListener(this)
         winnersAdapter.submitList(arrayListOf())
         binding.recyclerWinners.adapter = winnersAdapter
 
         setHasOptionsMenu(true)
 
-        viewModel.loadAllTickets()
+        viewModel.loadAllRounds()
 
         binding.cardPoints.txtView.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeToInvitations())
         }
         binding.cardTickets.txtView.setOnClickListener {
             findNavController().navigate(HomeFragmentDirections.actionHomeToTickets())
+        }
+
+        binding.lytSwipeRefresh.setOnRefreshListener {
+            viewModel.getInfo()
         }
     }
 
@@ -139,6 +150,44 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
                     if (t.isNotEmpty())
                         setupData(t.first())
                     else setupData(null)
+                }
+            })
+        )
+
+        // listen to api result
+        viewModel.infoResponse.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<InfoResponse>> {
+                override fun onEventUnhandledContent(t: Resource<InfoResponse>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            binding.lytSwipeRefresh.isRefreshing = true
+                        }
+                        is Resource.Success -> {
+                            binding.lytSwipeRefresh.isRefreshing = false
+                            // response is ok get the data and display it in the list
+                            val response = t.response as InfoResponse
+                            Log.d(TAG, "response: $response")
+                            ContactManager.setInfo(response)
+                            ContactManager.setIsRefreshInfo(false)
+
+                            setupData(ContactManager.getCurrentInfo()?.activeRound)
+                        }
+                        is Resource.DataError -> {
+                            binding.lytSwipeRefresh.isRefreshing = false
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "response: DataError $response")
+                        }
+                        is Resource.Exception -> {
+                            binding.lytSwipeRefresh.isRefreshing = false
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                        }
+                    }
                 }
             })
         )

@@ -2,8 +2,6 @@ package com.magma.miyyiyawmiyyi.android.di.module
 
 import dagger.Module
 import dagger.Provides
-import com.magma.miyyiyawmiyyi.android.presentation.details.FoodAdapter
-import com.magma.miyyiyawmiyyi.android.presentation.details.cart.CartAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.WinnersAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.notifications.NotificationsAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.orders.OrdersAdapter
@@ -37,11 +35,6 @@ class AdapterModule {
     }
 
     @Provides
-    fun provideFoodsAdapter(): FoodAdapter {
-        return FoodAdapter()
-    }
-
-    @Provides
     fun provideGiftCardsAdapter(): GiftCardsAdapter {
         return GiftCardsAdapter()
     }
@@ -54,11 +47,6 @@ class AdapterModule {
     @Provides
     fun provideOrdersAdapter(): OrdersAdapter {
         return OrdersAdapter()
-    }
-
-    @Provides
-    fun provideCartAdapter(): CartAdapter {
-        return CartAdapter()
     }
 
 }

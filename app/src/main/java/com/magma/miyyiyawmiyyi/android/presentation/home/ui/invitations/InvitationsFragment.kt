@@ -54,6 +54,7 @@ class InvitationsFragment : ProgressBarFragments() {
         }
         account?.let {
             binding.txtSentCardsNum.text = it.sentInvites?.toString()
+            binding.txtReceivedCardsNum.text = it.fulfilledInvites?.toString()
             binding.txtInvitationCode.text = it.account?.invite?.code ?: "712 342"
         }
 

@@ -45,12 +45,12 @@ class TasksViewModel @Inject constructor(
         }
     }
 
-    fun getTasks(limit: Int, offset: Int) {
+    fun getTasks(limit: Int, offset: Int, done: Boolean?, type: String?) {
         launch {
             //val token = dataRepository.getApiToken()
             response.value = Event(Resource.Loading())
             val result: Resource<TasksResponse> =
-                dataRepository.getTasks(limit, offset)
+                dataRepository.getTasks(limit, offset, done, type)
             Log.d("TAG", "getTasks: $result")
             response.value = Event(result)
         }
@@ -67,48 +67,38 @@ class TasksViewModel @Inject constructor(
         }
     }
 
-    fun deleteAndSaveTasks(response: TasksResponse) {
-        // save feed list into database
-        launch {
-            withContext(Dispatchers.IO)
-            {
-                val items = dataRepository.loadAllTasks()
-                deleteAndSaveTasks(response.items)
-                Log.d("TAG", "deleteAndSaveTasks: $items")
-            }
-        }
-    }
-
     fun deleteTask(taskId: String) {
         // save feed list into database
         launch {
             withContext(Dispatchers.IO)
             {
                 val items = dataRepository.deleteTask(taskId)
+                loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
                 Log.d("TAG", "deleteAndSaveTasks: $items")
             }
         }
     }
 
-    private fun deleteAndSaveTasks(tasksResponse: ArrayList<TaskObj>) {
+    fun deleteAndSaveTasks(tasksResponse: ArrayList<TaskObj>, type: String?) {
         // save feed list into database
         launch {
             withContext(Dispatchers.IO)
             {
-                val ids = dataRepository.deleteAllTasks()
-                saveTasks(tasksResponse)
-                Log.d("TAG", "deleteAndSaveTasks: $ids")
+                if (!type.isNullOrEmpty())
+                    dataRepository.deleteAllTasks(type)
+                else dataRepository.deleteAllTasks()
+                saveTasks(tasksResponse, type)
             }
         }
     }
 
-    private fun saveTasks(tasksResponse: ArrayList<TaskObj>) {
+    private fun saveTasks(tasksResponse: ArrayList<TaskObj>, type: String?) {
         // save feed list into database
         launch {
             withContext(Dispatchers.IO)
             {
                 val ids = dataRepository.insertTaskList(tasksResponse)
-                loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
+                type?.let { loadAllTasks(it) }
                 Log.d("TAG", "saveTasks: $ids")
             }
         }

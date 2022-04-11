@@ -501,10 +501,10 @@ class RemoteRepository
         }
     }
 
-    override suspend fun getTasks(limit: Int, offset: Int): Resource<TasksResponse> {
+    override suspend fun getTasks(limit: Int, offset: Int, done: Boolean?, type: String?): Resource<TasksResponse> {
         val authService = serviceGenerator.createService(IFoodService::class.java)
         try {
-            val response = authService.getTasks(limit, offset)
+            val response = authService.getTasks(limit, offset, done, type)
 
             return if (response.isSuccessful) {
                 //Do something with response e.g show to the UI.

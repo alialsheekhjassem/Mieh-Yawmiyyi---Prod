@@ -23,7 +23,6 @@ class NotificationsAdapter :
         val layoutInflater = LayoutInflater.from(context)
         val binding = ItemNotificationBinding.inflate(layoutInflater, parent, false)
         return MyViewHolder(binding)
-
     }
 
     fun setListener(listener: RecyclerItemListener<Notification>) {

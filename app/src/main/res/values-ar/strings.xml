@@ -24,9 +24,9 @@
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAiAir1uMz3NwJDd9vjIhqeEuTUgw2S7VM</string>
 
     <!--onboarding-->
-    <string name="welcome_title_1">هو تطبيق يمنح المستخدم تذاكر للانضمام إلى استطلاع يومي بقيمة 100 دولار. سيتم إجراء الاستطلاع بشكل عشوائي وآلي</string>
-    <string name="welcome_title_2">للفوز بتذكرة ، يقوم المستخدم بأحد أنواع المهام: مشاهدة مقاطع الفيديو الإعلانية ، أو الإجابة على مجموعة من الأسئلة أو القيام بمهام عبر وسائل التواصل الاجتماعي.</string>
-    <string name="welcome_title_3">يمكنك دعوة أصدقائك للانضمام إلى التطبيق لجمع النقاط واستبدالها بعدة هدايا رقمية.</string>
+    <string name="welcome_title_1">مية يومية</string>
+    <string name="welcome_title_2">الفوز بتذكرة</string>
+    <string name="welcome_title_3">قم بدعوات واربح!</string>
     <string name="welcome_text_1">هو تطبيق يمنح المستخدم تذاكر للانضمام إلى استطلاع يومي بقيمة 100 دولار. سيتم إجراء الاستطلاع بشكل عشوائي وآلي</string>
     <string name="welcome_text_2">للفوز بتذكرة ، يقوم المستخدم بأحد أنواع المهام: مشاهدة مقاطع الفيديو الإعلانية ، أو الإجابة على مجموعة من الأسئلة أو القيام بمهام عبر وسائل التواصل الاجتماعي.</string>
     <string name="welcome_text_3">يمكنك دعوة أصدقائك للانضمام إلى التطبيق لجمع النقاط واستبدالها بعدة هدايا رقمية.</string>
@@ -364,5 +364,10 @@
     <string name="google_play_card">بطاقة جوجل بلاي</string>
     <string name="gift_code">كود البطاقة</string>
     <string name="not_completed_card">بطاقة هدية غير مكتملة</string>
+    <string name="no_active_round">لا يوجد سحب فعال حاليا</string>
+    <string name="no_code_available">لا يوجد رمز متاح للشراء</string>
+    <string name="not_found">لا يوجد</string>
+    <string name="invite_code_exists">لا يمكن تغيير رمز الدعوة. تمت دعوة المستخدم بالفعل بواسطة الكود</string>
+    <string name="incorrect_credentials">تسجيل غير صحيح</string>
 
 </resources>

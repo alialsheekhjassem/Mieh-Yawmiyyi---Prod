@@ -11,90 +11,97 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/lyt_swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/lyt_parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".presentation.home.ui.home.HomeFragment">
+            android:layout_height="match_parent">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/lyt_parent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                tools:context=".presentation.home.ui.home.HomeFragment">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/lyt_totals"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_rounded_grey"
-                    android:backgroundTint="@color/grey_3"
-                    android:orientation="horizontal"
-                    android:paddingVertical="@dimen/spacing_default"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_height="match_parent">
 
-                    <include
-                        android:id="@+id/card_points"
-                        layout="@layout/include_total"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/spacing_default"
-                        android:layout_weight="1"
-                        app:drawable="@{@drawable/gold_sack}"
-                        app:title="@{@string/total_points}" />
-
-                    <include
-                        android:id="@+id/card_tickets"
-                        layout="@layout/include_total"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginVertical="@dimen/spacing_default"
-                        android:layout_marginEnd="@dimen/spacing_default"
-                        android:layout_weight="1"
-                        app:drawable="@{@drawable/ticket}"
-                        app:title="@{@string/total_tickets}" />
-
-                </androidx.appcompat.widget.LinearLayoutCompat>
-
-                <androidx.appcompat.widget.LinearLayoutCompat
-                    android:id="@+id/lyt_winners"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/spacing_default"
-                    android:layout_marginTop="@dimen/spacing_default"
-                    android:background="@drawable/bg_rounded_grey"
-                    android:backgroundTint="@color/grey_3"
-                    android:orientation="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/lyt_totals">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recycler_winners"
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/lyt_totals"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="4"
-                        tools:listitem="@layout/item_winner" />
+                        android:background="@drawable/bg_rounded_grey"
+                        android:backgroundTint="@color/grey_3"
+                        android:orientation="horizontal"
+                        android:paddingVertical="@dimen/spacing_default"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                    <include
-                        layout="@layout/include_golden"
+                        <include
+                            android:id="@+id/card_points"
+                            layout="@layout/include_total"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/spacing_default"
+                            android:layout_weight="1"
+                            app:drawable="@{@drawable/gold_sack}"
+                            app:title="@{@string/total_points}" />
+
+                        <include
+                            android:id="@+id/card_tickets"
+                            layout="@layout/include_total"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginVertical="@dimen/spacing_default"
+                            android:layout_marginEnd="@dimen/spacing_default"
+                            android:layout_weight="1"
+                            app:drawable="@{@drawable/ticket}"
+                            app:title="@{@string/total_tickets}" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/lyt_winners"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/spacing_navigation_top" />
+                        android:layout_marginHorizontal="@dimen/spacing_default"
+                        android:layout_marginTop="@dimen/spacing_default"
+                        android:background="@drawable/bg_rounded_grey"
+                        android:backgroundTint="@color/grey_3"
+                        android:orientation="vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/lyt_totals">
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_winners"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="4"
+                            tools:listitem="@layout/item_winner" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.core.widget.NestedScrollView>
+                        <include
+                            layout="@layout/include_golden"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/spacing_navigation_top" />
 
-        <nl.dionsegijn.konfetti.xml.KonfettiView
-            android:id="@+id/konfettiView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.core.widget.NestedScrollView>
+
+            <nl.dionsegijn.konfetti.xml.KonfettiView
+                android:id="@+id/konfettiView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

@@ -4,7 +4,6 @@ import android.content.SharedPreferences
 import com.magma.miyyiyawmiyyi.android.data.local.repository.dao.*
 import com.magma.miyyiyawmiyyi.android.model.*
 import com.magma.miyyiyawmiyyi.android.utils.Const
-import java.util.*
 import javax.inject.Inject
 
 class LocalRepository
@@ -47,7 +46,7 @@ class LocalRepository
     }
 
     fun getLang(): String? {
-        return preferences.getString(Const.PREF_LANG, Locale.getDefault().displayLanguage)
+        return preferences.getString(Const.PREF_LANG, "ar"/*Locale.getDefault().displayLanguage*/)
     }
 
     fun setIsShownOnBoarding(isShown: Boolean) {
@@ -114,6 +113,10 @@ class LocalRepository
 
     fun deleteAllTasks() {
         taskDao.deleteAll()
+    }
+
+    fun deleteAllTasks(type: String) {
+        taskDao.deleteAll(type)
     }
 
     //Gift Card

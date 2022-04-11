@@ -97,12 +97,25 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                 (object :
                 EventObserver.EventUnhandledContent<List<TaskObj>> {
                 override fun onEventUnhandledContent(t: List<TaskObj>) {
-                    tasksAdapter.submitList(t)
+                    var type: String? = null
                     if (t.isNotEmpty()) {
+                        type = t.first().type
                         binding.progress.visibility = View.GONE
                         binding.txtEmpty.visibility = View.GONE
                     } else {
                         binding.txtEmpty.visibility = View.VISIBLE
+                    }
+
+                    when (type) {
+                        Const.TYPE_SOCIAL_MEDIA -> {
+                            tasksAdapter.submitList(t)
+                        }
+                        Const.TYPE_AD -> {
+                            adTasks = t
+                        }
+                        Const.TYPE_QUIZ -> {
+                            quizzesTasks = t
+                        }
                     }
                 }
             })
@@ -126,15 +139,21 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             val response = t.response as TasksResponse
                             Log.d(TAG, "response: $response")
 
-                            viewModel.deleteAndSaveTasks(response)
+                            var type: String? = null
+                            if (!response.items.isNullOrEmpty())
+                                type = response.items.first().type
+
+                            viewModel.deleteAndSaveTasks(response.items, type)
 
                             if (response.items.isEmpty())
                                 viewModel.generateTasks()
-                            else {
+                            /*else {
                                 //Quizzes & Ad Tasks
-                                adTasks = response.items.filter { taskObj -> taskObj.type == Const.TYPE_AD }
-                                quizzesTasks = response.items.filter { taskObj -> taskObj.type == Const.TYPE_QUIZ }
-                            }
+                                adTasks =
+                                    response.items.filter { taskObj -> taskObj.type == Const.TYPE_AD }
+                                quizzesTasks =
+                                    response.items.filter { taskObj -> taskObj.type == Const.TYPE_QUIZ }
+                            }*/
                         }
                         is Resource.DataError -> {
                             binding.progress.visibility = View.GONE
@@ -174,7 +193,14 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             val response = t.response
                             Log.d(TAG, "responseGenerate: $response")
 
-                            viewModel.getTasks(limit = 20, offset = 0)
+                            viewModel.getTasks(
+                                limit = 20,
+                                offset = 0,
+                                false,
+                                Const.TYPE_SOCIAL_MEDIA
+                            )
+                            viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_AD)
+                            viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_QUIZ)
                         }
                         is Resource.DataError -> {
                             binding.progress.visibility = View.GONE
@@ -237,8 +263,11 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
     private fun setup() {
 
-        if (ContactManager.getCurrentInfo()?.activeRound != null)
+        if (ContactManager.getCurrentInfo()?.activeRound != null) {
             viewModel.loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
+            viewModel.loadAllTasks(Const.TYPE_AD)
+            viewModel.loadAllTasks(Const.TYPE_QUIZ)
+        }
 
         tasksAdapter.setListener(this)
         tasksAdapter.submitList(arrayListOf())
@@ -377,7 +406,9 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
 
-        viewModel.getTasks(limit = 50, offset = 0)
+        viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_SOCIAL_MEDIA)
+        viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_AD)
+        viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_QUIZ)
     }
 
     override fun onItemClicked(item: TaskObj, index: Int) {

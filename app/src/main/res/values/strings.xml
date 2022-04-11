@@ -375,6 +375,11 @@
     <string name="google_play_card">Google Play Card</string>
     <string name="gift_code">Gift Code</string>
     <string name="not_completed_card">Not completed gift card</string>
+    <string name="no_active_round">No active round currently</string>
+    <string name="no_code_available">No code available for the purchase</string>
+    <string name="not_found">Not found</string>
+    <string name="invite_code_exists">Invite code can\'t be changed. user already has invitedBy code</string>
+    <string name="incorrect_credentials">Incorrect credentials</string>
 
     <string-array name="languages">
         <item>English</item>

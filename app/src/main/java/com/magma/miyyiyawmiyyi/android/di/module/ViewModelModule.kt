@@ -6,9 +6,6 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.tasks.TasksViewModel
-import com.magma.miyyiyawmiyyi.android.presentation.details.RestaurantDetailsViewModel
-import com.magma.miyyiyawmiyyi.android.presentation.details.address.AddressViewModel
-import com.magma.miyyiyawmiyyi.android.presentation.details.cart.CartViewModel
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.HomeViewModel
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.invitations.InvitationsViewModel
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.live_stream.LiveStreamViewModel
@@ -107,21 +104,6 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(ProfileViewModel::class)
     abstract fun bindProfileViewModel(viewModel: ProfileViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(RestaurantDetailsViewModel::class)
-    abstract fun bindRestaurantDetailsViewModel(viewModel: RestaurantDetailsViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(CartViewModel::class)
-    abstract fun bindCartViewModel(viewModel: CartViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(AddressViewModel::class)
-    abstract fun bindAddressViewModel(viewModel: AddressViewModel): ViewModel
 
     @Binds
     @IntoMap

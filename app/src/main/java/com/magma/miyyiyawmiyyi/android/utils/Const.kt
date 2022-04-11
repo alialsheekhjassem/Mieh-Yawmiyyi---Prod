@@ -70,7 +70,7 @@ class Const {
         var FB_REWARD = "xyz1462xyz62xyz_67xyz3630456xyz"
 
         //Topics
-        const val TOPIC_ROUNDS = "rounds_en"
+        const val TOPIC_ROUNDS = "rounds"
         const val TOPIC_GRAND_PRIZE = "grand_prize"
         const val TOPIC_GENERAL_AR = "general_ar"
         const val TOPIC_GENERAL_EN = "general_en"

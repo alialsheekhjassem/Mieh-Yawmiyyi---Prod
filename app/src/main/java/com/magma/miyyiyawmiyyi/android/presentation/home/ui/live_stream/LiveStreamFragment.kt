@@ -63,16 +63,10 @@ class LiveStreamFragment : ProgressBarFragments() {
             if (inf.activeGrandPrize != null) {
                 val date = inf.activeGrandPrize.drawResultAt
                 viewModel.onStartGoldenCountDown(DateUtils.formatDateTimeToLong(date))
-            } /*else {
-                binding.btnWatchNowGolden.backgroundTintList =
-                    ContextCompat.getColorStateList(requireContext(), R.color.light_blue_2)
-            }*/
-            /*inf.activeGrandPrize?.let { grandPrize ->
-                val date = grandPrize.drawResultAt
-                viewModel.onStartGoldenCountDown(DateUtils.formatDateTimeToLong(date))
-            } ?: {
-                binding.btnWatchNowGolden.visibility = View.INVISIBLE
-            }*/
+                binding.lytGolden.visibility = View.VISIBLE
+            } else {
+                binding.lytGolden.visibility = View.GONE
+            }
         }
 
         binding.swipeRefresh.setOnRefreshListener {
@@ -109,11 +103,13 @@ class LiveStreamFragment : ProgressBarFragments() {
                 setViewsTime(Const.INIT_COUNT_DOWN)
                 binding.btnWatchNow.backgroundTintList =
                     ContextCompat.getColorStateList(requireContext(), R.color.light_blue_2)
+                binding.btnWatchNow.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.white))
                 binding.btnWatchNow.isEnabled = true
             } else {
                 DateUtils.formatLongToCountDown(it)?.let { it1 -> setViewsTime(it1) }
                 binding.btnWatchNow.backgroundTintList =
                     ContextCompat.getColorStateList(requireContext(), R.color.grey_13)
+                binding.btnWatchNow.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.grey_14))
                 binding.btnWatchNow.isEnabled = false
             }
         }
@@ -123,14 +119,16 @@ class LiveStreamFragment : ProgressBarFragments() {
         ) {
             if (it <= 0) {
                 setGoldenViewsTime(Const.INIT_COUNT_DOWN)
-                binding.btnWatchNowGolden.backgroundTintList =
-                    ContextCompat.getColorStateList(requireContext(), R.color.light_blue_2)
-                binding.btnWatchNow.isEnabled = true
+                binding.btnWatchNowGolden.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_blue_2))
+                binding.btnWatchNowGolden.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.white))
+                binding.btnWatchNowGolden.isEnabled = true
             } else {
                 DateUtils.formatLongToCountDown(it)?.let { it1 -> setGoldenViewsTime(it1) }
                 binding.btnWatchNowGolden.backgroundTintList =
                     ContextCompat.getColorStateList(requireContext(), R.color.grey_13)
-                binding.btnWatchNow.isEnabled = false
+                binding.btnWatchNowGolden.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_13))
+                binding.btnWatchNowGolden.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.grey_14))
+                binding.btnWatchNowGolden.isEnabled = false
             }
         }
         // listen to api result
@@ -245,13 +243,14 @@ class LiveStreamFragment : ProgressBarFragments() {
     private fun setTicketsProgress(response: RoundStatisticsResponse) {
         val maxTickets = response.maxTickets ?: 0
         val availableTickets = response.availableTickets ?: 0
+        val issuedTickets = response.issuedTickets ?: 0
         if (maxTickets != 0) {
-            val percentage = availableTickets * 100 / maxTickets
-            binding.txtPercentage.text = availableTickets.toString()
+            val percentage = issuedTickets * 100 / maxTickets
+            binding.txtPercentage.text = issuedTickets.toString()
             binding.txtPercent.text = "/$maxTickets"
             binding.imgProgress.progress = percentage
         } else {
-            binding.txtPercentage.text = availableTickets.toString()
+            binding.txtPercentage.text = issuedTickets.toString()
             binding.txtPercent.text = "/$maxTickets"
             binding.imgProgress.progress = 0
         }

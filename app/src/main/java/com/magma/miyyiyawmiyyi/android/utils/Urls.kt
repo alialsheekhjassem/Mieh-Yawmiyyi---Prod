@@ -20,7 +20,7 @@ class Urls {
         const val END_POINT_UPDATE_MY_ACCOUNT = "/api/v1/accounts"
         const val END_POINT_TICKETS = "/api/v1/tickets"
         const val END_POINT_INFO = "/api/v1/accounts/info"
-        const val END_POINT_CREATE_PURCHASE = "/api/v1/gift_store/{gift}/purchase"
+        const val END_POINT_CREATE_PURCHASE = "/api/v1/gift_store/purchase"
         const val END_POINT_MARK_AS_DONE = "/api/v1/tasks"
         const val END_POINT_ROUND_STATISTICS = "/api/v1/rounds/statistics"
         const val END_POINT_COUNTRIES = "/api/v1/countries"

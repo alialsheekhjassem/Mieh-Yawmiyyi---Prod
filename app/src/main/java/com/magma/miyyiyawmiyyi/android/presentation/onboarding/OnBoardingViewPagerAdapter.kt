@@ -13,20 +13,20 @@ class OnBoardingViewPagerAdapter(fragmentActivity: FragmentActivity, private val
         return when (position) {
             0 -> OnBoardingFragment.newInstance(
                 0,
-                context.resources.getString(R.string.welcome_title_1),
-                context.resources.getString(R.string.welcome_text_1),
+                title = context.resources.getString(R.string.welcome_title_1),
+                description = context.resources.getString(R.string.welcome_text_1),
                 R.drawable.onboard_1
             )
             1 -> OnBoardingFragment.newInstance(
                 1,
-                context.resources.getString(R.string.welcome_title_2),
-                context.resources.getString(R.string.welcome_text_2),
+                title = context.resources.getString(R.string.welcome_title_2),
+                description = context.resources.getString(R.string.welcome_text_2),
                 R.drawable.onboard_2
             )
             else -> OnBoardingFragment.newInstance(
                 2,
-                context.resources.getString(R.string.welcome_title_3),
-                context.resources.getString(R.string.welcome_text_3),
+                title = context.resources.getString(R.string.welcome_title_3),
+                description = context.resources.getString(R.string.welcome_text_3),
                 R.drawable.onboard_3
             )
         }

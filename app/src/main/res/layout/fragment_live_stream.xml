@@ -35,6 +35,8 @@
                     android:background="@drawable/bg_img_live"
                     android:layoutDirection="ltr"
                     android:padding="@dimen/spacing_large"
+                    tools:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_watch_last_100_draw"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.constraintlayout.widget.Guideline
@@ -309,6 +311,7 @@
                         android:paddingVertical="@dimen/nav_header_vertical_spacing"
                         android:text="@string/watch_now"
                         android:textColor="@color/grey_14"
+                        android:enabled="false"
                         android:textSize="@dimen/size_small"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -614,15 +617,16 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/vertical_20dp"
                             android:layout_marginBottom="@dimen/spacing_large"
-                            android:backgroundTint="@color/light_blue_2"
+                            android:backgroundTint="@color/grey_13"
                             android:minHeight="0dp"
                             android:paddingVertical="@dimen/nav_header_vertical_spacing"
                             android:text="@string/watch_now_on_facebook"
-                            android:textColor="@color/white"
+                            android:textColor="@color/grey_14"
                             android:textSize="@dimen/size_body"
                             app:icon="@drawable/ic_facebook"
                             app:iconSize="@dimen/size_icon_refund"
                             app:iconTint="@color/white"
+                            android:enabled="false"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/lyt_days_1"
@@ -661,12 +665,12 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
-                <androidx.constraintlayout.widget.Guideline
+                <!--<androidx.constraintlayout.widget.Guideline
                     android:id="@+id/guideline3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    app:layout_constraintGuide_percent="0.725" />
+                    app:layout_constraintGuide_percent="0.6" />-->
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/img_gift"
@@ -675,10 +679,10 @@
                     android:elevation="@dimen/spacing_default"
                     android:scaleType="fitXY"
                     android:src="@drawable/bg_img_gift"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="-100dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/guideline3" />
+                    app:layout_constraintTop_toBottomOf="@id/card_time" />
 
                 <androidx.constraintlayout.widget.Group
                     android:id="@+id/group_time"
@@ -686,7 +690,7 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:constraint_referenced_ids="card_time, img_gift"
-                    tools:visibility="gone" />
+                    tools:visibility="visible" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_tickets"
@@ -698,7 +702,7 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/barrier"
-                    tools:visibility="visible">
+                    tools:visibility="gone">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -742,7 +746,7 @@
                             android:background="@drawable/progress_bkg"
                             android:indeterminate="false"
                             android:padding="@dimen/spacing_default"
-                            android:progress="50"
+                            android:progress="0"
                             android:progressDrawable="@drawable/progress_circle"
                             android:rotation="270"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -757,7 +761,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/spacing_default"
                             android:gravity="center"
-                            android:text="50"
+                            android:text="0"
                             android:textColor="@color/orange_6"
                             android:textSize="42sp"
                             app:layout_constraintBottom_toBottomOf="@+id/img_progress"
@@ -773,7 +777,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="@dimen/spacing_default"
                             android:gravity="center"
-                            android:text="/100"
+                            android:text="/0"
                             android:textColor="@color/orange_6"
                             android:textSize="@dimen/size_toolbar_title"
                             app:layout_constraintBottom_toBottomOf="@+id/img_progress"

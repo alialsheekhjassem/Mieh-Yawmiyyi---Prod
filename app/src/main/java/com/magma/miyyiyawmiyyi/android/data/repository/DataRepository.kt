@@ -32,8 +32,8 @@ constructor(
         return remoteRepository.doServerResetPassword(request)
     }
 
-    override suspend fun getTasks(limit: Int, offset: Int): Resource<TasksResponse> {
-        return remoteRepository.getTasks(limit, offset)
+    override suspend fun getTasks(limit: Int, offset: Int, done: Boolean?, type: String?): Resource<TasksResponse> {
+        return remoteRepository.getTasks(limit, offset, done, type)
     }
 
     override suspend fun getGifts(limit: Int, offset: Int): Resource<GiftStoreResponse> {
@@ -145,6 +145,10 @@ constructor(
 
     override fun deleteAllTasks() {
         localRepository.deleteAllTasks()
+    }
+
+    override fun deleteAllTasks(type: String) {
+        localRepository.deleteAllTasks(type)
     }
 
     override fun loadAllGiftCards(): List<GiftCard> {

@@ -12,6 +12,7 @@ import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentGetStartedBinding
+import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import javax.inject.Inject
 
 class GetStartedFragment : Fragment() {
@@ -29,6 +30,8 @@ class GetStartedFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        //lang
+        LocalHelper.onCreate(requireActivity())
         binding = FragmentGetStartedBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 

@@ -3,7 +3,7 @@
     <item
         android:state_selected="true"
         android:state_checked="true"
-        android:drawable="@drawable/bg_nav_item"/>
+        android:drawable="@drawable/bg_bottom_nav_item"/>
     <item
         android:drawable="@drawable/unselected_item_bkg"/>
 

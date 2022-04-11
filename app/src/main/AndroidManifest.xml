@@ -58,8 +58,6 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".presentation.registration.RegistrationActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".presentation.details.DetailsActivity" />
-        <activity android:name=".presentation.edit_profile.EditProfileActivity" />
         <activity
             android:name=".presentation.splash.SplashActivity"
             android:exported="true"

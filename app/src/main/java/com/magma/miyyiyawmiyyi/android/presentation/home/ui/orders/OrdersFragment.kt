@@ -143,7 +143,7 @@ class OrdersFragment : ProgressBarFragments(), RecyclerItemCardListener<Purchase
                             val response = t.response
                             Log.d(TAG, "response: $response")
 
-                            val timer = object: CountDownTimer(20000, 1000) {
+                            val timer = object : CountDownTimer(20000, 1000) {
                                 override fun onTick(millisUntilFinished: Long) {
                                     if (!ContactManager.getGiftCode().isNullOrEmpty()) {
                                         cancel()
@@ -208,10 +208,12 @@ class OrdersFragment : ProgressBarFragments(), RecyclerItemCardListener<Purchase
         val alertDialog = builder.create()
         alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialogBinding.item = item
-        val code = ContactManager.getGiftCode()
+        var code = ContactManager.getGiftCode()
+        Log.d(TAG, "showGetCodeDialog: " + code?.removeSurrounding("\""))
+        code = code?.removeSurrounding("\"")
         dialogBinding.txtCode.text = code
         dialogBinding.imgCopy.setOnClickListener {
-            item.code?.let { it1 -> copyText(it1) }
+            code?.let { it1 -> copyText(it1) }
         }
         dialogBinding.btnClose.setOnClickListener { alertDialog.dismiss() }
         alertDialog.show()

@@ -41,7 +41,7 @@ open class ProgressBarFragments : Fragment() {
         MotionToast.darkToast(
             requireActivity(),
             getString(R.string.error),
-            error,
+            getErrorTranslatedToast(error),
             MotionToastStyle.ERROR,
             MotionToast.GRAVITY_BOTTOM,
             MotionToast.LONG_DURATION,
@@ -59,6 +59,32 @@ open class ProgressBarFragments : Fragment() {
             MotionToast.LONG_DURATION,
             ResourcesCompat.getFont(requireActivity(), R.font.product_sans_regular)
         )
+    }
+
+    private fun getErrorTranslatedToast(error: String): String {
+        return when {
+            error.lowercase().contains("No active round".lowercase()) -> {
+                getString(R.string.no_active_round)
+            }
+            error.lowercase().contains("reached allowance of max tickets".lowercase()) -> {
+                getString(R.string.reach_max_tickets)
+            }
+            error.lowercase().contains("No code available for the purchase".lowercase()) -> {
+                getString(R.string.no_code_available)
+            }
+            error.lowercase().contains("Not found".lowercase()) -> {
+                getString(R.string.not_found)
+            }
+            error.lowercase().contains("Invite code can't be changed. user already has invitedBy code".lowercase()) -> {
+                getString(R.string.invite_code_exists)
+            }
+            error.lowercase().contains("Incorrect credentials".lowercase()) -> {
+                getString(R.string.incorrect_credentials)
+            }
+            else -> {
+                error
+            }
+        }
     }
 
     fun showToast(success: String) {

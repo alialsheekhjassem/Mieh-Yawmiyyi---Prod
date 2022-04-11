@@ -71,7 +71,7 @@ class FinishAccountFragment : ProgressBarFragments() {
         accountRequest.locale = Locale.getDefault().language.lowercase()
 
         val list = arrayListOf<String>()
-        for (i in 1922 .. 2022)
+        for (i in 2022 downTo 1922)
             list.add(i.toString())
         //listYear = resources.getStringArray(R.array.yob)
         listYear = list.toTypedArray()
