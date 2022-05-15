@@ -196,6 +196,9 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
+
+        //Temporary Solution For Refresh Data
+        viewModel.getInfo()
     }
 
     override fun onItemClicked(item: Winner, index: Int) {

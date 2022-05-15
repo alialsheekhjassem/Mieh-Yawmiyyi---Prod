@@ -30,6 +30,18 @@ class SplashViewModel @Inject constructor(
         return dataRepository.getApiToken()
     }
 
+    fun setApiToken(token: String) {
+        return dataRepository.setApiToken(token)
+    }
+
+    fun setRefreshToken(token: String) {
+        return dataRepository.setRefreshToken(token)
+    }
+
+    fun getLang(): String {
+        return dataRepository.getLang()?:"ar"
+    }
+
     /**
      * Live data of requests list response.
      * */

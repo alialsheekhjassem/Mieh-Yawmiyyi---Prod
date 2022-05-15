@@ -5,11 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import dagger.android.AndroidInjection
 import com.magma.miyyiyawmiyyi.android.databinding.ActivityOnboardingBinding
+import com.magma.miyyiyawmiyyi.android.presentation.base.BaseActivity
 import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import javax.inject.Inject
 
-class OnBoardingActivity : AppCompatActivity() {
+class OnBoardingActivity : BaseActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
 
@@ -23,8 +24,6 @@ class OnBoardingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        //lang
-        LocalHelper.onCreate(this)
 
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         binding.viewModel = viewModel

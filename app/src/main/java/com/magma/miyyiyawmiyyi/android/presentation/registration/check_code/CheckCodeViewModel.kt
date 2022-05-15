@@ -34,6 +34,10 @@ class CheckCodeViewModel @Inject constructor(
         }
     }
 
+    fun onPoweredBy() {
+        actions.value = Event(CheckCodeActions.POWERED_BY_CLICKED)
+    }
+
     fun onEditPhoneNumber() {
         actions.value = Event(CheckCodeActions.EDIT_PHONE_CLICKED)
     }

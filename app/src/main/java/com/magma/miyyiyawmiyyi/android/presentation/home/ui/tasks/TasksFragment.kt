@@ -56,6 +56,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
     var maxWaitingTime = 8000
     var minWaitingTime = 3000
 
+    private var isGeneratedTasks = false
+
     private val viewModel: TasksViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[TasksViewModel::class.java]
     }
@@ -145,7 +147,7 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
                             viewModel.deleteAndSaveTasks(response.items, type)
 
-                            if (response.items.isEmpty())
+                            if (!isGeneratedTasks && response.items.isEmpty())
                                 viewModel.generateTasks()
                             /*else {
                                 //Quizzes & Ad Tasks
@@ -192,6 +194,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             binding.progress.visibility = View.GONE
                             val response = t.response
                             Log.d(TAG, "responseGenerate: $response")
+
+                            isGeneratedTasks = true
 
                             viewModel.getTasks(
                                 limit = 20,

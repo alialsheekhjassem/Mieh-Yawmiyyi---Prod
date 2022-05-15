@@ -690,7 +690,7 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone"
                     app:constraint_referenced_ids="card_time, img_gift"
-                    tools:visibility="visible" />
+                    tools:visibility="gone" />
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_tickets"
@@ -702,7 +702,7 @@
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/barrier"
-                    tools:visibility="gone">
+                    tools:visibility="visible">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

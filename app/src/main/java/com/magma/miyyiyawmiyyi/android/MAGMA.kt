@@ -1,6 +1,7 @@
 package com.magma.miyyiyawmiyyi.android
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import com.facebook.ads.AdSettings
 import com.facebook.ads.AudienceNetworkAds
@@ -12,6 +13,7 @@ import com.google.android.gms.ads.rewarded.RewardedAd
 import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback
 import com.magma.miyyiyawmiyyi.android.di.component.DaggerAppComponent
 import com.magma.miyyiyawmiyyi.android.utils.CommonUtils
+import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -41,6 +43,10 @@ open class MAGMA : Application(), HasAndroidInjector {
         MobileAds.setRequestConfiguration(configuration)
 
         loadRewardedAd()
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(LocalHelper.onAttach(base!!))
     }
 
     companion object {

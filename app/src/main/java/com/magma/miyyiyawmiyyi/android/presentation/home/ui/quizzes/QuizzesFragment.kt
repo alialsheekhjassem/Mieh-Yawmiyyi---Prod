@@ -119,7 +119,7 @@ class QuizzesFragment : ProgressBarFragments() {
                             tasksQuizzes.size
                         )
                         binding.txtLevel.text = level
-                        binding.progressRemainingTickets.progress = 1
+                        binding.progressRemainingTickets.progress = 0
                         binding.progressRemainingTickets.max = tasksQuizzes.size
                         binding.txtQuestion.text = tasksQuizzes[0].quizTask?.question
                         binding.txtAnswer1.text = tasksQuizzes[0].quizTask?.options?.get(0)

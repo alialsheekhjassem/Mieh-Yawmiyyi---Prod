@@ -15,6 +15,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.magma.miyyiyawmiyyi.android.MAGMA
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.presentation.home.HomeActivity
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
@@ -100,55 +101,55 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         when (type) {
             Const.TYPE_ROUND_ACTIVATE -> {
-                title = getString(R.string.round_activate)
+                title = MAGMA.getInstance().getString(R.string.round_activate)
             }
             Const.TYPE_ROUND_CLOSE -> {
-                title = getString(R.string.round_close)
+                title = MAGMA.getInstance().getString(R.string.round_close)
             }
             Const.TYPE_ROUND_FINISH -> {
-                title = getString(R.string.round_finish)
+                title = MAGMA.getInstance().getString(R.string.round_finish)
             }
             Const.TYPE_ROUND_CANCEL -> {
-                title = getString(R.string.round_cancel)
+                title = MAGMA.getInstance().getString(R.string.round_cancel)
             }
             Const.TYPE_ROUND_UPDATE -> {
-                title = getString(R.string.round_update)
+                title = MAGMA.getInstance().getString(R.string.round_update)
             }
             Const.TYPE_GRAND_PRIZE_ACTIVATE -> {
-                title = getString(R.string.activate_grand_prize)
+                title = MAGMA.getInstance().getString(R.string.activate_grand_prize)
             }
             Const.TYPE_ROUND_TICKET -> {
-                title = getString(R.string.win_ticket)
+                title = MAGMA.getInstance().getString(R.string.win_ticket)
             }
             Const.TYPE_GRAND_PRIZE_TICKET -> {
-                title = getString(R.string.win_golden_ticket)
+                title = MAGMA.getInstance().getString(R.string.win_golden_ticket)
             }
             Const.TYPE_GRAND_PRIZE_WINNER -> {
-                title = getString(R.string.grand_prize_winner)
+                title = MAGMA.getInstance().getString(R.string.grand_prize_winner)
             }
             Const.TYPE_ROUND_WINNER -> {
-                title = getString(R.string.round_winner)
+                title = MAGMA.getInstance().getString(R.string.round_winner)
             }
             Const.TYPE_GRAND_PRIZE_UPDATE -> {
-                title = getString(R.string.update_grand_prize)
+                title = MAGMA.getInstance().getString(R.string.update_grand_prize)
             }
             Const.TYPE_GRAND_PRIZE_FINISH -> {
-                title = getString(R.string.finish_grand_prize)
+                title = MAGMA.getInstance().getString(R.string.finish_grand_prize)
             }
             Const.TYPE_PROCESSING_PURCHASE -> {
-                title = getString(R.string.purchase_accepted)
+                title = MAGMA.getInstance().getString(R.string.purchase_accepted)
             }
             Const.TYPE_PURCHASE_REJECTED -> {
-                title = getString(R.string.purchase_rejected)
+                title = MAGMA.getInstance().getString(R.string.purchase_rejected)
             }
             Const.TYPE_GIFT_CODE -> {
                 /*val preferences = application.getSharedPreferences(Const.PREF_NAME, AppCompatActivity.MODE_PRIVATE)
                 preferences.edit().putString(Const.PREF_GIFT_CODE, remoteMessage.data["code"]).apply()*/
                 ContactManager.setGiftCode(remoteMessage.data["code"])
-                title = getString(R.string.purchase_code_ready)
+                title = MAGMA.getInstance().getString(R.string.purchase_code_ready)
             }
             Const.TYPE_GOT_POINTS -> {
-                title = getString(R.string.points_reward)
+                title = MAGMA.getInstance().getString(R.string.points_reward)
             }
             else -> {
                 title = remoteMessage.data["title"]

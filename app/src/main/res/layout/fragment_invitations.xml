@@ -70,7 +70,8 @@
                     android:fontFamily="@font/product_sans_bold"
                     android:gravity="center"
                     android:padding="@dimen/spacing_default"
-                    android:text="150,000 Pt."
+                    android:text="@string/init_pts"
+                    tools:text="@string/init_points"
                     android:textColor="@color/orange_3"
                     android:textSize="@dimen/size_title" />
 
@@ -346,7 +347,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/spacing_medium"
-                        android:text="1500 Point"
+                        android:text="@string/init_points"
                         android:textColor="@color/orange_3"
                         android:gravity="center"
                         android:textSize="@dimen/size_header"

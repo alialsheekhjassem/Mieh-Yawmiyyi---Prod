@@ -12,7 +12,6 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
@@ -38,7 +37,7 @@ import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
 import com.magma.miyyiyawmiyyi.android.databinding.ActivityHomeBinding
-import com.magma.miyyiyawmiyyi.android.model.NotificationType
+import com.magma.miyyiyawmiyyi.android.presentation.base.BaseActivity
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.HomeFragmentDirections
 import com.magma.miyyiyawmiyyi.android.presentation.registration.RegistrationActivity
 import com.magma.miyyiyawmiyyi.android.presentation.splash.SplashViewModel
@@ -53,7 +52,7 @@ import kotlinx.android.synthetic.main.app_bar_main.view.*
 import java.util.*
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : BaseActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var navController: NavController
@@ -85,8 +84,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        //lang
-        LocalHelper.onCreate(this)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -190,7 +187,7 @@ class HomeActivity : AppCompatActivity() {
         //subscribe topics
         subscribeTopic(Const.TOPIC_ROUNDS)
         subscribeTopic(Const.TOPIC_GRAND_PRIZE)
-        if (LocalHelper.locale?.language == "ar") {
+        if (viewModel.getLang() == "ar") {
             unSubscribeTopic(Const.TOPIC_GENERAL_EN)
             subscribeTopic(Const.TOPIC_GENERAL_AR)
         } else {
@@ -309,6 +306,8 @@ class HomeActivity : AppCompatActivity() {
                             val response = t.response
                             Log.d(TAG, "response: $response")
                             ContactManager.refreshInstance()
+                            viewModel.setApiToken("")
+                            viewModel.setRefreshToken("")
                             hideLoadingDialog()
                             goToRegistration()
                         }
@@ -318,6 +317,13 @@ class HomeActivity : AppCompatActivity() {
                             Log.d(TAG, "response: DataError $response")
                             hideLoadingDialog()
                             showToast(response.failureMessage)
+
+                            if (response.status == 441 && response.failureMessage.contains("jwt expired")){
+                                ContactManager.refreshInstance()
+                                viewModel.setApiToken("")
+                                viewModel.setRefreshToken("")
+                                goToRegistration()
+                            }
                         }
                         is Resource.Exception -> {
                             // usually this happening when there is no internet

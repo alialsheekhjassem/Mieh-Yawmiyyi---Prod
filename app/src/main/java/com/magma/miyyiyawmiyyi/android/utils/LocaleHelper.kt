@@ -1,62 +1,54 @@
 package com.magma.miyyiyawmiyyi.android.utils
 
-import android.annotation.TargetApi
 import android.content.Context
+import android.content.SharedPreferences
 import android.content.res.Configuration
+import android.content.res.Resources
 import android.os.Build
-import android.os.Handler
+import android.os.LocaleList
 import androidx.appcompat.app.AppCompatActivity
 import java.util.*
 
-
 object LocalHelper {
-    var locale: Locale? = null
-    fun onCreate(context: Context) {
-        val sharedPreferences = context.getSharedPreferences(Const.PREF_NAME, AppCompatActivity.MODE_PRIVATE)
-        val defaultLang = "ar"/*Locale.getDefault().language*/
-        val lang : String = sharedPreferences.getString(Const.PREF_LANG, defaultLang)!!
-        setLocale(context, lang)
-    }
 
-    fun setLocale(context: Context, language: String) {
-//        persist(language);
-        try {
-            val handler = Handler()
-            handler.post {
-                //offline change language
-                try {
-                    val sharedPreferences = context.getSharedPreferences(Const.PREF_NAME, AppCompatActivity.MODE_PRIVATE)
-                    sharedPreferences.edit().putString(Const.PREF_LANG, language).apply()
-                } catch (ignored: Exception) {
-                }
-            }
-            updateResourcesLegacy(context, language)
-        } catch (ignored: Exception) {
-        }
-    }
+    private lateinit var sharedPreferences: SharedPreferences
 
-    @TargetApi(Build.VERSION_CODES.N)
-    private fun updateResources(context: Context, language: String): Context? {
+    fun setLocale(context: Context, language: String): Context? {
         val locale = Locale(language)
         Locale.setDefault(locale)
-        val configuration: Configuration = context.resources.configuration
-        configuration.setLocale(locale)
+        val resources: Resources = context.resources
+        val configuration = Configuration(resources.configuration)
         configuration.setLayoutDirection(locale)
-        return context.createConfigurationContext(configuration)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            configuration.setLocale(locale)
+            val localeList = LocaleList(locale)
+            LocaleList.setDefault(localeList)
+            configuration.setLocales(localeList)
+        } else {
+            configuration.locale = locale
+            configuration.setLocale(locale)
+        }
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            context.createConfigurationContext(configuration)
+        } else {
+            resources.updateConfiguration(configuration, resources.displayMetrics)
+            context
+        }
     }
 
-    @SuppressWarnings("deprecation")
-    private fun updateResourcesLegacy(context: Context, language: String) {
-        locale = Locale(language)
-        Locale.setDefault(locale!!)
-        try {
-            val resources = context.resources
-            val configuration = resources.configuration
-            configuration.setLocale(locale)
-            configuration.setLayoutDirection(locale)
-            context.createConfigurationContext(configuration)
-            resources.updateConfiguration(configuration, resources.displayMetrics)
-        } catch (ignored: Exception) {
-        }
+    fun onAttach(context: Context): Context? {
+        sharedPreferences = context.getSharedPreferences(Const.PREF_NAME, AppCompatActivity.MODE_PRIVATE)
+        return setLocale(
+            context,
+            sharedPreferences.getString(Const.PREF_LANG, "ar") ?: "ar"
+        )
+    }
+
+    fun onResume(context: Context): Context? {
+        sharedPreferences = context.getSharedPreferences(Const.PREF_NAME, AppCompatActivity.MODE_PRIVATE)
+        return setLocale(
+            context,
+            sharedPreferences.getString(Const.PREF_LANG, "ar") ?: "ar"
+        )
     }
 }

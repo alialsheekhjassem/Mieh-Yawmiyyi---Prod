@@ -59,6 +59,9 @@ class InvitationFragment : ProgressBarFragments() {
     }
 
     private fun setUp() {
+        binding.lytPoweredBy.root.setOnClickListener {
+            openWebUrl(Const.MAGMA_WEB_URL)
+        }
     }
 
     private fun setupObservers() {

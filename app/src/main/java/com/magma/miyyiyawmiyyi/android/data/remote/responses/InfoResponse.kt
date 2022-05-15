@@ -19,6 +19,8 @@ data class InfoResponse(
     val closedGrandPrize: GrandPrize?,
     @SerializedName("settings")
     var settings: List<Setting>? = arrayListOf(),
+    @SerializedName("lastCompletedRoundUrl")
+    val lastCompletedRoundUrl: String?,
     @SerializedName("userPoints")
     val userPoints: Int?,
     @SerializedName("ticketsAmountPerActiveRound")

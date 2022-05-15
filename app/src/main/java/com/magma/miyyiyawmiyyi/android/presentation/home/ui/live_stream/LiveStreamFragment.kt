@@ -60,6 +60,7 @@ class LiveStreamFragment : ProgressBarFragments() {
     private fun setUp() {
         val info = ContactManager.getCurrentInfo()
         info?.let { inf ->
+            lastDrawUrl = inf.lastCompletedRoundUrl ?: ""
             if (inf.activeGrandPrize != null) {
                 val date = inf.activeGrandPrize.drawResultAt
                 viewModel.onStartGoldenCountDown(DateUtils.formatDateTimeToLong(date))
@@ -103,13 +104,23 @@ class LiveStreamFragment : ProgressBarFragments() {
                 setViewsTime(Const.INIT_COUNT_DOWN)
                 binding.btnWatchNow.backgroundTintList =
                     ContextCompat.getColorStateList(requireContext(), R.color.light_blue_2)
-                binding.btnWatchNow.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.white))
+                binding.btnWatchNow.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
                 binding.btnWatchNow.isEnabled = true
             } else {
                 DateUtils.formatLongToCountDown(it)?.let { it1 -> setViewsTime(it1) }
                 binding.btnWatchNow.backgroundTintList =
                     ContextCompat.getColorStateList(requireContext(), R.color.grey_13)
-                binding.btnWatchNow.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.grey_14))
+                binding.btnWatchNow.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.grey_14
+                    )
+                )
                 binding.btnWatchNow.isEnabled = false
             }
         }
@@ -119,15 +130,35 @@ class LiveStreamFragment : ProgressBarFragments() {
         ) {
             if (it <= 0) {
                 setGoldenViewsTime(Const.INIT_COUNT_DOWN)
-                binding.btnWatchNowGolden.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.light_blue_2))
-                binding.btnWatchNowGolden.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.white))
+                binding.btnWatchNowGolden.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.light_blue_2
+                    )
+                )
+                binding.btnWatchNowGolden.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.white
+                    )
+                )
                 binding.btnWatchNowGolden.isEnabled = true
             } else {
                 DateUtils.formatLongToCountDown(it)?.let { it1 -> setGoldenViewsTime(it1) }
                 binding.btnWatchNowGolden.backgroundTintList =
                     ContextCompat.getColorStateList(requireContext(), R.color.grey_13)
-                binding.btnWatchNowGolden.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.grey_13))
-                binding.btnWatchNowGolden.setTextColor(ContextCompat.getColorStateList(requireContext(), R.color.grey_14))
+                binding.btnWatchNowGolden.setBackgroundColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.grey_13
+                    )
+                )
+                binding.btnWatchNowGolden.setTextColor(
+                    ContextCompat.getColorStateList(
+                        requireContext(),
+                        R.color.grey_14
+                    )
+                )
                 binding.btnWatchNowGolden.isEnabled = false
             }
         }
@@ -213,11 +244,11 @@ class LiveStreamFragment : ProgressBarFragments() {
     private fun setupData(items: ArrayList<Round>) {
         if (items.isNotEmpty()) {
             val activeRounds = items.filter { round -> round.status.equals(Const.STATUS_ACTIVE) }
-            val completedRounds =
+            /*val completedRounds =
                 items.filter { round -> round.status.equals(Const.STATUS_COMPLETED) }
             if (completedRounds.isNotEmpty()) {
                 lastDrawUrl = completedRounds.first().url
-            }
+            }*/
 
             if (activeRounds.isNotEmpty()) {
                 val activeRound = activeRounds.first()

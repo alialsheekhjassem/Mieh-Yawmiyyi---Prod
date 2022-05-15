@@ -2,7 +2,6 @@ package com.magma.miyyiyawmiyyi.android.presentation.registration
 
 import android.app.Activity
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -10,14 +9,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.android.AndroidInjection
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.databinding.ActivityRegisterationBinding
+import com.magma.miyyiyawmiyyi.android.presentation.base.BaseActivity
 import com.magma.miyyiyawmiyyi.android.presentation.registration.login.LoginViewModel
 import com.magma.miyyiyawmiyyi.android.utils.BindingUtils.hideKeyboard
-import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
-class RegistrationActivity : AppCompatActivity() {
+class RegistrationActivity : BaseActivity() {
 
     private lateinit var binding: ActivityRegisterationBinding
 
@@ -31,9 +30,6 @@ class RegistrationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-
-        //lang
-        LocalHelper.onCreate(this)
 
         binding = ActivityRegisterationBinding.inflate(layoutInflater)
         binding.viewModel = viewModel

@@ -36,7 +36,7 @@ class OnBoardingPagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         //lang
-        LocalHelper.onCreate(requireActivity())
+        //LocalHelper.onCreate(requireActivity())
         binding = FragmentOnboardingPagerBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 

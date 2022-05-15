@@ -99,7 +99,7 @@ class LoginFragment : ProgressBarFragments() {
             val s2 =
                 "<font color='#F2A900'><b>" + "" + getString(R.string.agree) + "" + "</b></font>"
             if (context != null) {
-                AlertDialog.Builder(context!!)
+                AlertDialog.Builder(requireContext())
                     .setTitle(Html.fromHtml(s1))
                     .setMessage(s)
                     .setPositiveButton(
@@ -112,7 +112,9 @@ class LoginFragment : ProgressBarFragments() {
             }
         } //end of terms dialog
 
-
+        binding.lytPoweredBy.root.setOnClickListener {
+            openWebUrl(Const.MAGMA_WEB_URL)
+        }
     }
 
     private fun setupObservers() {
@@ -122,6 +124,9 @@ class LoginFragment : ProgressBarFragments() {
                 object : EventObserver.EventUnhandledContent<LoginActions> {
                     override fun onEventUnhandledContent(t: LoginActions) {
                         when (t) {
+                            LoginActions.POWERED_BY_CLICKED -> {
+                                openWebUrl(Const.MAGMA_WEB_URL)
+                            }
                             LoginActions.CHECK_CODE_CLICKED -> {
                                 val fullNumber = binding.countryPicker.fullNumberWithPlus
                                 Log.d(TAG, "QQQ onCreateView: phoneNumber: $fullNumber")
@@ -136,7 +141,7 @@ class LoginFragment : ProgressBarFragments() {
                 })
         )
 
-        viewModel.loginValidation.observe(viewLifecycleOwner, { code ->
+        viewModel.loginValidation.observe(viewLifecycleOwner) { code ->
             val message: String = when (code) {
                 Const.ERROR_EMPTY -> getString(R.string.field_can_not_be_empty)
                 Const.ERROR_PHONE -> getString(R.string.phone_format_not_correct)
@@ -144,7 +149,7 @@ class LoginFragment : ProgressBarFragments() {
                 else -> getString(R.string.password_format_not_correct)
             }
             showErrorToast(message)
-        })
+        }
     }
 
     override fun Fragment.hideKeyboard() {

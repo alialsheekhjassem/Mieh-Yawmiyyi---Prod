@@ -2,7 +2,6 @@ package com.magma.miyyiyawmiyyi.android.presentation.splash
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -12,18 +11,18 @@ import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
+import com.magma.miyyiyawmiyyi.android.presentation.base.BaseActivity
 import dagger.android.AndroidInjection
 import com.magma.miyyiyawmiyyi.android.presentation.home.HomeActivity
 import com.magma.miyyiyawmiyyi.android.presentation.onboarding.OnBoardingActivity
 import com.magma.miyyiyawmiyyi.android.presentation.registration.RegistrationActivity
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
-import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
 @SuppressLint("CustomSplashScreen")
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -41,17 +40,14 @@ class SplashActivity : AppCompatActivity() {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
 
-        //lang
-        LocalHelper.onCreate(this)
-
         setObservers()
 
         isShown = viewModel.isShowOnBoarding()
         token = viewModel.getToken()
 
-        if (isShown && token == null)
+        if (isShown && token.isNullOrEmpty())
             goToRegisterActivity()
-        else if (isShown && token != null) {
+        else if (isShown && !token.isNullOrEmpty()) {
             viewModel.getInfo()
             //viewModel.getRounds(limit = 20, offset = 0, Const.STATUS_ACTIVE, null)
         } else
@@ -187,7 +183,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun onFetchedAccountSuccess(response: MyAccountResponse) {
         ContactManager.setAccount(response)
-        if (token != null) {
+        if (!token.isNullOrEmpty()) {
             if (response.account?.name.isNullOrEmpty())
                 goToRegisterActivity()
             else

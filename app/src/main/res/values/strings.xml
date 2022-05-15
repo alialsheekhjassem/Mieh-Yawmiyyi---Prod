@@ -309,6 +309,8 @@
     <string name="total_tickets">Total Tickets</string>
     <string name="no_winner">No Winner</string>
     <string name="init_value" translatable="false">0</string>
+    <string name="init_pts">0 Pt.</string>
+    <string name="init_points">0 Points</string>
     <string name="update_available">Update Available</string>
     <string name="please_update_app">Please Update App</string>
     <string name="update_available_body_force">An update is available. You should update app</string>

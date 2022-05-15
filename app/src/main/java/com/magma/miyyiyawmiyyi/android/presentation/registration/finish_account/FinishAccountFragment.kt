@@ -24,14 +24,11 @@ import com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.utils.BindingUtils.hideKeyboard
-import com.magma.miyyiyawmiyyi.android.utils.EventObserver
-import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import javax.inject.Inject
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentFinishAccountBinding
 import com.magma.miyyiyawmiyyi.android.model.Account
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
-import com.magma.miyyiyawmiyyi.android.utils.DateUtils
-import com.magma.miyyiyawmiyyi.android.utils.StringRuleUtil
+import com.magma.miyyiyawmiyyi.android.utils.*
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import java.util.*
 
@@ -100,6 +97,10 @@ class FinishAccountFragment : ProgressBarFragments() {
             override fun onNothingSelected(adapterView: AdapterView<*>?) {
                 return
             }
+        }
+
+        binding.lytPoweredBy.root.setOnClickListener {
+            openWebUrl(Const.MAGMA_WEB_URL)
         }
 
         fetchDynamicLink()

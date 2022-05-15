@@ -271,9 +271,9 @@
     <string name="question_1_of_10">السؤال %1$d من %2$d</string>
     <string name="choose_the_correct_answer_form_below">اختر نموذج الإجابة الصحيح أدناه</string>
     <string name="back_to_tasks">العودة إلى المهام</string>
-    <string name="watch_last_100_draw">شاهد آخر سحب بقيمة 100 دولار</string>
+    <string name="watch_last_100_draw">شاهد آخر سحب 100 دولار</string>
     <string name="watch_now_on_facebook">شاهد الآن على فيسبوك</string>
-    <string name="the_remaining_tickets_for_the_100_poll_stream">التذاكر المتبقية لتيار الاستطلاع 100 دولار</string>
+    <string name="the_remaining_tickets_for_the_100_poll_stream">التذاكر المتبقية لبث سحب ال 100 دولار</string>
     <string name="claim_your_tickets_now">اطلب التذاكر الخاصة بك الآن!</string>
     <string name="head_now_to_your_tasks_and_collect_tickets">توجه الآن إلى مهامك واجمع التذاكر</string>
     <string name="no_cards">لا بطاقات</string>
@@ -284,6 +284,8 @@
     <string name="ticket">تذكرة</string>
     <string name="total_tickets">إجمالي التذاكر</string>
     <string name="no_winner">لا يوجد رابح</string>
+    <string name="init_pts">0 نقطة</string>
+    <string name="init_points">0 نقطة</string>
     <string name="update_available">التحديث متاح</string>
     <string name="please_update_app">يرجى تحديث التطبيق</string>
     <string name="update_available_body">تحديث متاح. هل ترغب في تحديث؟</string>

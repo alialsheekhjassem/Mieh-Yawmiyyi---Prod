@@ -73,6 +73,10 @@ class CheckCodeFragment : ProgressBarFragments() {
             }
         }
 
+        binding.lytPoweredBy.root.setOnClickListener {
+            openWebUrl(Const.MAGMA_WEB_URL)
+        }
+
         setObservers()
 
         return binding.root
@@ -86,6 +90,9 @@ class CheckCodeFragment : ProgressBarFragments() {
                     EventObserver.EventUnhandledContent<CheckCodeActions> {
                     override fun onEventUnhandledContent(t: CheckCodeActions) {
                         when (t) {
+                            CheckCodeActions.POWERED_BY_CLICKED -> {
+                                openWebUrl(Const.MAGMA_WEB_URL)
+                            }
                             CheckCodeActions.VERIFY_CLICKED -> {
                                 verifyCode()
                                 /*countDownTimer?.cancel()

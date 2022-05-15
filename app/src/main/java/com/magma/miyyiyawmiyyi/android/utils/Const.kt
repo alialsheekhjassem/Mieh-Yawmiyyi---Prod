@@ -17,6 +17,7 @@ class Const {
         const val INIT_COUNT_DOWN = "00:00:00:00"
         const val HAS_ACTION_KEYWORD: String = "has_action"
         const val NOTIFICATION_KEYWORD: String = "notification"
+        const val MAGMA_WEB_URL: String = "https://magma.global"
 
         const val TAG_FoodMenuFragment = "FoodMenuFragment"
         const val TAG_ForgetPasswordFragment = "ForgetPasswordFragment"
@@ -90,7 +91,7 @@ class Const {
         const val TYPE_ROUND_UPDATE = "\"update_round\""
         const val TYPE_ROUND_START = "\"round_draw_start\""
         const val TYPE_GRAND_PRIZE_ACTIVATE = "\"grand_prize_activate\""
-        const val TYPE_ROUND_TICKET = "\"round_ticket\""
+        const val TYPE_ROUND_TICKET = "round_ticket"
         const val TYPE_GRAND_PRIZE_TICKET = "\"grand_prize_ticket\""
         const val TYPE_ROUND_WINNER = "\"round_winner\""
         const val TYPE_GRAND_PRIZE_WINNER = "\"grand_prize_winner\""

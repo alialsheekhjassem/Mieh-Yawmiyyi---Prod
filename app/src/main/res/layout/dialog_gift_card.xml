@@ -15,6 +15,8 @@
         style="@style/MaterialCardViewStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:cardElevation="@dimen/dimen_0"
+        app:cardMaxElevation="@dimen/dimen_0"
         android:layout_margin="@dimen/spacing_default">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -82,7 +84,7 @@
                 android:layout_marginVertical="@dimen/spacing_large"
                 android:layout_marginHorizontal="@dimen/spacing_default"
                 android:gravity="center"
-                text_translate="@{item.name}"
+                text_translate="@{item.cardName}"
                 android:textColor="@color/grey_16"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -101,6 +103,7 @@
                 android:gravity="center"
                 android:text="@string/total_point_amount"
                 android:textColor="@color/grey_16"
+                android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@+id/txt_total_point_amount"
                 app:layout_constraintEnd_toStartOf="@+id/txt_title_total_cash_amount"
                 app:layout_constraintStart_toStartOf="parent"
@@ -116,7 +119,8 @@
                 android:layout_marginBottom="@dimen/spacing_large"
                 android:layout_marginStart="@dimen/spacing_default"
                 android:gravity="center"
-                android:text="1500 Points"
+                android:text="@string/init_points"
+                android:visibility="gone"
                 android:textColor="@color/orange_5"
                 android:textSize="@dimen/size_toolbar_title"
                 app:layout_constraintBottom_toTopOf="@+id/btn_continue"
@@ -152,17 +156,22 @@
                 text_translate="@{item.name}"
                 android:textColor="@color/green_200"
                 android:textSize="@dimen/size_20sp"
+                tools:text="70$"
                 app:layout_constraintBottom_toTopOf="@+id/btn_continue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/txt_total_point_amount"
                 app:layout_constraintTop_toBottomOf="@+id/txt_title_total_cash_amount" />
 
 
-            <com.google.android.material.button.MaterialButton
+            <TextView
                 android:id="@+id/btn_continue"
-                style="@style/MaterialButtonStyle"
+                style="@style/MaterialBoldTextStyle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/spacing_default"
+                android:textColor="@color/white"
+                android:background="@drawable/bg_rounded_helf_primary"
                 android:text="@string/confirm_card_request"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

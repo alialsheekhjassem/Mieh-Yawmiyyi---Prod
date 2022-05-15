@@ -31,7 +31,7 @@ class GetStartedFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         //lang
-        LocalHelper.onCreate(requireActivity())
+        //LocalHelper.onCreate(requireActivity())
         binding = FragmentGetStartedBinding.inflate(inflater, container, false)
         binding.viewModel = viewModel
 
