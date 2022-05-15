@@ -104,9 +104,9 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                         type = t.first().type
                         binding.progress.visibility = View.GONE
                         binding.txtEmpty.visibility = View.GONE
-                    } else {
+                    } /*else {
                         binding.txtEmpty.visibility = View.VISIBLE
-                    }
+                    }*/
 
                     when (type) {
                         Const.TYPE_SOCIAL_MEDIA -> {
@@ -144,6 +144,10 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             var type: String? = null
                             if (!response.items.isNullOrEmpty())
                                 type = response.items.first().type
+                            else if (type == Const.TYPE_SOCIAL_MEDIA) {
+                                binding.txtEmpty.text = getString(R.string.no_items)
+                                binding.txtEmpty.visibility = View.VISIBLE
+                            }
 
                             viewModel.deleteAndSaveTasks(response.items, type)
 
@@ -163,7 +167,11 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             val response = t.response as ErrorManager
                             Log.d(TAG, "response: DataError $response")
                             binding.recyclerTasks.visibility = View.GONE
-                            showErrorToast(response.failureMessage)
+                            if (response.status == 400) {
+                                binding.txtEmpty.text = getString(R.string.no_active_round)
+                                binding.txtEmpty.visibility = View.VISIBLE
+                            }
+                            //showErrorToast(response.failureMessage)
                         }
                         is Resource.Exception -> {
                             binding.progress.visibility = View.GONE

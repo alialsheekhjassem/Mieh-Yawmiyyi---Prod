@@ -6,6 +6,10 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -15,6 +19,7 @@ import com.magma.miyyiyawmiyyi.android.utils.BindingUtils.hideKeyboard
 import com.magma.miyyiyawmiyyi.android.utils.CommonUtils
 import www.sanju.motiontoast.MotionToast
 import www.sanju.motiontoast.MotionToastStyle
+
 
 /**
  * Class extends MessagesFragments, handles loading processes.
@@ -47,6 +52,18 @@ open class ProgressBarFragments : Fragment() {
             MotionToast.LONG_DURATION,
             ResourcesCompat.getFont(requireActivity(), R.font.product_sans_regular)
         )
+
+        /*val inflater = layoutInflater
+        val layout: View = inflater.inflate(
+            R.layout.toast,
+            requireActivity().findViewById(R.id.toast_layout_root) as ViewGroup?
+        )
+        layout.findViewById<TextView>(R.id.text).text = error
+        val toast = Toast(requireActivity())
+        toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0)
+        toast.duration = Toast.LENGTH_LONG
+        toast.view = layout
+        toast.show()*/
     }
 
     fun showSuccessToast(success: String) {

@@ -188,8 +188,8 @@ class LiveStreamFragment : ProgressBarFragments() {
                             //binding.progress.visibility = View.GONE
                             // usually this happening when there is server error
                             val response = t.response as ErrorManager
-                            Log.d(TAG, "response: DataError $response")
-                            showErrorToast(response.failureMessage)
+                            Log.d(TAG, "response: DataError ${response.status}")
+                            showErrorToast(response.toString())
                         }
                         is Resource.Exception -> {
                             //binding.progress.visibility = View.GONE
@@ -226,7 +226,9 @@ class LiveStreamFragment : ProgressBarFragments() {
                             binding.swipeRefresh.isRefreshing = false
                             val response = t.response as ErrorManager
                             Log.d(TAG, "response: DataError $response")
-                            showErrorToast(response.failureMessage)
+                            if (response.status == 404)
+                                binding.txtEmpty.visibility = View.VISIBLE
+                            else showErrorToast(response.toString())
                         }
                         is Resource.Exception -> {
                             binding.swipeRefresh.isRefreshing = false

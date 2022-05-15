@@ -46,6 +46,7 @@
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/item_drawer_bkg.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/progress_bkg.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/progress_circle.xml" value="0.165234375" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/progress_circle_bkg.xml" value="0.1615" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/progress_style.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/text_gold_bkg.xml" value="0.2203125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/drawable/text_view_gradient_bkg.xml" value="0.2203125" />
@@ -128,6 +129,7 @@
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/nav_header_main.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/retry_dialog.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/test.xml" value="0.25" />
+        <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/layout/toast.xml" value="0.18" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/menu/home_menu.xml" value="0.153125" />
         <entry key="..\:/Users/ASUS/AndroidStudioProjects/mieh-yawmiyyi-android-master/app/src/main/res/menu/main_menu.xml" value="0.20416666666666666" />
