@@ -21,7 +21,7 @@ interface DataSource {
     suspend fun getMyAccount(): Resource<MyAccountResponse>
     suspend fun doServerUpdateMyAccount(accountRequest: AccountRequest): Resource<Account>
     suspend fun doServerUpdateMyAccount(accountRequest: InvitedByRequest): Resource<Account>
-    suspend fun getTickets(limit: Int, offset: Int, round: String?, populate: Boolean?): Resource<TicketsResponse>
+    suspend fun getTickets(limit: Int, offset: Int, round: String?, grandPrize: String?, populate: Boolean?): Resource<TicketsResponse>
     suspend fun getInfo(): Resource<InfoResponse>
     suspend fun doServerCreatePurchase(gift: String?): Resource<CreatePurchaseResponse>
     suspend fun doServerMarkAsDone(request: MarkAsDoneTasksRequest): Resource<Any?>
@@ -104,4 +104,15 @@ interface DataSource {
     fun isGeneralNotifications(): Boolean?
     fun setInvitationLink(link: String)
     fun getInvitationLink(): String?
+    fun setTasksCount(count: Int)
+    fun getTasksCount(): Int
+    /**Settings*/
+    fun setIsEnableAds(isShown: Boolean)
+    fun isEnableAds(): Boolean
+    fun setIsShowQuizTask(isShown: Boolean)
+    fun isShowQuizTask(): Boolean
+    fun setIsShowSocialMediaTask(isShown: Boolean)
+    fun isShowSocialMediaTask(): Boolean
+    fun setIsShowAdTask(isShown: Boolean)
+    fun isShowAdTask(): Boolean
 }

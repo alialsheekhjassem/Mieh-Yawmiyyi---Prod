@@ -371,5 +371,6 @@
     <string name="not_found">لا يوجد</string>
     <string name="invite_code_exists">لا يمكن تغيير رمز الدعوة. تمت دعوة المستخدم بالفعل بواسطة الكود</string>
     <string name="incorrect_credentials">تسجيل غير صحيح</string>
+    <string name="about_us">About us</string>
 
 </resources>

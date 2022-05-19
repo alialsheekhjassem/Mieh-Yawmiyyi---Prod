@@ -260,7 +260,7 @@
     <string name="language">Language</string>
     <string name="about_us_text">100 Yawmiyyi gives a cash prize through a daily random poll of tickets where users can get them by watching advertising videos or doing tasks via social media.</string>
     <string name="share_the_app">Share the App</string>
-    <string name="the_golder_lira_ticket">The Golder Lira Ticket</string>
+    <string name="the_golder_lira_ticket">The Golden Lira Ticket</string>
     <string name="the_100_tickets">The 100$ Tickets</string>
     <string name="get_it_now">Get it now</string>
     <string name="the_remaining_time_for_the_golden_lira_poll_stream">The remaining time for the Golden Lira poll stream</string>
@@ -297,7 +297,7 @@
     <string name="back_to_tasks">Back to Tasks</string>
     <string name="watch_last_100_draw">Watch last 100$ Draw</string>
     <string name="watch_now_on_facebook">Watch Now On Facebook</string>
-    <string name="the_remaining_tickets_for_the_100_poll_stream">The remaining tickets for the 100$ poll stream</string>
+    <string name="the_remaining_tickets_for_the_100_poll_stream">The collected tickets for the 100$ poll</string>
     <string name="claim_your_tickets_now">Claim your <b>Tickets</b> Now!</string>
     <string name="head_now_to_your_tasks_and_collect_tickets">Head now to your tasks and collect tickets</string>
     <string name="no_cards">No Cards</string>
@@ -382,6 +382,7 @@
     <string name="not_found">Not found</string>
     <string name="invite_code_exists">Invite code can\'t be changed. user already has invitedBy code</string>
     <string name="incorrect_credentials">Incorrect credentials</string>
+    <string name="about_us">About us</string>
 
     <string-array name="languages">
         <item>English</item>

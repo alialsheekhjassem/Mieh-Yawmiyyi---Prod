@@ -9,23 +9,17 @@ data class InfoResponse(
     val roundWinner: WinnerObj?,
     @SerializedName("grandPrizeWinner")
     val grandPrizeWinner: WinnerObj?,
-    @SerializedName("activeRound")
-    val activeRound: Round?,
-    @SerializedName("closedRound")
-    val closedRound: Round?,
-    @SerializedName("activeGrandPrize")
-    val activeGrandPrize: GrandPrize?,
-    @SerializedName("closedGrandPrize")
-    val closedGrandPrize: GrandPrize?,
+    @SerializedName("currentRound")
+    val currentRound: Round?,
+    @SerializedName("currentGrandPrize")
+    val currentGrandPrize: GrandPrize?,
     @SerializedName("settings")
     var settings: List<Setting>? = arrayListOf(),
     @SerializedName("lastCompletedRoundUrl")
     val lastCompletedRoundUrl: String?,
     @SerializedName("userPoints")
     val userPoints: Int?,
-    @SerializedName("ticketsAmountPerActiveRound")
-    val ticketsAmountPerActiveRound: Int?,
-    @SerializedName("ticketsAmountPerClosedRound")
-    val ticketsAmountPerClosedRound: Int?,
+    @SerializedName("currentRoundTickets")
+    var currentRoundTickets: Int?,
 )
 

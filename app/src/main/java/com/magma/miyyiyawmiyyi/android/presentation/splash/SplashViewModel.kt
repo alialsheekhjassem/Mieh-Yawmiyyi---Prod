@@ -42,6 +42,26 @@ class SplashViewModel @Inject constructor(
         return dataRepository.getLang()?:"ar"
     }
 
+    fun getIsEnableAds(): Boolean {
+        return dataRepository.isEnableAds()
+    }
+
+    fun setIsEnableAds(isEnableAds: Boolean) {
+        dataRepository.setIsEnableAds(isEnableAds)
+    }
+
+    fun setIsShowQuizTask(isShown: Boolean) {
+        dataRepository.setIsShowQuizTask(isShown)
+    }
+
+    fun setIsShowSocialMediaTask(isShown: Boolean) {
+        dataRepository.setIsShowSocialMediaTask(isShown)
+    }
+
+    fun setIsShowAdTask(isShown: Boolean) {
+        dataRepository.setIsShowAdTask(isShown)
+    }
+
     /**
      * Live data of requests list response.
      * */

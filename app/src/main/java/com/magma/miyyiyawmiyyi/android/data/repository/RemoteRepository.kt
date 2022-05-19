@@ -376,11 +376,12 @@ class RemoteRepository
         limit: Int,
         offset: Int,
         round: String?,
+        grandPrize: String?,
         populate: Boolean?
     ): Resource<TicketsResponse> {
         val authService = serviceGenerator.createService(IFoodService::class.java)
         try {
-            val response = authService.getTickets(limit, offset, round, populate)
+            val response = authService.getTickets(limit, offset, round, grandPrize, populate)
 
             return if (response.isSuccessful) {
                 //Do something with response e.g show to the UI.

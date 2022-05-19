@@ -72,6 +72,46 @@ class LocalRepository
     fun getInvitationLink(): String? {
         return preferences.getString(Const.PREF_INVITATION_LINK, null)
     }
+
+    fun setTasksCount(count: Int) {
+        preferences.edit().putInt(Const.PREF_TASKS_COUNT, count).apply()
+    }
+
+    fun getTasksCount(): Int {
+        return preferences.getInt(Const.PREF_TASKS_COUNT, 0)
+    }
+
+    fun setIsEnableAds(isEnable: Boolean) {
+        preferences.edit().putBoolean(Const.PREF_IS_ENABLE_ADS, isEnable).apply()
+    }
+
+    fun isEnableAds(): Boolean {
+        return preferences.getBoolean(Const.PREF_IS_ENABLE_ADS, true)
+    }
+
+    fun setIsShowQuizTask(isEnable: Boolean) {
+        preferences.edit().putBoolean(Const.PREF_IS_SHOW_QUIZ_TASK, isEnable).apply()
+    }
+
+    fun isShowQuizTask(): Boolean {
+        return preferences.getBoolean(Const.PREF_IS_SHOW_QUIZ_TASK, true)
+    }
+
+    fun setIsShowSocialMediaTask(isEnable: Boolean) {
+        preferences.edit().putBoolean(Const.PREF_IS_SHOW_SOCIAL_MEDIA_TASK, isEnable).apply()
+    }
+
+    fun isShowSocialMediaTask(): Boolean {
+        return preferences.getBoolean(Const.PREF_IS_SHOW_SOCIAL_MEDIA_TASK, true)
+    }
+
+    fun setIsShowAdTask(isEnable: Boolean) {
+        preferences.edit().putBoolean(Const.PREF_IS_SHOW_AD_TASK, isEnable).apply()
+    }
+
+    fun isShowAdTask(): Boolean {
+        return preferences.getBoolean(Const.PREF_IS_SHOW_AD_TASK, true)
+    }
     //End pref
 
     //Local DB

@@ -105,7 +105,7 @@ class QuizzesFragment : ProgressBarFragments() {
                 override fun onEventUnhandledContent(t: List<TaskObj>) {
                     tasksQuizzes.clear()
                     val tasksPerTicket =
-                        ContactManager.getCurrentInfo()?.activeRound?.config?.tasksPerTicket ?: 0
+                        ContactManager.getCurrentInfo()?.currentRound?.config?.tasksPerTicket ?: 0
                     if (tasksPerTicket != 0) {
                         if (tasksPerTicket < t.size)
                             tasksQuizzes.addAll(t.subList(0, tasksPerTicket))

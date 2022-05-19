@@ -1,5 +1,6 @@
 package com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
@@ -26,6 +27,7 @@ import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemCardListener
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemListener
+import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
 class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
@@ -59,6 +61,7 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
         return binding.root
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setUp() {
         giftCardsAdapter.setListener(this)
         giftCardsAdapter.submitList(arrayListOf())
@@ -70,6 +73,12 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
 
         viewModel.loadAllGiftStoreCards()
         //viewModel.loadAllPurchaseCards()
+
+        val info = ContactManager.getCurrentInfo()
+        info?.let {
+            binding.txtTotalPoints.text =
+                "${it.userPoints?.toString()} ${getString(R.string.points)}"
+        }
     }
 
     private fun setObservers() {

@@ -13,8 +13,8 @@ import androidx.navigation.fragment.findNavController
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundStatisticsResponse
-import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentLiveStreamBinding
 import com.magma.miyyiyawmiyyi.android.model.Round
@@ -61,8 +61,8 @@ class LiveStreamFragment : ProgressBarFragments() {
         val info = ContactManager.getCurrentInfo()
         info?.let { inf ->
             lastDrawUrl = inf.lastCompletedRoundUrl ?: ""
-            if (inf.activeGrandPrize != null) {
-                val date = inf.activeGrandPrize.drawResultAt
+            if (inf.currentGrandPrize != null) {
+                val date = inf.currentGrandPrize.drawResultAt
                 viewModel.onStartGoldenCountDown(DateUtils.formatDateTimeToLong(date))
                 binding.lytGolden.visibility = View.VISIBLE
             } else {
@@ -163,7 +163,7 @@ class LiveStreamFragment : ProgressBarFragments() {
             }
         }
         // listen to api result
-        viewModel.response.observe(
+        /*viewModel.response.observe(
             viewLifecycleOwner,
             EventObserver
                 (object :
@@ -197,6 +197,40 @@ class LiveStreamFragment : ProgressBarFragments() {
                             val response = t.response
                             Log.d(TAG, "response: $response")
                             showErrorToast(response.toString())
+                        }
+                    }
+                }
+            })
+        )*/
+
+        // listen to api result
+        viewModel.infoResponse.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<InfoResponse>> {
+                override fun onEventUnhandledContent(t: Resource<InfoResponse>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            val response = t.response as InfoResponse
+                            Log.d(TAG, "response: $response")
+                            ContactManager.setInfo(response)
+                            ContactManager.setIsRefreshInfo(false)
+
+                            setupData(ContactManager.getCurrentInfo()?.currentRound)
+                        }
+                        is Resource.DataError -> {
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "response: DataError $response")
+                        }
+                        is Resource.Exception -> {
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
                         }
                     }
                 }
@@ -243,33 +277,21 @@ class LiveStreamFragment : ProgressBarFragments() {
         )
     }
 
-    private fun setupData(items: ArrayList<Round>) {
-        if (items.isNotEmpty()) {
-            val activeRounds = items.filter { round -> round.status.equals(Const.STATUS_ACTIVE) }
-            /*val completedRounds =
-                items.filter { round -> round.status.equals(Const.STATUS_COMPLETED) }
-            if (completedRounds.isNotEmpty()) {
-                lastDrawUrl = completedRounds.first().url
-            }*/
-
-            if (activeRounds.isNotEmpty()) {
-                val activeRound = activeRounds.first()
-                activeRound.type?.let {
-                    setStreamView(it)
-                    if (it == Const.TYPE_ROUND_START_DRAW) {
-                        val date = activeRound.drawResultAt
-                        viewModel.onStartCountDown(DateUtils.formatDateTimeToLong(date))
-                    } /*else if (it == Const.TYPE_ROUND_TICKETS_DRAW) {
+    private fun setupData(activeRound: Round?) {
+        activeRound?.type?.let {
+            setStreamView(it)
+            if (it == Const.TYPE_ROUND_START_DRAW) {
+                val date = activeRound.drawResultAt
+                viewModel.onStartCountDown(DateUtils.formatDateTimeToLong(date))
+            } /*else if (it == Const.TYPE_ROUND_TICKETS_DRAW) {
                         activeRound.fixedTicketsDraw?.maxTickets?.let { maxTickets ->
                             val percentage = 2 * 100 / maxTickets
                             binding.txtPercentage.text = percentage.toString()
                             binding.imgProgress.progress = percentage
                         }
                     }*/
-                }
-            }
-
         }
+
     }
 
     @SuppressLint("SetTextI18n")
@@ -354,7 +376,7 @@ class LiveStreamFragment : ProgressBarFragments() {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
 
-        viewModel.getRounds(limit = 20, offset = 0, Const.STATUS_ACTIVE, null)
+        viewModel.getInfo()
         viewModel.getRoundStatistics(true)
     }
 

@@ -16,13 +16,14 @@ import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentTicketsBinding
 import com.magma.miyyiyawmiyyi.android.model.Ticket
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
+import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
-import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemListener
+import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemTicketListener
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
-class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
+class TicketsFragment : ProgressBarFragments(), RecyclerItemTicketListener<Ticket> {
 
     private var _binding: FragmentTicketsBinding? = null
 
@@ -60,22 +61,53 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
         ticketsAdapter.submitList(arrayListOf())
         binding.recyclerTickets.adapter = ticketsAdapter
 
-        if (ContactManager.getCurrentInfo()?.activeRound != null)
-            viewModel.loadAllTickets()
+        //viewModel.loadAllTickets()
 
-        val dRoundNumber = ContactManager.getCurrentInfo()?.activeRound?.let {
-            it.number?.let { num ->
-                String.format(getString(R.string.draw_number_1), num)
-            } ?: String.format(getString(R.string.draw_number_1), 0)
+        val dRoundNumber = ContactManager.getCurrentInfo()?.let {
+            when {
+                it.currentRound != null -> {
+                    it.currentRound.number?.let { num ->
+                        String.format(getString(R.string.draw_number_1), num)
+                    } ?: String.format(getString(R.string.draw_number_1), 0)
+                }
+                /*it.closedRound != null -> {
+                    it.closedRound.number?.let { num ->
+                        String.format(getString(R.string.draw_number_1), num)
+                    } ?: String.format(getString(R.string.draw_number_1), 0)
+                }*/
+                else -> {
+                    String.format(getString(R.string.draw_number_1), 0)
+                }
+            }
         } ?: String.format(getString(R.string.draw_number_1), 0)
         binding.txt100DDrawNumber.text = dRoundNumber
 
-        val goldenRoundNumber = ContactManager.getCurrentInfo()?.activeGrandPrize?.let {
-            it.number?.let { num ->
-                String.format(getString(R.string.draw_number_1), num)
-            } ?: String.format(getString(R.string.draw_number_1), 0)
+        val goldenRoundNumber = ContactManager.getCurrentInfo()?.let {
+            when {
+                it.currentGrandPrize != null -> {
+                    it.currentGrandPrize.number?.let { num ->
+                        String.format(getString(R.string.draw_number_1), num)
+                    } ?: String.format(getString(R.string.draw_number_1), 0)
+                }
+                /*it.closedGrandPrize != null -> {
+                    it.closedGrandPrize.number?.let { num ->
+                        String.format(getString(R.string.draw_number_1), num)
+                    } ?: String.format(getString(R.string.draw_number_1), 0)
+                }*/
+                else -> {
+                    String.format(getString(R.string.draw_number_1), 0)
+                }
+            }
         } ?: String.format(getString(R.string.draw_number_1), 0)
         binding.txtDrawNumber.text = goldenRoundNumber
+
+        /*val goldenTicketNum = ContactManager.getCurrentInfo()?.grandPrizeWinner?.number ?: ""
+        if (goldenTicketNum.isNotEmpty()) {
+            binding.txtTicketNum.text = goldenTicketNum
+            binding.lytGoldenPoll.visibility = View.VISIBLE
+        } else {
+            binding.lytGoldenPoll.visibility = View.GONE
+        }*/
 
 
         binding.btnGetItNow.setOnClickListener {
@@ -96,12 +128,6 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
                     if (goldenList.isNotEmpty()) {
                         binding.txtTicketNum.text = goldenList.first().number
                     }
-                    if (t.isNotEmpty()) {
-                        //binding.progress.visibility = View.GONE
-                        //binding.txtEmpty.visibility = View.GONE
-                    } else {
-                        //binding.txtEmpty.visibility = View.VISIBLE
-                    }
                 }
             })
         )
@@ -115,18 +141,66 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
                     when (t) {
                         is Resource.Loading -> {
                             // show progress bar and remove no data layout while loading
-                            //binding.progress.visibility = View.VISIBLE
+                            binding.progress.visibility = View.VISIBLE
                             //binding.txtEmpty.visibility = View.GONE
                         }
                         is Resource.Success -> {
+                            binding.progress.visibility = View.GONE
                             // response is ok get the data and display it in the list
                             //binding.progress.visibility = View.GONE
                             val response = t.response as TicketsResponse
                             Log.d(TAG, "response: $response")
 
-                            viewModel.deleteAndSaveTickets(response.items)
+                            val totalTickets = arrayListOf<Ticket>()
+                            val normalList =
+                                response.items.filter { ticket -> ticket.round != null }
+                            val goldenList =
+                                response.items.filter { ticket -> ticket.grandPrize != null }
+                            //if (normalList.isNotEmpty()) {
+                            val getItNowCards = arrayListOf<Ticket>()
+                            ContactManager.getCurrentInfo().let {
+                                if (it?.currentRound != null) {
+                                    if ((it.currentRoundTickets ?: 0)
+                                        < (it.currentRound.config?.maxTicketsPerContestant ?: 0)
+                                    ) {
+                                        val getItNowCount =
+                                            (it.currentRound.config?.maxTicketsPerContestant?.minus(
+                                                (it.currentRoundTickets ?: 0)
+                                            )) ?: 0
+                                        for (i in 1..getItNowCount) {
+                                            getItNowCards.add(
+                                                Ticket(
+                                                    _id = Const.TYPE_GET_IT_NOW,
+                                                    null,
+                                                    null,
+                                                    null,
+                                                    null,
+                                                    null
+                                                )
+                                            )
+                                        }
+                                    }
+                                }
+                            }
+                            if (normalList.isNotEmpty()) {
+                                totalTickets.addAll(normalList)
+                            }
+                            if (getItNowCards.isNotEmpty()) {
+                                totalTickets.addAll(getItNowCards)
+                            }
+                            ticketsAdapter.submitList(totalTickets)
+                            //}
+                            if (goldenList.isNotEmpty()) {
+                                binding.txtTicketNum.text = goldenList.first().number
+                                binding.lytGoldenPoll.visibility = View.VISIBLE
+                            } else {
+                                binding.lytGoldenPoll.visibility = View.GONE
+                            }
+
+                            //viewModel.deleteAndSaveTickets(response.items)
                         }
                         is Resource.DataError -> {
+                            binding.progress.visibility = View.GONE
                             //binding.progress.visibility = View.GONE
                             // usually this happening when there is server error
                             val response = t.response as ErrorManager
@@ -134,6 +208,7 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
                             showErrorToast(response.failureMessage)
                         }
                         is Resource.Exception -> {
+                            binding.progress.visibility = View.GONE
                             //binding.progress.visibility = View.GONE
                             // usually this happening when there is no internet
                             val response = t.response
@@ -150,8 +225,43 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
 
-        val round = ContactManager.getCurrentInfo()?.activeRound?._id
-        round?.let { viewModel.getTickets(limit = 20, offset = 0, round, null) }
+        val round = ContactManager.getCurrentInfo()?.let {
+            if (!it.currentRound?._id.isNullOrEmpty()) {
+                it.currentRound?._id
+            } /*else if (!it.closedRound?._id.isNullOrEmpty()) {
+                it.closedRound?._id
+            }*/ else {
+                null
+            }
+        }
+        val roundGrand = ContactManager.getCurrentInfo()?.let {
+            if (!it.currentGrandPrize?._id.isNullOrEmpty()) {
+                it.currentGrandPrize?._id
+            } /*else if (!it.closedGrandPrize?._id.isNullOrEmpty()) {
+                it.closedGrandPrize?._id
+            }*/ else {
+                null
+            }
+        }
+        Log.d(TAG, "YYY onAttach: roundGrand $roundGrand")
+        round?.let {
+            viewModel.getTickets(
+                limit = 20,
+                offset = 0,
+                grandPrize = null,
+                round = round,
+                populate = null
+            )
+        }
+        roundGrand?.let {
+            viewModel.getTickets(
+                limit = 20,
+                offset = 0,
+                grandPrize = roundGrand,
+                round = null,
+                populate = null
+            )
+        }
     }
 
     override fun onDestroyView() {
@@ -161,6 +271,12 @@ class TicketsFragment : ProgressBarFragments(), RecyclerItemListener<Ticket> {
 
     override fun onItemClicked(item: Ticket, index: Int) {
 
+    }
+
+    override fun onGetItNowClicked(item: Ticket, index: Int) {
+        findNavController().navigate(
+            TicketsFragmentDirections.actionTicketsToTasks()
+        )
     }
 
     companion object {

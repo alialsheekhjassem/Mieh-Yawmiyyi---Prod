@@ -10,7 +10,6 @@ import android.media.RingtoneManager
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
@@ -120,6 +119,9 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
             Const.TYPE_ROUND_TICKET -> {
                 title = MAGMA.getInstance().getString(R.string.win_ticket)
+                ContactManager.getCurrentInfo()?.let {
+                    it.currentRoundTickets = it.currentRoundTickets?.plus(1)
+                }
             }
             Const.TYPE_GRAND_PRIZE_TICKET -> {
                 title = MAGMA.getInstance().getString(R.string.win_golden_ticket)
@@ -146,7 +148,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 /*val preferences = application.getSharedPreferences(Const.PREF_NAME, AppCompatActivity.MODE_PRIVATE)
                 preferences.edit().putString(Const.PREF_GIFT_CODE, remoteMessage.data["code"]).apply()*/
                 ContactManager.setGiftCode(remoteMessage.data["code"])
-                title = MAGMA.getInstance().getString(R.string.purchase_code_ready)
+                //title = MAGMA.getInstance().getString(R.string.purchase_code_ready)
+                return
             }
             Const.TYPE_GOT_POINTS -> {
                 title = MAGMA.getInstance().getString(R.string.points_reward)

@@ -35,7 +35,7 @@
                     android:background="@drawable/bg_img_live"
                     android:layoutDirection="ltr"
                     android:padding="@dimen/spacing_large"
-                    tools:visibility="gone"
+                    tools:visibility="visible"
                     app:layout_constraintBottom_toTopOf="@+id/btn_watch_last_100_draw"
                     app:layout_constraintTop_toTopOf="parent">
 

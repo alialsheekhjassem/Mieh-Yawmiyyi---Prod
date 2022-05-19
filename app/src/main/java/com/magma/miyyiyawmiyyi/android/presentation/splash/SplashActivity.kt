@@ -1,16 +1,24 @@
 package com.magma.miyyiyawmiyyi.android.presentation.splash
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.magma.miyyiyawmiyyi.android.R
+import com.magma.miyyiyawmiyyi.android.BuildConfig
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
+import com.magma.miyyiyawmiyyi.android.databinding.DialogUpdateAvailableBinding
+import com.magma.miyyiyawmiyyi.android.model.Setting
 import com.magma.miyyiyawmiyyi.android.presentation.base.BaseActivity
 import dagger.android.AndroidInjection
 import com.magma.miyyiyawmiyyi.android.presentation.home.HomeActivity
@@ -72,6 +80,7 @@ class SplashActivity : BaseActivity() {
                             Log.d(TAG, "response: Success $response")
                             ContactManager.setInfo(response)
                             viewModel.getMyAccount()
+                            response.settings?.let { setSettings(it) }
                         }
                         is Resource.DataError -> {
                             // usually this happening when there is server error
@@ -172,6 +181,95 @@ class SplashActivity : BaseActivity() {
                 }
             })
         )
+    }
+
+    private fun setSettings(t: List<Setting>) {
+
+        Log.d(TAG, "QQQ onEventUnhandledContent: $t")
+
+        val itemAds =
+            t.find { setting -> setting.name?.contains("ads_enable") ?: true }
+        val itemLink =
+            t.find { setting ->
+                setting.name?.contains("google_play_share_link") ?: true
+            }
+        val itemIsShowQuizTask =
+            t.find { setting -> setting.name?.contains("android_show_quiz") ?: true }
+        val itemIsShowSocialMediaTask =
+            t.find { setting -> setting.name?.contains("android_show_social_media_tasks") ?: true }
+        val itemIsShowAdTask =
+            t.find { setting -> setting.name?.contains("android_show_ads_tasks") ?: true }
+
+        /*val itemWeb =
+            t.find { setting -> setting.name?.contains("web_share_link") ?: true }*/
+        val itemMin =
+            t.find { setting -> setting.name?.contains("android_min_ver") ?: true }
+        val itemMax =
+            t.find { setting -> setting.name?.contains("android_max_ver") ?: true }
+
+        itemAds?.value?.let {
+            Log.d(TAG, "QQQ itemAds onEventUnhandledContent: $it")
+            viewModel.setIsEnableAds(it.toBoolean())
+        }
+        itemIsShowQuizTask?.value?.let {
+            Log.d(TAG, "QQQ itemAds onEventUnhandledContent: $it")
+            viewModel.setIsShowQuizTask(it.toBoolean())
+        }
+        itemIsShowSocialMediaTask?.value?.let {
+            Log.d(TAG, "QQQ itemAds onEventUnhandledContent: $it")
+            viewModel.setIsShowSocialMediaTask(it.toBoolean())
+        }
+        itemIsShowAdTask?.value?.let {
+            Log.d(TAG, "QQQ itemAds onEventUnhandledContent: $it")
+            viewModel.setIsShowAdTask(it.toBoolean())
+        }
+
+        val currentVersion = BuildConfig.VERSION_CODE
+        itemMin?.let { setting ->
+            setting.value?.let {
+                if (currentVersion < it.toInt()) {
+                    showUpdateDialog(itemLink, false)
+                } else itemMax?.value?.let { max ->
+                    if (currentVersion < max.toInt()) {
+                        showUpdateDialog(itemLink, true)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun showUpdateDialog(itemLink: Setting?, cancelAble: Boolean) {
+        val builder = AlertDialog.Builder(this)
+        val dialogBinding: DialogUpdateAvailableBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(this), R.layout.dialog_update_available, null, false
+        )
+        builder.setView(dialogBinding.root)
+        val alertDialog = builder.create()
+        if (!cancelAble) {
+            dialogBinding.txtTitle.text = getString(R.string.please_update_app)
+            dialogBinding.txtBody.text = getString(R.string.update_available_body_force)
+            dialogBinding.btnLater.visibility = View.GONE
+        }
+        dialogBinding.btnUpdate.setOnClickListener {
+            if (cancelAble)
+                alertDialog.dismiss()
+            itemLink?.value?.let {
+                openGooglePlayLink(it)
+            }
+        }
+        alertDialog.setCancelable(cancelAble)
+        if (cancelAble)
+            dialogBinding.btnLater.setOnClickListener { alertDialog.dismiss() }
+        alertDialog.show()
+    }
+
+    private fun openGooglePlayLink(link: String) {
+        val intentInvite = Intent(Intent.ACTION_SEND)
+        intentInvite.type = "text/plain"
+        val subject = resources.getString(R.string.about_us)
+        intentInvite.putExtra(Intent.EXTRA_SUBJECT, subject)
+        intentInvite.putExtra(Intent.EXTRA_TEXT, link)
+        startActivity(Intent.createChooser(intentInvite, "Share using"))
     }
 
     private fun onFailure() {

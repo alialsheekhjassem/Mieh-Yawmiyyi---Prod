@@ -32,6 +32,11 @@ class Const {
         const val PREF_INVITATION_LINK = "invitation_link"
         const val PREF_IS_SHOWN_ONBOARDING = "is_shown_onboarding"
         const val PREF_IS_GENERAL = "is_general"
+        const val PREF_TASKS_COUNT = "tasks_count"
+        const val PREF_IS_ENABLE_ADS = "is_enable_ads"
+        const val PREF_IS_SHOW_QUIZ_TASK = "is_show_quiz_task"
+        const val PREF_IS_SHOW_SOCIAL_MEDIA_TASK = "is_show_social_media_task"
+        const val PREF_IS_SHOW_AD_TASK = "is_show_ad_task"
 
         //Error
         const val ERROR_EMPTY: Int = 1
@@ -60,6 +65,9 @@ class Const {
         const val TYPE_SOCIAL_MEDIA = "social_media"
         const val TYPE_QUIZ = "quiz"
         const val TYPE_AD = "ad"
+        const val TYPE_GET_IT_NOW = "get_it_now"
+        const val TYPE_TICKET_ID = 1
+        const val TYPE_GET_IT_NOW_ID = 2
 
         //Facebook Ads
         var FB_NATIVE = "1276188569544209_1276229116206821"

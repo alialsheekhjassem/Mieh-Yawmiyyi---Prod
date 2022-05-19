@@ -34,7 +34,7 @@ internal interface IRestApiManager {
 
     suspend fun doServerUpdateMyAccount(accountRequest: InvitedByRequest): Resource<Account>
 
-    suspend fun getTickets(limit: Int, offset: Int, round: String?, populate: Boolean?): Resource<TicketsResponse>
+    suspend fun getTickets(limit: Int, offset: Int, round: String?, grandPrize: String?, populate: Boolean?): Resource<TicketsResponse>
 
     suspend fun getInfo(): Resource<InfoResponse>
 

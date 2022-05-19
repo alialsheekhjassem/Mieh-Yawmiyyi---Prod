@@ -74,9 +74,10 @@ constructor(
         limit: Int,
         offset: Int,
         round: String?,
+        grandPrize: String?,
         populate: Boolean?
     ): Resource<TicketsResponse> {
-        return remoteRepository.getTickets(limit, offset, round, populate)
+        return remoteRepository.getTickets(limit, offset, round, grandPrize, populate)
     }
 
     override suspend fun getInfo(): Resource<InfoResponse> {
@@ -368,6 +369,46 @@ constructor(
 
     override fun getInvitationLink(): String? {
         return localRepository.getInvitationLink()
+    }
+
+    override fun setTasksCount(count: Int) {
+        localRepository.setTasksCount(count)
+    }
+
+    override fun getTasksCount(): Int {
+        return localRepository.getTasksCount()
+    }
+
+    override fun setIsEnableAds(isShown: Boolean) {
+        localRepository.setIsEnableAds(isShown)
+    }
+
+    override fun isEnableAds(): Boolean {
+        return localRepository.isEnableAds()
+    }
+
+    override fun setIsShowQuizTask(isShown: Boolean) {
+        localRepository.setIsShowQuizTask(isShown)
+    }
+
+    override fun isShowQuizTask(): Boolean {
+        return localRepository.isShowQuizTask()
+    }
+
+    override fun setIsShowSocialMediaTask(isShown: Boolean) {
+        localRepository.setIsShowSocialMediaTask(isShown)
+    }
+
+    override fun isShowSocialMediaTask(): Boolean {
+        return localRepository.isShowSocialMediaTask()
+    }
+
+    override fun setIsShowAdTask(isShown: Boolean) {
+        localRepository.setIsShowAdTask(isShown)
+    }
+
+    override fun isShowAdTask(): Boolean {
+        return localRepository.isShowAdTask()
     }
 
 }

@@ -34,6 +34,14 @@ class TasksViewModel @Inject constructor(
         actions.value = Event(TasksActions.QUIZZES_CLICKED)
     }
 
+    fun getTasksCount(): Int {
+        return dataRepository.getTasksCount()
+    }
+
+    fun setTasksCount(count: Int) {
+        dataRepository.setTasksCount(count)
+    }
+
     fun generateTasks() {
         launch {
             //val token = dataRepository.getApiToken()
@@ -74,6 +82,8 @@ class TasksViewModel @Inject constructor(
             {
                 val items = dataRepository.deleteTask(taskId)
                 loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
+                loadAllTasks(Const.TYPE_AD)
+                loadAllTasks(Const.TYPE_QUIZ)
                 Log.d("TAG", "deleteAndSaveTasks: $items")
             }
         }
@@ -88,6 +98,19 @@ class TasksViewModel @Inject constructor(
                     dataRepository.deleteAllTasks(type)
                 else dataRepository.deleteAllTasks()
                 saveTasks(tasksResponse, type)
+            }
+        }
+    }
+
+    fun deleteAllTasks() {
+        // save feed list into database
+        launch {
+            withContext(Dispatchers.IO)
+            {
+                dataRepository.deleteAllTasks()
+                loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
+                loadAllTasks(Const.TYPE_AD)
+                loadAllTasks(Const.TYPE_QUIZ)
             }
         }
     }

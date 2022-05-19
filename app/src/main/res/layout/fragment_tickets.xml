@@ -21,6 +21,13 @@
             android:layout_height="match_parent"
             tools:context=".presentation.home.ui.tickets.TicketsFragment">
 
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/lyt_golden_poll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:constraint_referenced_ids="img_background, txt_draw_number,txt_title,txt_ticket_num,img_icon" />
+
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/img_background"
                 android:layout_width="match_parent"
@@ -37,12 +44,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/spacing_default"
-                android:padding="@dimen/spacing_default"
+                android:background="@drawable/bg_rounded_bottom"
                 android:gravity="center"
+                android:padding="@dimen/spacing_default"
                 android:text="@string/draw_number_1"
                 android:textColor="@color/white"
                 android:textSize="@dimen/size_small"
-                android:background="@drawable/bg_rounded_bottom"
                 app:layout_constraintEnd_toEndOf="@+id/img_background"
                 app:layout_constraintStart_toStartOf="@id/img_background"
                 app:layout_constraintTop_toTopOf="@id/img_background" />
@@ -106,12 +113,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/spacing_default"
-                    android:padding="@dimen/spacing_default"
+                    android:background="@drawable/bg_rounded_bottom"
                     android:gravity="center"
+                    android:padding="@dimen/spacing_default"
                     android:text="@string/draw_number_1"
                     android:textColor="@color/white"
                     android:textSize="@dimen/size_small"
-                    android:background="@drawable/bg_rounded_bottom"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -120,8 +127,8 @@
                     android:id="@+id/logo_1"
                     android:layout_width="@dimen/image_pos_product_size"
                     android:layout_height="@dimen/image_pos_product_size"
-                    android:src="@drawable/logo"
                     android:layout_marginTop="@dimen/spacing_large"
+                    android:src="@drawable/logo"
                     app:layout_constraintEnd_toStartOf="@+id/logo_2"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/txt_100D_draw_number" />
@@ -130,8 +137,8 @@
                     android:id="@+id/logo_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/dollar"
                     android:layout_marginTop="@dimen/spacing_large"
+                    android:src="@drawable/dollar"
                     app:layout_constraintBottom_toBottomOf="@+id/logo_1"
                     app:layout_constraintEnd_toStartOf="@+id/logo_3"
                     app:layout_constraintStart_toEndOf="@+id/logo_1"
@@ -141,8 +148,8 @@
                     android:id="@+id/logo_3"
                     android:layout_width="@dimen/image_pos_product_size"
                     android:layout_height="@dimen/image_pos_product_size"
-                    android:src="@drawable/logo"
                     android:layout_marginTop="@dimen/spacing_large"
+                    android:src="@drawable/logo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/logo_2"
                     app:layout_constraintTop_toBottomOf="@+id/txt_100D_draw_number" />
@@ -181,6 +188,18 @@
                     app:layout_constraintTop_toBottomOf="@+id/btn_get_it_now"
                     tools:itemCount="4"
                     tools:listitem="@layout/item_ticket" />
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_margin="@dimen/vertical_20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_get_it_now"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

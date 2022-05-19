@@ -1,5 +1,6 @@
 package com.magma.miyyiyawmiyyi.android.presentation.home.ui.tasks
 
+import android.app.AlertDialog
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.ads.AdError
@@ -18,6 +20,7 @@ import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.MarkAsDoneTasksRequest
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.TasksResponse
+import com.magma.miyyiyawmiyyi.android.databinding.DialogDisableTasksBinding
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentTasksBinding
 import com.magma.miyyiyawmiyyi.android.model.TaskObj
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
@@ -31,6 +34,7 @@ import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import dagger.android.support.AndroidSupportInjection
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
@@ -42,8 +46,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
     @Inject
     lateinit var tasksAdapter: TasksAdapter
 
-    private var quizzesTasks: List<TaskObj> = arrayListOf()
-    private var adTasks: List<TaskObj> = arrayListOf()
+    private var quizzesTasks: ArrayList<TaskObj> = arrayListOf()
+    private var adTasks: ArrayList<TaskObj> = arrayListOf()
 
     private var isTaskOpened = false
     private var taskId: String? = null
@@ -113,10 +117,12 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             tasksAdapter.submitList(t)
                         }
                         Const.TYPE_AD -> {
-                            adTasks = t
+                            adTasks.clear()
+                            adTasks.addAll(t)
                         }
                         Const.TYPE_QUIZ -> {
-                            quizzesTasks = t
+                            quizzesTasks.clear()
+                            quizzesTasks.addAll(t)
                         }
                     }
                 }
@@ -142,7 +148,7 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             Log.d(TAG, "response: $response")
 
                             var type: String? = null
-                            if (!response.items.isNullOrEmpty())
+                            if (response.items.isNotEmpty())
                                 type = response.items.first().type
                             else if (type == Const.TYPE_SOCIAL_MEDIA) {
                                 binding.txtEmpty.text = getString(R.string.no_items)
@@ -151,8 +157,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
                             viewModel.deleteAndSaveTasks(response.items, type)
 
-                            if (!isGeneratedTasks && response.items.isEmpty())
-                                viewModel.generateTasks()
+                            /*if (!isGeneratedTasks && response.items.isEmpty())
+                                viewModel.generateTasks()*/
                             /*else {
                                 //Quizzes & Ad Tasks
                                 adTasks =
@@ -170,6 +176,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             if (response.status == 400) {
                                 binding.txtEmpty.text = getString(R.string.no_active_round)
                                 binding.txtEmpty.visibility = View.VISIBLE
+                            } else if (response.status == 409) {
+                                viewModel.deleteAllTasks()
                             }
                             //showErrorToast(response.failureMessage)
                         }
@@ -251,7 +259,23 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             hideLoadingDialog()
                             val response = t.response
                             Log.d(TAG, "responseGenerate: $response")
-                            taskId?.let { viewModel.deleteTask(it) }
+                            taskId?.let {
+                                viewModel.deleteTask(it)
+                            }
+
+                            //increase tasks count or reset
+                            val tasksLocalCount = viewModel.getTasksCount()
+                            val currentTasksCount = tasksLocalCount + 1
+                            val tasksPerTicket =
+                                ContactManager.getCurrentInfo()?.currentRound?.config?.tasksPerTicket
+                                    ?: 0
+                            if (currentTasksCount >= tasksPerTicket) {
+                                viewModel.setTasksCount(0)
+                            } else {
+                                viewModel.setTasksCount(currentTasksCount)
+                            }
+
+                            refreshTasksBar()
                         }
                         is Resource.DataError -> {
                             hideLoadingDialog()
@@ -275,7 +299,7 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
     private fun setup() {
 
-        if (ContactManager.getCurrentInfo()?.activeRound != null) {
+        if (ContactManager.getCurrentInfo()?.currentRound != null) {
             viewModel.loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
             viewModel.loadAllTasks(Const.TYPE_AD)
             viewModel.loadAllTasks(Const.TYPE_QUIZ)
@@ -291,25 +315,7 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
             else showToast(getString(R.string.no_items_))
         }
 
-        val level = ContactManager.getCurrentInfo()?.activeRound?.let {
-            it.config?.tasksPerTicket?.let { tasksCount ->
-                binding.progressRemainingTickets.progress = tasksCount
-                binding.progressRemainingTickets.max = it.config?.maxTicketsPerContestant ?: 0
-                String.format(
-                    getString(R.string.task_level_2_of_5_completed),
-                    tasksCount,
-                    it.config?.maxTicketsPerContestant ?: 0
-                )
-            } ?: String.format(
-                getString(R.string.task_level_2_of_5_completed),
-                0,
-                it.config?.maxTicketsPerContestant ?: 0
-            )
-        } ?: String.format(
-            getString(R.string.task_level_2_of_5_completed),
-            0, 0
-        )
-        binding.txtLevel.text = level
+        refreshTasksBar()
 
         binding.include1.btnWatchNow.setOnClickListener {
             //val activity = requireActivity() as HomeActivity
@@ -320,6 +326,41 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                 showAd()
             } else {
                 showErrorToast(getString(R.string.reach_max_tickets))
+            }
+        }
+    }
+
+    private fun refreshTasksBar() {
+        val tasksLocalCount = viewModel.getTasksCount()
+        val level = ContactManager.getCurrentInfo()?.currentRound?.let {
+            it.config?.tasksPerTicket?.let { tasksCount ->
+                binding.progressRemainingTasks.progress = tasksLocalCount
+                binding.progressRemainingTasks.max = tasksCount
+                String.format(
+                    getString(R.string.task_level_2_of_5_completed),
+                    tasksLocalCount,
+                    tasksCount
+                )
+            } ?: String.format(
+                getString(R.string.task_level_2_of_5_completed),
+                0, 0
+            )
+        } ?: String.format(
+            getString(R.string.task_level_2_of_5_completed),
+            0, 0
+        )
+        binding.txtLevel.text = level
+        ContactManager.getCurrentInfo()?.let {
+            val tasksPerTicket = it.currentRound?.config?.tasksPerTicket ?: 0
+            if (it.currentRound == null) {
+                viewModel.setTasksCount(0)
+                showUpdateDialog(getString(R.string.no_active_round))
+            } else if (tasksLocalCount >= tasksPerTicket) {
+                viewModel.setTasksCount(0)
+            } else if ((it.currentRoundTickets ?: 0)
+                == (it.currentRound.config?.maxTicketsPerContestant ?: 0)
+            ) {
+                showUpdateDialog(getString(R.string.reach_max_tickets))
             }
         }
     }
@@ -370,7 +411,6 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         }
     }
 
-
     override fun onResume() {
         super.onResume()
         if (isTaskOpened) {
@@ -412,6 +452,22 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
             )
             timer.schedule(task, 4000)
         }
+    }
+
+    private fun showUpdateDialog(title: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        val dialogBinding: DialogDisableTasksBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(requireContext()), R.layout.dialog_disable_tasks, null, false
+        )
+        builder.setView(dialogBinding.root)
+        val alertDialog = builder.create()
+        dialogBinding.txtBody.text = title
+        dialogBinding.btnBack.setOnClickListener {
+            findNavController().navigateUp()
+            alertDialog.dismiss()
+        }
+        alertDialog.setCancelable(false)
+        alertDialog.show()
     }
 
     override fun onAttach(context: Context) {

@@ -46,7 +46,7 @@ class InvitationsFragment : ProgressBarFragments() {
             binding.txtTotalPoints.text =
                 "${it.userPoints?.toString()} ${getString(R.string.points)}"
             binding.txtTitlePointsCount.text =
-                it.activeRound?.config?.maxTicketsPerContestant?.let { tick ->
+                it.currentRound?.config?.maxTicketsPerContestant?.let { tick ->
                     "$tick ${getString(R.string.points)}"
                 } ?: "0 ${getString(R.string.points)}"
             binding.txtInvitationLink.text =

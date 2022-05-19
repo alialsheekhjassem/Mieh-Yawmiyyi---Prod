@@ -9,6 +9,7 @@
 
         <TextView
             android:id="@+id/title"
+            style="@style/MaterialTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawablePadding="10dp"
@@ -23,6 +24,7 @@
 
         <TextView
             android:id="@+id/body"
+            style="@style/MaterialTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="30dp"
@@ -36,6 +38,7 @@
 
         <TextView
             android:id="@+id/noTV"
+            style="@style/MaterialTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"
@@ -47,6 +50,7 @@
 
         <TextView
             android:id="@+id/yesTV"
+            style="@style/MaterialTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="20dp"

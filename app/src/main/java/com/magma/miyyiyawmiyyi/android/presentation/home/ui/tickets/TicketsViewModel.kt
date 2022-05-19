@@ -26,12 +26,12 @@ class TicketsViewModel @Inject constructor(
     internal var response = MutableLiveData<Event<Resource<TicketsResponse>>>()
     val ticketsDb = MutableLiveData<Event<List<Ticket>>>()
 
-    fun getTickets(limit: Int, offset: Int, round: String?, populate: Boolean?) {
+    fun getTickets(limit: Int, offset: Int, grandPrize: String?, round: String?, populate: Boolean?) {
         launch {
             //val token = dataRepository.getApiToken()
             response.value = Event(Resource.Loading())
             val result: Resource<TicketsResponse> =
-                dataRepository.getTickets(limit, offset, round, populate)
+                dataRepository.getTickets(limit, offset, round, grandPrize, populate)
             Log.d("TAG", "getTickets: $result")
             response.value = Event(result)
         }

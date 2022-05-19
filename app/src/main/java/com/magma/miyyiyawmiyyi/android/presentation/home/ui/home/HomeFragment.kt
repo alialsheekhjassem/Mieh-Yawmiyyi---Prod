@@ -95,7 +95,7 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
         var grandPrizeWinner: WinnerObj? = null
 
         if (round == null) {
-            round = info?.activeRound
+            round = info?.currentRound
         }
 
         Log.d(TAG, "QQQ setupData: info $info")
@@ -104,9 +104,9 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
             binding.cardPoints.value = "${inf.userPoints ?: 0} ${getString(R.string.points)}"
             binding.cardTickets.value =
                 round?.config?.let { config ->
-                    config.tasksPerTicket?.let { tPTicket ->
-                        config.maxTicketsPerContestant?.let { max ->
-                            "$tPTicket/$max ${
+                    config.maxTicketsPerContestant?.let { maxTickets ->
+                        inf.currentRoundTickets?.let { amount ->
+                            "$amount/$maxTickets ${
                                 getString(R.string.ticket)
                             }"
                         } ?: "0/0 ${getString(R.string.ticket)}"
@@ -173,7 +173,7 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
                             ContactManager.setInfo(response)
                             ContactManager.setIsRefreshInfo(false)
 
-                            setupData(ContactManager.getCurrentInfo()?.activeRound)
+                            setupData(ContactManager.getCurrentInfo()?.currentRound)
                         }
                         is Resource.DataError -> {
                             binding.lytSwipeRefresh.isRefreshing = false
@@ -196,6 +196,10 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
 
         //Temporary Solution For Refresh Data
         viewModel.getInfo()

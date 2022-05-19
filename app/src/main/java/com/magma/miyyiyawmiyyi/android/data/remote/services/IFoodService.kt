@@ -98,6 +98,7 @@ interface IFoodService {
         @Query("limit") limit: Int?,
         @Query("offset") offset: Int?,
         @Query("round") round: String?,
+        @Query("grandPrize") grandPrize: String?,
         @Query("populate") populate: Boolean?,
     ): Response<ResponseWrapper<TicketsResponse>>
 
