@@ -463,14 +463,14 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
         //Set Settings
         if (!viewModel.isShowAdTask()) {
-            binding.include1.btnWatchNow.visibility = View.INVISIBLE
+            binding.include1.root.visibility = View.GONE
         } else {
-            binding.include1.btnWatchNow.visibility = View.VISIBLE
+            binding.include1.root.visibility = View.VISIBLE
         }
         if (!viewModel.isShowQuizTask()) {
-            binding.include2.btnWatchNow.visibility = View.INVISIBLE
+            binding.include2.root.visibility = View.GONE
         } else {
-            binding.include2.btnWatchNow.visibility = View.VISIBLE
+            binding.include2.root.visibility = View.VISIBLE
         }
         if (!viewModel.isShowSocialMediaTask()) {
             binding.recyclerTasks.visibility = View.GONE

@@ -110,6 +110,7 @@ class LiveStreamFragment : ProgressBarFragments() {
                         R.color.white
                     )
                 )
+                binding.txtTitle1.text = getString(R.string.live_stream_starts)
                 binding.btnWatchNow.isEnabled = true
             } else {
                 DateUtils.formatLongToCountDown(it)?.let { it1 -> setViewsTime(it1) }
@@ -121,6 +122,8 @@ class LiveStreamFragment : ProgressBarFragments() {
                         R.color.grey_14
                     )
                 )
+                binding.txtTitle1.text =
+                    getString(R.string.the_remaining_time_for_the_100_poll_stream)
                 binding.btnWatchNow.isEnabled = false
             }
         }
@@ -142,6 +145,7 @@ class LiveStreamFragment : ProgressBarFragments() {
                         R.color.white
                     )
                 )
+                binding.txtTitle.text = getString(R.string.live_stream_starts)
                 binding.btnWatchNowGolden.isEnabled = true
             } else {
                 DateUtils.formatLongToCountDown(it)?.let { it1 -> setGoldenViewsTime(it1) }
@@ -159,6 +163,8 @@ class LiveStreamFragment : ProgressBarFragments() {
                         R.color.grey_14
                     )
                 )
+                binding.txtTitle.text =
+                    getString(R.string.the_remaining_time_for_the_golden_lira_poll_stream)
                 binding.btnWatchNowGolden.isEnabled = false
             }
         }
@@ -295,7 +301,13 @@ class LiveStreamFragment : ProgressBarFragments() {
         } else {
             binding.groupTime.visibility = View.GONE
             binding.cardTickets.visibility = View.GONE
-            binding.txtEmpty.visibility = View.VISIBLE
+            if (activeRound == null) {
+                binding.txtEmpty.text = getString(R.string.no_draw_available)
+                binding.txtEmpty.visibility = View.VISIBLE
+            } else if (activeRound.status == Const.STATUS_CLOSED) {
+                binding.txtEmpty.text = getString(R.string.no_active_round)
+                binding.txtEmpty.visibility = View.VISIBLE
+            }
         }
 
     }

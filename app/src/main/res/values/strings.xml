@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">100 Yawmiyyi</string>
     <string name="navigation_drawer_open" translatable="false">Drawer Open</string>
@@ -17,14 +18,14 @@
     <string name="admob_rewarded_ad_id" translatable="false">ca-app-pub-2559564046715323/7743978013</string>
     <string name="admob_rewarded_ad_id10" translatable="false">ca-app-pub-2559564046715323/2388898922</string>
     <string name="admob_initial" translatable="false">ca-app-pub-3940256099942544/1033173712</string>
-   <!-- <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>-->
+    <!-- <string name="admob_app_id" translatable="false">ca-app-pub-3940256099942544~3347511713</string>-->
     <string name="admob_app_id" translatable="false">ca-app-pub-2559564046715323~8859756741</string>
     <string name="admob_native_ad_id" translatable="false">ca-app-pub-3940256099942544/2247696110</string>
     <string name="interstitial_ad_unit_id">ca-app-pub-3940256099942544/1033173712</string>
     <!--<string name="interstitial_ad_unit_id">ca-app-pub-2559564046715323~6653115980</string>-->
     <string name="unknown_error">unknown error</string>
     <string name="error">Error</string>
-    <string name="no_internet">no internet</string>
+    <string name="no_internet">No internet connection!</string>
 
     <string name="open">Open</string>
     <string name="close">Close</string>
@@ -35,9 +36,9 @@
     <string name="welcome_title_1">100 Yawmiyyi</string>
     <string name="welcome_title_2">Win A Ticket</string>
     <string name="welcome_title_3">Invite and Win!</string>
-    <string name="welcome_text_1">Is an application that gives user tickets to join daily poll of 100$. The poll will be done randomly and mechanically</string>
+    <string name="welcome_text_1">Is an application that gives users tickets to join a daily draw of 100$. The draw lots will be done randomly and mechanically.</string>
     <string name="welcome_text_2">To win a ticket, the user does one of the task types: watch advertising videos, answer a group of questions or do tasks via social media.</string>
-    <string name="welcome_text_3">You can invite your friends to join application to collect points and exchange them by several digital gifts.</string>
+    <string name="welcome_text_3">You can invite your friends to join the application to collect points and exchange them by several digital gifts.</string>
 
     <string name="lets_start">Lets Start !</string>
     <string name="quick_service_for_kitchens_and_restaurants_in_saudi_arabia_to_book_banquets_and_buffets">Quick service for kitchens and restaurants in Saudi Arabia to book banquets and buffets</string>
@@ -49,9 +50,9 @@
     <string name="done">Done</string>
     <string name="choose_city">Choose City</string>
     <string name="choose_region">Choose Region</string>
-    <string name="enter_the_4_digit_code_that_was_sent_to_the_number">Enter the 4-digit code that was sent to the number</string>
+    <string name="enter_the_4_digit_code_that_was_sent_to_the_number">Please fill below the code sent to your mobile number</string>
     <string name="login">Login</string>
-    <string name="resend_code">Resend Code</string>
+    <string name="resend_code"> Send Again</string>
     <string name="phone_number">Phone Number</string>
     <string name="skip">Skip</string>
     <string name="select_your_address_to_receive_your_order">Select your address to receive your order</string>
@@ -63,10 +64,10 @@
     <string name="have_you_read_our_terms_of_use_and_privacy_policy">Have you read our Terms of Use and Privacy Policy</string>
     <string name="everything_that_comes_to_your_mind_you_can_find_it_with_us">Everything that comes to your mind, you can find it with us</string>
     <string name="enter_your_phone_number_for_continue">Enter your phone number for continue</string>
-    <string name="send_code">Send Code!</string>
+    <string name="send_code">Send Again</string>
     <string name="enter_code_here">Enter Code Here</string>
     <string name="check_code">Check Code!</string>
-    <string name="don_t_receive_code_click_here">Don\'t receive code? <u>Click Here</u></string>
+    <string name="don_t_receive_code_click_here">Didn’t receive the code? <u>Send Again</u></string>
 
     <string-array name="home_filter">
         <item>All</item>
@@ -197,11 +198,11 @@
     <string name="accept_terms_and_conditions">By clicking on the verfiy and sign up you are accepting all the Terms and Conditions</string>
     <string name="verify_and_sign_up">Verify and Sign Up</string>
     <string name="already_have_and_account_sign_in">Already have and account?</string>
-    <string name="verification_code">Verification Code</string>
+    <string name="verification_code">Number Verification</string>
     <string name="a_verification_code_has_been_sent">A verification code has been sent to your mobile number.</string>
     <string name="edit_phone_number">Edit Phone Number</string>
-    <string name="didn_t_receive_the_code_resend_45s">Didn\'t receive the code? </string>
-    <string name="resend_45s">Resend </string>
+    <string name="didn_t_receive_the_code_resend_45s">Didn\'t receive the code?</string>
+    <string name="resend_45s"> Send Again</string>
     <string name="select_location">Location</string>
     <string name="search_for_restaurants">Search for restaurants</string>
     <string name="recommended_restaurants">Recommended Restaurants</string>
@@ -236,35 +237,35 @@
     <string name="welcome_to_100_yawmiyyi">Welcome to 100 Yawmiyyi</string>
     <string name="please_sign_in_using_your_mobile_number">Please sign in using your mobile number</string>
     <string name="change_number">Change Number</string>
-    <string name="didn_t_receive_the_code_send_again">Didn\'t Receive the code? Send Again</string>
+    <string name="didn_t_receive_the_code_send_again">Didn\'t receive the code? Send Again</string>
     <string name="verify_and_continue">Verify and Continue</string>
     <string name="date_of_birth">Date of Birth</string>
     <string name="finish_account_setup">Finish Account Setup</string>
     <string name="please_fill_below_to_finish_setup_your_account">Please fill below to finish setup your account</string>
     <string name="invitation_code">Invitation Code</string>
-    <string name="please_fill_enter_the_code">Please fill enter the code</string>
-    <string name="show_all">Show all</string>
+    <string name="please_fill_enter_the_code">If you are invited by a friend, then enter the code</string>
+    <string name="show_all">View all</string>
     <string name="view">View</string>
     <string name="title_tasks">Tasks</string>
     <string name="title_tickets">Tickets</string>
     <string name="title_live_stream">Live Stream</string>
-    <string name="winner_100_usd_text">The winner of the 100$ Ticket in the last poll is:</string>
-    <string name="winner_golden_lira_text">The winner of the Golden Lira in the last poll is:</string>
-    <string name="chance_golden_text">Get the chance to get enough tickets to enter the Golden Lira draw.</string>
+    <string name="winner_100_usd_text">The winner of the 100$ in the last draw:</string>
+    <string name="winner_golden_lira_text">The winner of the Golden LIRA in the last draw:</string>
+    <string name="chance_golden_text">Get the chance to enter the Golden Lira draw by collecting the largest number of tickets</string>
     <string name="invitations">Invitations</string>
-    <string name="our_store">Our Store</string>
+    <string name="our_store">Store</string>
     <string name="settings">Settings</string>
-    <string name="your_orders">Your Orders</string>
+    <string name="your_orders">Orders</string>
     <string name="about_the_app">About Us</string>
     <string name="user_interface">User Interface</string>
     <string name="dark_mode">Dark Mode</string>
     <string name="language">Language</string>
-    <string name="about_us_text">100 Yawmiyyi gives a cash prize through a daily random poll of tickets where users can get them by watching advertising videos or doing tasks via social media.</string>
+    <string name="about_us_text">100 Yawmiyyi gives a cash prize through a daily random draw of tickets where users can get them by watching advertising videos, answering a group of questions or doing tasks via social media.</string>
     <string name="share_the_app">Share the App</string>
     <string name="the_golder_lira_ticket">The Golden Lira Ticket</string>
     <string name="the_100_tickets">The 100$ Tickets</string>
     <string name="get_it_now">Get it now</string>
-    <string name="the_remaining_time_for_the_golden_lira_poll_stream">The remaining time for the Golden Lira poll stream</string>
+    <string name="the_remaining_time_for_the_golden_lira_poll_stream">The remaining time for the live stream of the Golden Lira draw</string>
     <string name="watch_now">Watch Now</string>
     <string name="days">Days</string>
     <string name="hours">Hours</string>
@@ -272,15 +273,15 @@
     <string name="seconds">Seconds</string>
     <string name="log_out">Log Out</string>
     <string name="full_name">Full Name</string>
-    <string name="enter_here">Enter here…</string>
-    <string name="location">Location</string>
+    <string name="enter_here">Enter here full name</string>
+    <string name="location">Country</string>
     <string name="task_level_2_of_5_completed">Task Level ( %1$d of %2$d Completed )</string>
     <string name="get_tickets">Get Tickets</string>
-    <string name="by_watching_ads_click_the_button_below_to_start">by watching Ads click the button below to start</string>
-    <string name="watch_ads">Watch ADS</string>
+    <string name="by_watching_ads_click_the_button_below_to_start">by watching Ads. Click the button below to start</string>
+    <string name="watch_ads">Watch Ad</string>
     <string name="test_your_knowledge">Test your Knowledge</string>
     <string name="what_about_iq">What about IQ?</string>
-    <string name="my_daily_tasks">My Daily Tasks</string>
+    <string name="my_daily_tasks">Social Media Tasks</string>
     <string name="like">Like</string>
     <string name="follow">Follow</string>
     <string name="subscribe">Subscribe</string>
@@ -288,23 +289,23 @@
     <string name="google_gift_cards">Google Gift Cards</string>
     <string name="exchange_your_points_with_google_gift_cards">Exchange your points with %1$s cards</string>
     <string name="_100_yawmiyyi_gift_cards">100 Yawmiyyi Gift Cards</string>
-    <string name="invitation_sent">Invitation Sent</string>
+    <string name="invitation_sent">Invitation Pending</string>
     <string name="invitation_received">Invitation Received</string>
     <string name="for_every_invitation_you_will_get">For every Invitation you will get</string>
     <string name="the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets">The points will not be counted until the receiver get at least %1$d tickets</string>
-    <string name="no_items">No Tasks</string>
+    <string name="no_items">No Tasks Found</string>
     <string name="question_1_of_10">Question %1$d Of %2$d</string>
     <string name="choose_the_correct_answer_form_below">Choose the correct answer form below</string>
     <string name="back_to_tasks">Back to Tasks</string>
-    <string name="watch_last_100_draw">Watch last 100$ Draw</string>
+    <string name="watch_last_100_draw">Watch last 100$ draw</string>
     <string name="watch_now_on_facebook">Watch Now On Facebook</string>
-    <string name="the_remaining_tickets_for_the_100_poll_stream">The collected tickets for the 100$ poll</string>
+    <string name="the_remaining_tickets_for_the_100_poll_stream">The collected tickets for the 100$ draw</string>
     <string name="claim_your_tickets_now">Claim your <b>Tickets</b> Now!</string>
     <string name="head_now_to_your_tasks_and_collect_tickets">Head now to your tasks and collect tickets</string>
-    <string name="no_cards">No Cards</string>
-    <string name="no_items_">No items</string>
+    <string name="no_cards">No Cards Found</string>
+    <string name="no_items_">No Items Found</string>
     <string name="invitation_link">Invitation Link</string>
-    <string name="copy_the_url_below_and_invites_your_friends">Copy the URL below and invites your friends</string>
+    <string name="copy_the_url_below_and_invites_your_friends">Share the link with your friends</string>
     <string name="points">Points</string>
     <string name="pts">Pt</string>
     <string name="ticket">Ticket</string>
@@ -313,22 +314,22 @@
     <string name="init_value" translatable="false">0</string>
     <string name="init_pts">0 Pt.</string>
     <string name="init_points">0 Points</string>
-    <string name="update_available">Update Available</string>
-    <string name="please_update_app">Please Update App</string>
-    <string name="update_available_body_force">An update is available. You should update app</string>
-    <string name="update_available_body">An update is available. Would you like to update?</string>
+    <string name="update_available">Available Update</string>
+    <string name="please_update_app">Required Update</string>
+    <string name="update_available_body_force">Sorry, the update is required to proceed!</string>
+    <string name="update_available_body">An update is available, would you like to update?</string>
     <string name="later">Later</string>
     <string name="update">Update</string>
-    <string name="gift_info">Gift Info</string>
-    <string name="total_point_amount">Total Point Amount</string>
-    <string name="total_cash_amount">Total Cash Amount</string>
+    <string name="gift_info">Gift Card Info</string>
+    <string name="total_point_amount">Total Points</string>
+    <string name="total_cash_amount">Total Cash</string>
     <string name="confirm_card_request">Confirm Card Request</string>
     <string name="copied">Copied</string>
 
     <!--Terms-->
-    <string name="terms_and_conditions"><u><b>terms and Conditions</b></u></string>
+    <string name="terms_and_conditions"><u><b>terms and conditions</b></u></string>
     <string name="terms_and_conditionsaccept">I accept </string>
-    <string name="youshouldaccept">you should accept our terms</string>
+    <string name="youshouldaccept">you should accept the terms and conditions</string>
     <string name="terms_text1">
 - The contest is 100% free, and users are not required to make any payments inside or outside the application to participate.    </string>
     <string name="terms_text2">
@@ -350,45 +351,55 @@
     <string name="terms_text15">- By continuing you will receive a verification code to your phone number by SMS</string>
     <string name="terms_text15_about">- verification message is received upon registration</string>
     <string name="agree">Agree</string>
-    <string name="draw_number_1">Poll Number: %1$d</string>
+    <string name="draw_number_1">Draw Number: %1$d</string>
     <string name="requested_gift_cards">Requested Gift Cards</string>
     <string name="here_you_find_your_ordered_gift_cards">Here you find your ordered gift cards</string>
-    <string name="get_code">Get Code</string>
+    <string name="get_code">Get card code</string>
     <string name="package_">Package</string>
-    <string name="round_activate">Round Activate</string>
-    <string name="round_close">Round Close</string>
-    <string name="round_finish">Round Finish</string>
-    <string name="round_cancel">Round Cancel</string>
-    <string name="round_update">Round Update</string>
-    <string name="points_reward">Points Reward</string>
-    <string name="purchase_code_ready">Purchase code ready</string>
-    <string name="purchase_rejected">Purchase rejected</string>
-    <string name="purchase_accepted">Purchase accepted</string>
-    <string name="finish_grand_prize">Finish grand prize</string>
-    <string name="update_grand_prize">Update grand prize</string>
-    <string name="win_ticket">Win ticket</string>
-    <string name="win_golden_ticket">Win golden ticket</string>
-    <string name="grand_prize_winner">Grand prize winner</string>
-    <string name="round_winner">Round winner</string>
-    <string name="activate_grand_prize">Activate grand prize</string>
-    <string name="reach_max_tickets">You have reached allowance of max tickets per current round</string>
+    <string name="round_activate">100$ draw is activated</string>
+    <string name="round_close">100$ draw is closed</string>
+    <string name="round_finish">100$ draw is finished</string>
+    <string name="round_cancel">100$ draw is canceled</string>
+    <string name="round_update">100$ draw is updated</string>
+    <string name="points_reward">Points</string>
+    <string name="purchase_code_ready">Card code is ready</string>
+    <string name="purchase_rejected">Card request is rejected</string>
+    <string name="purchase_accepted">Card request is accepted</string>
+    <string name="finish_grand_prize">Golden Lira Draw is finished</string>
+    <string name="update_grand_prize">Golden Lira Draw is updated</string>
+    <string name="win_ticket">You has win a ticket</string>
+    <string name="win_golden_ticket">You got a golden ticket</string>
+    <string name="grand_prize_winner">Golden Lira winner</string>
+    <string name="round_winner">100$ winner</string>
+    <string name="activate_grand_prize">Golden Lira Draw is activated</string>
+    <string name="reach_max_tickets">You have reached your maximum tickets</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="confirm_task">Confirm task</string>
     <string name="confirm_task_body">Did you complete this task?</string>
     <string name="google_play_card">Google Play Card</string>
-    <string name="gift_code">Gift Code</string>
+    <string name="gift_code">Card Code</string>
     <string name="not_completed_card">Not completed gift card</string>
-    <string name="no_active_round">No active round currently</string>
-    <string name="no_code_available">No code available for the purchase</string>
+    <string name="no_active_round">No active draw</string>
+    <string name="no_code_available">No code available</string>
     <string name="not_found">Not found</string>
-    <string name="invite_code_exists">Invite code can\'t be changed. user already has invitedBy code</string>
+    <string name="invite_code_exists">User has already been invited</string>
     <string name="incorrect_credentials">Incorrect credentials</string>
     <string name="about_us">About us</string>
     <string name="question_true">Correct Answer</string>
-    <string name="question_false">Fault Answer</string>
+    <string name="question_false">Wrong Answer</string>
     <string name="back">Back</string>
     <string name="updated">Updated</string>
+
+    <!--New-->
+    <string name="use_real_name">Please use your real full name to verify it in case you win</string>
+    <string name="the_remaining_time_for_the_100_poll_stream">The remaining time for the live stream of the 100$ draw</string>
+    <string name="live_stream_starts">The live stream has started a few minutes ago</string>
+    <string name="no_draw_available">No draw for now, you will be informed when a new draw starts</string>
+    <string name="pending_request">Pending</string>
+    <string name="approved_request">Approved</string>
+    <string name="rejected_request">Rejected</string>
+    <string name="do_more_tasks">No requests from the store</string>
 
     <string-array name="languages">
         <item>English</item>

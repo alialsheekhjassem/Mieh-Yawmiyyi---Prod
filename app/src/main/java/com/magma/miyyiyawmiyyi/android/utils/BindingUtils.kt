@@ -49,11 +49,9 @@ object BindingUtils {
                 override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
                 override fun afterTextChanged(editable: Editable) {
                     val text = textInputLayout.editText!!.text.toString()
-                    val notEmpty =
-                        textInputLayout.context.getString(R.string.field_can_not_be_empty)
                     when {
                         text.isEmpty() -> textInputLayout.error =
-                            notEmpty
+                            errorMsg
                         stringRule.validate(
                             textInputLayout.editText!!.text
                         ) -> textInputLayout.error = errorMsg
@@ -71,6 +69,7 @@ object BindingUtils {
         when (status) {
             Const.STATUS_PENDING -> {
                 textView.setTextColor(ContextCompat.getColor(textView.context, R.color.orange_4))
+                textView.text = textView.context.getString(R.string.pending_request)
                 viewHeader.setBackgroundColor(ContextCompat.getColor(textView.context, R.color.orange_4))
                 textView.setCompoundDrawables(
                     ResourcesCompat.getDrawable(
@@ -83,6 +82,7 @@ object BindingUtils {
             }
             Const.STATUS_PROCESSING -> {
                 textView.setTextColor(ContextCompat.getColor(textView.context, R.color.orange_4))
+                textView.text = textView.context.getString(R.string.processing)
                 viewHeader.setBackgroundColor(ContextCompat.getColor(textView.context, R.color.orange_4))
                 textView.setCompoundDrawables(
                     ResourcesCompat.getDrawable(
@@ -95,6 +95,7 @@ object BindingUtils {
             }
             Const.STATUS_REJECTED -> {
                 textView.setTextColor(ContextCompat.getColor(textView.context, R.color.red_light))
+                textView.text = textView.context.getString(R.string.rejected_request)
                 viewHeader.setBackgroundColor(ContextCompat.getColor(textView.context, R.color.red_light))
                 textView.setCompoundDrawables(
                     ResourcesCompat.getDrawable(
@@ -107,6 +108,7 @@ object BindingUtils {
             }
             Const.STATUS_COMPLETED -> {
                 textView.setTextColor(ContextCompat.getColor(textView.context, R.color.green_light))
+                textView.text = textView.context.getString(R.string.approved_request)
                 viewHeader.setBackgroundColor(ContextCompat.getColor(textView.context, R.color.green_light))
                 textView.setCompoundDrawables(
                     ResourcesCompat.getDrawable(

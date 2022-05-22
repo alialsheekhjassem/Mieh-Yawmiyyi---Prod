@@ -82,8 +82,7 @@
                 android:layout_margin="@dimen/spacing_large"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_title_google_exchange"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_title_google_exchange"/>
 
             <TextView
                 android:id="@+id/txt_empty"
@@ -91,12 +90,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/no_cards"
+                android:text="@string/do_more_tasks"
                 android:visibility="gone"
                 android:layout_margin="@dimen/spacing_large"
                 tools:visibility="visible"
                 android:textColor="@color/grey_50"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/guideline2"
                 app:layout_constraintStart_toStartOf="@id/guideline1"
                 app:layout_constraintTop_toBottomOf="@+id/txt_title_google_exchange" />

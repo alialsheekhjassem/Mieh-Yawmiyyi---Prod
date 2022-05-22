@@ -68,7 +68,7 @@
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txt_input_name_lyt"
             style="@style/Widget.Design.TextInputLayout"
-            errorMsg="@{@string/name_can_not_be_empty}"
+            errorMsg="@{@string/use_real_name}"
             validation="@{StringRuleUtil.NOT_EMPTY_RULE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
