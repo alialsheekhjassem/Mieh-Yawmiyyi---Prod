@@ -278,18 +278,24 @@ class LiveStreamFragment : ProgressBarFragments() {
     }
 
     private fun setupData(activeRound: Round?) {
-        activeRound?.type?.let {
-            setStreamView(it)
-            if (it == Const.TYPE_ROUND_START_DRAW) {
-                val date = activeRound.drawResultAt
-                viewModel.onStartCountDown(DateUtils.formatDateTimeToLong(date))
-            } /*else if (it == Const.TYPE_ROUND_TICKETS_DRAW) {
+        if (activeRound?.status == Const.STATUS_ACTIVE) {
+            activeRound.type?.let {
+                setStreamView(it)
+                if (it == Const.TYPE_ROUND_START_DRAW) {
+                    val date = activeRound.drawResultAt
+                    viewModel.onStartCountDown(DateUtils.formatDateTimeToLong(date))
+                } /*else if (it == Const.TYPE_ROUND_TICKETS_DRAW) {
                         activeRound.fixedTicketsDraw?.maxTickets?.let { maxTickets ->
                             val percentage = 2 * 100 / maxTickets
                             binding.txtPercentage.text = percentage.toString()
                             binding.imgProgress.progress = percentage
                         }
                     }*/
+            }
+        } else {
+            binding.groupTime.visibility = View.GONE
+            binding.cardTickets.visibility = View.GONE
+            binding.txtEmpty.visibility = View.VISIBLE
         }
 
     }

@@ -291,7 +291,7 @@
     <string name="invitation_sent">Invitation Sent</string>
     <string name="invitation_received">Invitation Received</string>
     <string name="for_every_invitation_you_will_get">For every Invitation you will get</string>
-    <string name="the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets">The points will not be counted until the receiver get at least 10 tickets</string>
+    <string name="the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets">The points will not be counted until the receiver get at least %1$d tickets</string>
     <string name="no_items">No Tasks</string>
     <string name="question_1_of_10">Question %1$d Of %2$d</string>
     <string name="choose_the_correct_answer_form_below">Choose the correct answer form below</string>
@@ -385,8 +385,8 @@
     <string name="invite_code_exists">Invite code can\'t be changed. user already has invitedBy code</string>
     <string name="incorrect_credentials">Incorrect credentials</string>
     <string name="about_us">About us</string>
-    <string name="question_true">True</string>
-    <string name="question_false">False</string>
+    <string name="question_true">Correct Answer</string>
+    <string name="question_false">Fault Answer</string>
     <string name="back">Back</string>
     <string name="updated">Updated</string>
 

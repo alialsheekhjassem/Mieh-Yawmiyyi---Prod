@@ -115,20 +115,25 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
                     when (type) {
                         Const.TYPE_SOCIAL_MEDIA -> {
-                            if (t.isEmpty()){
-                                viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_SOCIAL_MEDIA)
+                            if (t.isEmpty()) {
+                                viewModel.getTasks(
+                                    limit = 20,
+                                    offset = 0,
+                                    false,
+                                    Const.TYPE_SOCIAL_MEDIA
+                                )
                             }
                             tasksAdapter.submitList(t)
                         }
                         Const.TYPE_AD -> {
-                            if (t.isEmpty()){
+                            if (t.isEmpty()) {
                                 viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_AD)
                             }
                             adTasks.clear()
                             adTasks.addAll(t)
                         }
                         Const.TYPE_QUIZ -> {
-                            if (t.isEmpty()){
+                            if (t.isEmpty()) {
                                 viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_QUIZ)
                             }
                             quizzesTasks.clear()
@@ -160,12 +165,16 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             var type: String? = null
                             if (response.items.isNotEmpty())
                                 type = response.items.first().type
-                            else if (type == Const.TYPE_SOCIAL_MEDIA) {
+
+                            if (type == Const.TYPE_SOCIAL_MEDIA && response.items.isEmpty()) {
                                 binding.txtEmpty.text = getString(R.string.no_items)
                                 binding.txtEmpty.visibility = View.VISIBLE
+                            } else {
+                                binding.txtEmpty.visibility = View.GONE
                             }
 
-                            viewModel.deleteAndSaveTasks(response.items, type)
+                            //viewModel.deleteAndSaveTasks(response.items, type)
+                            setTasks(response.items, type)
 
                             /*if (!isGeneratedTasks && response.items.isEmpty())
                                 viewModel.generateTasks()*/
@@ -222,9 +231,11 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             val response = t.response as ArrayList<GroupedTasksResponse>
                             Log.d(TAG, "response: $response")
 
-                            if (response.isNotEmpty() && response.first().socialMedias.isNotEmpty()) {
+                            if (response.isEmpty() || response.first().socialMedias.isEmpty()) {
                                 binding.txtEmpty.text = getString(R.string.no_items)
                                 binding.txtEmpty.visibility = View.VISIBLE
+                            } else {
+                                binding.txtEmpty.visibility = View.GONE
                             }
 
                             val groupedTasks = arrayListOf<TaskObj>()
@@ -253,7 +264,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                                 groupedTasks.add(taskObj)
                             }
 
-                            viewModel.deleteAndSaveTasks(groupedTasks)
+                            //viewModel.deleteAndSaveTasks(groupedTasks)
+                            setGroupedTasks(groupedTasks)
 
                         }
                         is Resource.DataError -> {
@@ -394,16 +406,51 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         )
     }
 
+    private fun setGroupedTasks(t: ArrayList<TaskObj>) {
+        if (t.none { it.type == Const.TYPE_SOCIAL_MEDIA }) {
+            viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_SOCIAL_MEDIA)
+        }
+        tasksAdapter.submitList(t.filter { it.type == Const.TYPE_SOCIAL_MEDIA })
+
+        if (t.none { it.type == Const.TYPE_AD }) {
+            viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_AD)
+        }
+        adTasks.clear()
+        adTasks.addAll(t.filter { it.type == Const.TYPE_AD })
+
+        if (t.none { it.type == Const.TYPE_QUIZ }) {
+            viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_QUIZ)
+        }
+        quizzesTasks.clear()
+        quizzesTasks.addAll(t.filter { it.type == Const.TYPE_QUIZ })
+    }
+
+    private fun setTasks(t: ArrayList<TaskObj>, type: String?) {
+        when (type) {
+            Const.TYPE_SOCIAL_MEDIA -> {
+                tasksAdapter.submitList(t)
+            }
+            Const.TYPE_AD -> {
+                adTasks.clear()
+                adTasks.addAll(t)
+            }
+            Const.TYPE_QUIZ -> {
+                quizzesTasks.clear()
+                quizzesTasks.addAll(t)
+            }
+        }
+    }
+
     private fun setup() {
 
-        if (ContactManager.getCurrentInfo()?.currentRound != null) {
+        /*if (ContactManager.getCurrentInfo()?.currentRound != null) {
             viewModel.loadAllTasks(Const.TYPE_SOCIAL_MEDIA)
             viewModel.loadAllTasks(Const.TYPE_AD)
             viewModel.loadAllTasks(Const.TYPE_QUIZ)
-        }
+        }*/
 
         tasksAdapter.setListener(this)
-        tasksAdapter.submitList(arrayListOf())
+        //tasksAdapter.submitList(arrayListOf())
         binding.recyclerTasks.adapter = tasksAdapter
 
         binding.include2.btnWatchNow.setOnClickListener {
@@ -470,6 +517,9 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         ContactManager.getCurrentInfo()?.let {
             val tasksPerTicket = it.currentRound?.config?.tasksPerTicket ?: 0
             if (it.currentRound == null) {
+                viewModel.setTasksCount(0)
+                showUpdateDialog(getString(R.string.no_active_round))
+            } else if (it.currentRound.status == Const.STATUS_CLOSED) {
                 viewModel.setTasksCount(0)
                 showUpdateDialog(getString(R.string.no_active_round))
             } else if (tasksLocalCount >= tasksPerTicket) {

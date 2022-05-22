@@ -79,7 +79,6 @@ class SplashActivity : BaseActivity() {
                             val response = t.response as InfoResponse
                             Log.d(TAG, "response: Success $response")
                             ContactManager.setInfo(response)
-                            viewModel.getMyAccount()
                             response.settings?.let { setSettings(it) }
                         }
                         is Resource.DataError -> {
@@ -225,20 +224,27 @@ class SplashActivity : BaseActivity() {
         }
 
         val currentVersion = BuildConfig.VERSION_CODE
+        var minVersion = 0
+        var maxVersion = 0
         itemMin?.let { setting ->
-            setting.value?.let {
-                if (currentVersion < it.toInt()) {
+            setting.value?.let { min ->
+                minVersion = min.toInt()
+                if (currentVersion < minVersion) {
                     showUpdateDialog(itemLink, false)
                 } else itemMax?.value?.let { max ->
-                    if (currentVersion < max.toInt()) {
+                    maxVersion = max.toInt()
+                    if (currentVersion < maxVersion) {
                         showUpdateDialog(itemLink, true)
                     }
+                }
+                if (currentVersion >= minVersion && currentVersion >= maxVersion) {
+                    viewModel.getMyAccount()
                 }
             }
         }
     }
 
-    private fun showUpdateDialog(itemLink: Setting?, cancelAble: Boolean) {
+    /*private fun showUpdateDialog(itemLink: Setting?, cancelAble: Boolean) {
         val builder = AlertDialog.Builder(this)
         val dialogBinding: DialogUpdateAvailableBinding = DataBindingUtil.inflate(
             LayoutInflater.from(this), R.layout.dialog_update_available, null, false
@@ -260,6 +266,35 @@ class SplashActivity : BaseActivity() {
         alertDialog.setCancelable(cancelAble)
         if (cancelAble)
             dialogBinding.btnLater.setOnClickListener { alertDialog.dismiss() }
+        alertDialog.show()
+    }*/
+
+    private fun showUpdateDialog(itemLink: Setting?, cancelAble: Boolean) {
+        val builder = AlertDialog.Builder(this)
+        val dialogBinding: DialogUpdateAvailableBinding = DataBindingUtil.inflate(
+            LayoutInflater.from(this), R.layout.dialog_update_available, null, false
+        )
+        builder.setView(dialogBinding.root)
+        val alertDialog = builder.create()
+        if (!cancelAble) {
+            dialogBinding.txtTitle.text = getString(R.string.please_update_app)
+            dialogBinding.txtBody.text = getString(R.string.update_available_body_force)
+            dialogBinding.btnLater.visibility = View.GONE
+        }
+        dialogBinding.btnUpdate.setOnClickListener {
+            if (cancelAble)
+                alertDialog.dismiss()
+            itemLink?.value?.let {
+                openGooglePlayLink(it)
+            }
+        }
+        alertDialog.setCancelable(cancelAble)
+        if (cancelAble) {
+            dialogBinding.btnLater.setOnClickListener {
+                viewModel.getMyAccount()
+                alertDialog.dismiss()
+            }
+        }
         alertDialog.show()
     }
 

@@ -267,7 +267,7 @@
     <string name="invitation_sent">دعوات مرسلة</string>
     <string name="invitation_received">دعوات مستقبلة</string>
     <string name="for_every_invitation_you_will_get">ستحصل على كل دعوة</string>
-    <string name="the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets">لن يتم احتساب النقاط حتى يحصل المستلم على 10 تذاكر على الأقل</string>
+    <string name="the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets">لن يتم احتساب النقاط حتى يحصل المستلم على %1$d تذاكر على الأقل</string>
     <string name="no_items">لا توجد مهام</string>
     <string name="question_1_of_10">السؤال %1$d من %2$d</string>
     <string name="choose_the_correct_answer_form_below">اختر نموذج الإجابة الصحيح أدناه</string>
@@ -374,8 +374,8 @@
     <string name="invite_code_exists">لا يمكن تغيير رمز الدعوة. تمت دعوة المستخدم بالفعل بواسطة الكود</string>
     <string name="incorrect_credentials">تسجيل غير صحيح</string>
     <string name="about_us">معلومات عنا</string>
-    <string name="question_true">صح</string>
-    <string name="question_false">خطأ</string>
+    <string name="question_true">إجابة صحيحة</string>
+    <string name="question_false">إجابة خاطئة</string>
     <string name="back">رجوع</string>
     <string name="updated">تم التعديل</string>
 

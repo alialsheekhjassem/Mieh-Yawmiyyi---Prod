@@ -143,7 +143,7 @@ class ProfileFragment : ProgressBarFragments() {
         account?.let {
             accountRequest.name = it.name
             binding.edtFullName.setText(it.name)
-            binding.edtPhoneNumber.setText(it.phone)
+            binding.countryPicker.fullNumber = it.phone
 
             it.info?.birthdate?.let { birthDate ->
                 val year = DateUtils.changeFormatFromTo(
@@ -195,6 +195,9 @@ class ProfileFragment : ProgressBarFragments() {
                             val response = t.response as Account
                             Log.d(TAG, "response: $response")
                             ContactManager.setAccount(response)
+                            if (!phoneNumber.isNullOrEmpty()) {
+                                binding.countryPicker.fullNumber = phoneNumber
+                            }
                             showSuccessToast(getString(R.string.updated))
                         }
                         is Resource.DataError -> {

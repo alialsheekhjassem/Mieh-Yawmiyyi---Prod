@@ -44,7 +44,7 @@
     </style>
 
     <!--splash screen-->
-    <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
+    <style name="SplashScreen" parent="Theme.MiehYawmiyyi.NoActionBar">
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 

@@ -86,6 +86,7 @@ class Const {
 
         //STATUS
         const val STATUS_ACTIVE = "active"
+        const val STATUS_CLOSED = "closed"
         const val STATUS_PENDING = "pending"
         const val STATUS_PROCESSING = "processing"
         const val STATUS_REJECTED = "rejected"

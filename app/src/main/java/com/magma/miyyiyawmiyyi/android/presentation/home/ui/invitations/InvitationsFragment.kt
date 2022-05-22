@@ -46,9 +46,25 @@ class InvitationsFragment : ProgressBarFragments() {
             binding.txtTotalPoints.text =
                 "${it.userPoints?.toString()} ${getString(R.string.points)}"
             binding.txtTitlePointsCount.text =
-                it.currentRound?.config?.maxTicketsPerContestant?.let { tick ->
-                    "$tick ${getString(R.string.points)}"
+                it.settings?.let { t ->
+                    val item = t.find { setting ->
+                        setting.name?.contains("reward_points_per_invite") ?: true
+                    }
+                    "${item?.value ?: 0} ${getString(R.string.points)}"
                 } ?: "0 ${getString(R.string.points)}"
+            binding.txtTitlePointsWillBeCount.text =
+                it.settings?.let { t ->
+                    val item = t.find { setting ->
+                        setting.name?.contains("required_tickets_per_invite") ?: true
+                    }
+                    String.format(
+                        getString(R.string.the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets),
+                        item?.value?.toInt() ?: 0
+                    )
+                } ?: String.format(
+                    getString(R.string.the_points_will_not_be_counted_until_the_receiver_get_at_least_10_tickets),
+                    0
+                )
             binding.txtInvitationLink.text =
                 viewModel.getInvitationLink() ?: "http//:sndn-test-100yawmiyyi"
         }
