@@ -61,6 +61,11 @@ interface IFoodService {
         @Query("type") type: String?,
     ): Response<ResponseWrapper<TasksResponse>>
 
+    @GET(Urls.END_POINT_GROUPED_TASKS)
+    suspend fun getGroupedTasks(
+        @Query("limit") limit: Int?
+    ): Response<ResponseWrapper<ArrayList<GroupedTasksResponse>>>
+
     @POST(Urls.END_POINT_TASKS)
     suspend fun generateTasks(): Response<ResponseWrapper<Any?>>
 

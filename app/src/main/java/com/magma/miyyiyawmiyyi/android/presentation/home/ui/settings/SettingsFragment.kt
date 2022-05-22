@@ -96,7 +96,8 @@ class SettingsFragment : Fragment() {
         binding.switchNotifications.isChecked = isGeneralNotifications == true
         binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
             val lang = viewModel.getLanguage()?.lowercase()
-            val topic = "general_$lang"
+            //val topic = "general_$lang"
+            val topic = "general_ar"
             if (isChecked) {
                 subscribeGeneralTopic(topic)
             } else {

@@ -79,7 +79,7 @@ class HomeFragment : ProgressBarFragments(), RecyclerItemListener<Winner> {
             findNavController().navigate(HomeFragmentDirections.actionHomeToInvitations())
         }
         binding.cardTickets.txtView.setOnClickListener {
-            findNavController().navigate(HomeFragmentDirections.actionHomeToTickets())
+            findNavController().navigate(HomeFragmentDirections.actionHomeToTickets(false))
         }
 
         binding.lytSwipeRefresh.setOnRefreshListener {

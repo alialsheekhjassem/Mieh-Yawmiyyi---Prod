@@ -25,4 +25,10 @@ class AccountRequest {
     @SerializedName("firebaseFCMToken")
     var firebaseFCMToken:String? = null
 
+    @SerializedName("phone")
+    var phone:String? = null
+
+    @SerializedName("token")
+    var token:String? = null
+
 }

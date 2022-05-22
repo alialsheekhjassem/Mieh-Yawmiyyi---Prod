@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mieh Yawmiyyi</string>
+    <string name="app_name">100 Yawmiyyi</string>
     <string name="navigation_drawer_open" translatable="false">Drawer Open</string>
     <string name="navigation_drawer_close" translatable="false">Drawer Closed</string>
     <string name="title_activity_maps">Map</string>
@@ -174,6 +174,7 @@
     <string name="name_can_not_be_empty">Name can not be empty</string>
     <string name="date_of_birth_is_required">Date of birth is required</string>
     <string name="please_enter_avalid_phone">Please enter a valid phone</string>
+    <string name="please_enter_different_phone">Please enter different phone</string>
     <string name="please_enter_avalid_email">Please enter a valid email</string>
     <string name="please_enter_avalid_password">Password must at least 8 characters</string>
     <string name="please_enter_avalid_confirm_password">Confirm password must be same password</string>
@@ -285,7 +286,7 @@
     <string name="subscribe">Subscribe</string>
     <string name="total_points">Total Points</string>
     <string name="google_gift_cards">Google Gift Cards</string>
-    <string name="exchange_your_points_with_google_gift_cards">Exchange your points with google gift cards</string>
+    <string name="exchange_your_points_with_google_gift_cards">Exchange your points with %1$s cards</string>
     <string name="_100_yawmiyyi_gift_cards">100 Yawmiyyi Gift Cards</string>
     <string name="invitation_sent">Invitation Sent</string>
     <string name="invitation_received">Invitation Received</string>
@@ -305,6 +306,7 @@
     <string name="invitation_link">Invitation Link</string>
     <string name="copy_the_url_below_and_invites_your_friends">Copy the URL below and invites your friends</string>
     <string name="points">Points</string>
+    <string name="pts">Pt</string>
     <string name="ticket">Ticket</string>
     <string name="total_tickets">Total Tickets</string>
     <string name="no_winner">No Winner</string>
@@ -383,6 +385,10 @@
     <string name="invite_code_exists">Invite code can\'t be changed. user already has invitedBy code</string>
     <string name="incorrect_credentials">Incorrect credentials</string>
     <string name="about_us">About us</string>
+    <string name="question_true">True</string>
+    <string name="question_false">False</string>
+    <string name="back">Back</string>
+    <string name="updated">Updated</string>
 
     <string-array name="languages">
         <item>English</item>

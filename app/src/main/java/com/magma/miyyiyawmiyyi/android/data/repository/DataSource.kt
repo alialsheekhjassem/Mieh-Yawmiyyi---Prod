@@ -14,6 +14,7 @@ interface DataSource {
     suspend fun doServerRegister(registerRequest: RegisterRequest): Resource<ResponseWrapper<String>>
     suspend fun doServerResetPassword(request: ResetPasswordRequest): Resource<ResponseWrapper<String>>
     suspend fun getTasks(limit: Int, offset: Int, done: Boolean?, type: String?): Resource<TasksResponse>
+    suspend fun getGroupedTasks(limit: Int): Resource<ArrayList<GroupedTasksResponse>>
     suspend fun getGifts(limit: Int, offset: Int): Resource<GiftStoreResponse>
     suspend fun getPurchases(limit: Int, offset: Int): Resource<GiftStorePurchasesResponse>
     suspend fun getNotifications(limit: Int, offset: Int): Resource<NotificationsResponse>

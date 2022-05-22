@@ -7,4 +7,6 @@ enum class ProfileValidation {
 
     NAME_REQUIRED,
     BIRTH_DATE_REQUIRED,
+    PHONE_EMPTY,
+    TOKEN_EMPTY,
 }

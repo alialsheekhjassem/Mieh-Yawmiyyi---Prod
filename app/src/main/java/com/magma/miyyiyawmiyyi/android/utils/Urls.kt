@@ -12,6 +12,7 @@ class Urls {
         const val END_POINT_REGISTER = "/api/auth/register"
         const val END_POINT_RESET_PASSWORD = "/api/auth/resetPassword"
         const val END_POINT_TASKS = "/api/v1/tasks"
+        const val END_POINT_GROUPED_TASKS = "/api/v1/tasks/grouped"
         const val END_POINT_GIFT_STORE = "/api/v1/gift_store"
         const val END_POINT_GIFT_STORE_PURCHASES = "/api/v1/gift_store/purchase"
         const val END_POINT_INBOX = "/api/v1/accounts/inbox"

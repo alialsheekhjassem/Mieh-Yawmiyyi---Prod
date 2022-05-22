@@ -16,6 +16,8 @@ internal interface IRestApiManager {
 
     suspend fun getTasks(limit: Int, offset: Int, done: Boolean?, type: String?): Resource<TasksResponse>
 
+    suspend fun getGroupedTasks(limit: Int): Resource<ArrayList<GroupedTasksResponse>>
+
     suspend fun generateTasks(): Resource<Any?>
 
     suspend fun getRoundStatistics(isActiveRound: Boolean): Resource<RoundStatisticsResponse>

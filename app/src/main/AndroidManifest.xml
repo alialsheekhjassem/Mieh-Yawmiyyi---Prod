@@ -43,6 +43,8 @@
             android:name=".presentation.home.HomeActivity"
             android:exported="true"
             android:label="@string/title_activity_home"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.MiehYawmiyyi.NoActionBar">
 
             <intent-filter>
@@ -55,13 +57,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.onboarding.OnBoardingActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait" />
         <activity android:name=".presentation.registration.RegistrationActivity"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".presentation.splash.SplashActivity"
             android:exported="true"
             android:noHistory="true"
+            android:screenOrientation="portrait"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

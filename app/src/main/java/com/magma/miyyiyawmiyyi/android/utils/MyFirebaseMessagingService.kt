@@ -14,11 +14,9 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.magma.miyyiyawmiyyi.android.MAGMA
 import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.presentation.home.HomeActivity
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
-import java.util.*
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     var notificationManager: NotificationManager? = null
@@ -85,14 +83,15 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             ) {
                 body = remoteMessage.data["body"]
             } else {
-                when (Locale.getDefault().language) {
+                body = remoteMessage.data["ar"]
+                /*when (Locale.getDefault().language) {
                     "en" -> {
                         body = remoteMessage.data["en"]
                     }
                     "ar" -> {
                         body = remoteMessage.data["ar"]
                     }
-                }
+                }*/
             }
 
             Log.d("TAG", "KKK handleNotification: $type")
@@ -100,49 +99,50 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
         when (type) {
             Const.TYPE_ROUND_ACTIVATE -> {
-                title = MAGMA.getInstance().getString(R.string.round_activate)
+                title = "تم تفعيل السحب"/*MAGMA.getInstance().getString(R.string.round_activate)*/
+                ContactManager.setIsRefreshInfo(true)
             }
             Const.TYPE_ROUND_CLOSE -> {
-                title = MAGMA.getInstance().getString(R.string.round_close)
+                title = "تم إغلاق السحب"/*MAGMA.getInstance().getString(R.string.round_close)*/
             }
             Const.TYPE_ROUND_FINISH -> {
-                title = MAGMA.getInstance().getString(R.string.round_finish)
+                title = "تم إنهاء السحب"/*MAGMA.getInstance().getString(R.string.round_finish)*/
             }
             Const.TYPE_ROUND_CANCEL -> {
-                title = MAGMA.getInstance().getString(R.string.round_cancel)
+                title = "تم إلغاء السحب"/*MAGMA.getInstance().getString(R.string.round_cancel)*/
             }
             Const.TYPE_ROUND_UPDATE -> {
-                title = MAGMA.getInstance().getString(R.string.round_update)
+                title = "تعديل السحب"/*MAGMA.getInstance().getString(R.string.round_update)*/
             }
             Const.TYPE_GRAND_PRIZE_ACTIVATE -> {
-                title = MAGMA.getInstance().getString(R.string.activate_grand_prize)
+                title = "تفعيل الجائزة الكبرى"/*MAGMA.getInstance().getString(R.string.activate_grand_prize)*/
             }
             Const.TYPE_ROUND_TICKET -> {
-                title = MAGMA.getInstance().getString(R.string.win_ticket)
+                title = "ربح تذكرة"/*MAGMA.getInstance().getString(R.string.win_ticket)*/
                 ContactManager.getCurrentInfo()?.let {
                     it.currentRoundTickets = it.currentRoundTickets?.plus(1)
                 }
             }
             Const.TYPE_GRAND_PRIZE_TICKET -> {
-                title = MAGMA.getInstance().getString(R.string.win_golden_ticket)
+                title = "ربح تذكرة ذهبية"/*MAGMA.getInstance().getString(R.string.win_golden_ticket)*/
             }
             Const.TYPE_GRAND_PRIZE_WINNER -> {
-                title = MAGMA.getInstance().getString(R.string.grand_prize_winner)
+                title = "فائز الجائزة الكبرى"/*MAGMA.getInstance().getString(R.string.grand_prize_winner)*/
             }
             Const.TYPE_ROUND_WINNER -> {
-                title = MAGMA.getInstance().getString(R.string.round_winner)
+                title = "فائز السحب"/*MAGMA.getInstance().getString(R.string.round_winner)*/
             }
             Const.TYPE_GRAND_PRIZE_UPDATE -> {
-                title = MAGMA.getInstance().getString(R.string.update_grand_prize)
+                title = "تم تعديل الجائزة الكبرى"/*MAGMA.getInstance().getString(R.string.update_grand_prize)*/
             }
             Const.TYPE_GRAND_PRIZE_FINISH -> {
-                title = MAGMA.getInstance().getString(R.string.finish_grand_prize)
+                title = "تم إنهاء الجائزة الكبرى"/*MAGMA.getInstance().getString(R.string.finish_grand_prize)*/
             }
             Const.TYPE_PROCESSING_PURCHASE -> {
-                title = MAGMA.getInstance().getString(R.string.purchase_accepted)
+                title = "تم قبول الشراء"/*MAGMA.getInstance().getString(R.string.purchase_accepted)*/
             }
             Const.TYPE_PURCHASE_REJECTED -> {
-                title = MAGMA.getInstance().getString(R.string.purchase_rejected)
+                title = "تم رفض الشراء"/*MAGMA.getInstance().getString(R.string.purchase_rejected)*/
             }
             Const.TYPE_GIFT_CODE -> {
                 /*val preferences = application.getSharedPreferences(Const.PREF_NAME, AppCompatActivity.MODE_PRIVATE)
@@ -152,7 +152,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 return
             }
             Const.TYPE_GOT_POINTS -> {
-                title = MAGMA.getInstance().getString(R.string.points_reward)
+                title = "مكافأة النقاط"/*MAGMA.getInstance().getString(R.string.points_reward)*/
             }
             else -> {
                 title = remoteMessage.data["title"]

@@ -304,13 +304,13 @@ class CheckCodeFragment : ProgressBarFragments() {
         countDownTimer = object : CountDownTimer(60000, 1000) {
             @SuppressLint("SetTextI18n")
             override fun onTick(millisUntilFinished: Long) {
-                binding?.let {
+                binding.let {
                     binding.txtResendCode.text = "${getString(R.string.resend_45s)} (${(millisUntilFinished / 1000)})"
                 }
             }
 
             override fun onFinish() {
-                binding?.let {
+                binding.let {
                     binding.txtResendCode.text = getString(R.string.resend_45s)
                     binding.txtResendCode.isEnabled = true
                     binding.txtResendCode.setTextColor(

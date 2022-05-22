@@ -59,7 +59,7 @@
             style="@style/MaterialButtonStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/cancel"
+            android:text="@string/back"
             android:layout_marginVertical="@dimen/spacing_large"
             android:layout_marginHorizontal="@dimen/spacing_large"
             android:backgroundTint="@color/green_500"

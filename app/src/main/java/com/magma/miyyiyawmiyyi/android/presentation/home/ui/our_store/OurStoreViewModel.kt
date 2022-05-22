@@ -66,19 +66,7 @@ class OurStoreViewModel @Inject constructor(
         }
     }
 
-    fun deleteAndSaveGiftStoreCards(response: GiftStoreResponse) {
-        // save feed list into database
-        launch {
-            withContext(Dispatchers.IO)
-            {
-                val items = dataRepository.loadAllGiftCards()
-                deleteAndSaveGiftStoreCards(response.items)
-                Log.d("TAG", "deleteAndSaveGiftStoreCards: $items")
-            }
-        }
-    }
-
-    private fun deleteAndSaveGiftStoreCards(giftsResponse: ArrayList<GiftCard>) {
+    fun deleteAndSaveGiftStoreCards(giftsResponse: ArrayList<GiftCard>) {
         // save feed list into database
         launch {
             withContext(Dispatchers.IO)
@@ -113,7 +101,7 @@ class OurStoreViewModel @Inject constructor(
         }
     }
 
-    fun loadAllPurchaseCards() {
+    private fun loadAllPurchaseCards() {
         // save feed list into database
         launch {
             val list = withContext(Dispatchers.IO) {

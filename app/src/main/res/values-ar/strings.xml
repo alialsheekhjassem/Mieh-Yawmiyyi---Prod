@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">مية يومية</string>
+    <string name="app_name">100 يومية</string>
     <string name="title_activity_maps">خريطة</string>
     <string name="search">اكتب مكان للبحث…</string>
     <string name="default_info_title">بيروت</string>
@@ -152,6 +152,7 @@
     <string name="name_can_not_be_empty">الاسم لا يمكن أن يكون فارغا</string>
     <string name="date_of_birth_is_required">تاريخ الميلاد مطلوب</string>
     <string name="please_enter_avalid_phone">الرجاء إدخال رقم موبايل صالح</string>
+    <string name="please_enter_different_phone">الرجاء إدخال رقم موبايل مختلف</string>
     <string name="please_enter_avalid_email">الرجاء إدخال بريد إلكتروني صالح</string>
     <string name="please_enter_avalid_password">كلمة السر يجب أن تكون على الأقل 8 رموز</string>
     <string name="please_enter_avalid_confirm_password">تأكيد كلمة السر يجب أن تكون مطابقة لكلمة السر</string>
@@ -261,7 +262,7 @@
     <string name="subscribe">متابعة</string>
     <string name="total_points">إجمالي النقاط</string>
     <string name="google_gift_cards">بطاقات هدايا جوجل</string>
-    <string name="exchange_your_points_with_google_gift_cards">استبدل نقاطك ببطاقات هدايا جوجل</string>
+    <string name="exchange_your_points_with_google_gift_cards">استبدل نقاطك ببطاقات %1$s</string>
     <string name="_100_yawmiyyi_gift_cards">بطاقات هدايا مية يومية</string>
     <string name="invitation_sent">دعوات مرسلة</string>
     <string name="invitation_received">دعوات مستقبلة</string>
@@ -281,6 +282,7 @@
     <string name="invitation_link">رابط الدعوة</string>
     <string name="copy_the_url_below_and_invites_your_friends">انسخ عنوان URL أدناه وادعو أصدقائك</string>
     <string name="points">نقاط</string>
+    <string name="pts">نقطة</string>
     <string name="ticket">تذكرة</string>
     <string name="total_tickets">إجمالي التذاكر</string>
     <string name="no_winner">لا يوجد رابح</string>
@@ -337,7 +339,7 @@
     <string name="terms_text15">- عند المتابعة،  سيصلك كود تحقق الى رقمك عبر رسالة نصية</string>
     <string name="terms_text15_about">- تم استلام رسالة تحقق عند التسجيل</string>
     <string name="agree">أوافق</string>
-    <string name="draw_number_1">رقم السحب: 1</string>
+    <string name="draw_number_1">رقم السحب: %1$d</string>
     <string name="requested_gift_cards">بطاقات الهدايا المطلوبة</string>
     <string name="here_you_find_your_ordered_gift_cards">هنا تجد بطاقات الهدايا التي طلبتها</string>
     <string name="get_code">الحصول على رمز</string>
@@ -371,6 +373,10 @@
     <string name="not_found">لا يوجد</string>
     <string name="invite_code_exists">لا يمكن تغيير رمز الدعوة. تمت دعوة المستخدم بالفعل بواسطة الكود</string>
     <string name="incorrect_credentials">تسجيل غير صحيح</string>
-    <string name="about_us">About us</string>
+    <string name="about_us">معلومات عنا</string>
+    <string name="question_true">صح</string>
+    <string name="question_false">خطأ</string>
+    <string name="back">رجوع</string>
+    <string name="updated">تم التعديل</string>
 
 </resources>

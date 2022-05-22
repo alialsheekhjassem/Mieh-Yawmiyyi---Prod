@@ -6,6 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +34,7 @@ open class ProgressBarFragments : Fragment() {
     }
 
     fun hideLoadingDialog() {
+        Log.d("TAG", "hideLoadingDialog: $alertDialog")
         alertDialog?.cancel()
     }
 
@@ -50,7 +52,7 @@ open class ProgressBarFragments : Fragment() {
             MotionToastStyle.ERROR,
             MotionToast.GRAVITY_BOTTOM,
             MotionToast.LONG_DURATION,
-            ResourcesCompat.getFont(requireActivity(), R.font.product_sans_regular)
+            ResourcesCompat.getFont(requireActivity(), R.font.noto_kufi_arabic)
         )
 
         /*val inflater = layoutInflater
@@ -74,7 +76,7 @@ open class ProgressBarFragments : Fragment() {
             MotionToastStyle.SUCCESS,
             MotionToast.GRAVITY_BOTTOM,
             MotionToast.LONG_DURATION,
-            ResourcesCompat.getFont(requireActivity(), R.font.product_sans_regular)
+            ResourcesCompat.getFont(requireActivity(), R.font.noto_kufi_arabic)
         )
     }
 

@@ -113,6 +113,7 @@
                     tools:ignore="LabelFor" />
 
                 <TextView
+                    android:id="@+id/txt_verify"
                     style="@style/MaterialBoldTextStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

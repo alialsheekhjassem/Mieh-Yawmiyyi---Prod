@@ -36,6 +36,10 @@ constructor(
         return remoteRepository.getTasks(limit, offset, done, type)
     }
 
+    override suspend fun getGroupedTasks(limit: Int): Resource<ArrayList<GroupedTasksResponse>> {
+        return remoteRepository.getGroupedTasks(limit)
+    }
+
     override suspend fun getGifts(limit: Int, offset: Int): Resource<GiftStoreResponse> {
         return remoteRepository.getGifts(limit, offset)
     }

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.InfoResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.TicketsResponse
 import kotlinx.coroutines.CoroutineScope
 import com.magma.miyyiyawmiyyi.android.data.repository.DataRepository
@@ -69,6 +70,21 @@ class TicketsViewModel @Inject constructor(
                 loadAllTickets()
                 Log.d("TAG", "saveTickets: $ids")
             }
+        }
+    }
+
+    /**
+     * Live data of requests list response.
+     * */
+    internal var infoResponse = MutableLiveData<Event<Resource<InfoResponse>>>()
+
+    fun getInfo() {
+        launch {
+            infoResponse.value = Event(Resource.Loading())
+            val result: Resource<InfoResponse> =
+                dataRepository.getInfo()
+            Log.d("TAG", "getInfo: $result")
+            infoResponse.value = Event(result)
         }
     }
 }

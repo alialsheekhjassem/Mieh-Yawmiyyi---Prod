@@ -57,52 +57,77 @@
         <item name="android:textSize">@dimen/size_medium</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:textColorHint">@color/grey_20</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="MaterialTextTitleStyle">
         <item name="android:textSize">@dimen/size_title</item>
         <item name="android:textColor">@color/black</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="MaterialTextStyle">
         <item name="android:textSize">@dimen/size_medium</item>
         <item name="android:textColor">@color/black</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="MaterialBoldTextStyle">
         <item name="android:textSize">@dimen/size_medium</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:fontFamily">@font/product_sans_bold</item>
+        <item name="android:fontFamily">@font/lalezar_regular</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="MaterialTextViewSmallStyle">
         <item name="android:textSize">@dimen/size_small</item>
         <item name="android:textColor">@color/black</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="MaterialTextViewBodyStyle">
         <item name="android:textSize">@dimen/size_body</item>
         <item name="android:textColor">@color/black</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="MaterialTextViewBottomNavItemStyle">
         <item name="android:textSize">@dimen/size_so_tiny</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="MaterialTextViewBottomNavItemActiveStyle">
         <item name="android:textSize">@dimen/size_so_tiny</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="ChipStyle" parent="TextAppearance.MaterialComponents.Chip">
         <item name="android:textSize">@dimen/size_medium</item>
-        <item name="android:fontFamily">@font/product_sans_regular</item>
+        <item name="android:fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="MaterialButtonStyle" parent="Widget.MaterialComponents.Button">
@@ -112,7 +137,8 @@
         <item name="cornerRadius">@dimen/spacing_medium</item>
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
-        <item name="fontFamily">@font/product_sans_bold</item>
+        <item name="fontFamily">@font/lalezar_regular</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="MaterialOutlinedButtonStyle" parent="Widget.MaterialComponents.Button.OutlinedButton">
@@ -121,12 +147,14 @@
         <item name="cornerRadius">@dimen/spacing_medium</item>
         <item name="strokeWidth">0.75dp</item>
         <item name="strokeColor">@color/green_200</item>
-        <item name="fontFamily">@font/product_sans_bold</item>
+        <item name="fontFamily">@font/lalezar_regular</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="MaterialToggleButtonViewStyle" parent="Widget.MaterialComponents.Button.UnelevatedButton">
         <item name="android:textSize">@dimen/size_medium</item>
-        <item name="fontFamily">@font/product_sans_bold</item>
+        <item name="fontFamily">@font/lalezar_regular</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 
     <style name="MaterialCardViewStyle" parent="Widget.MaterialComponents.CardView">
@@ -157,7 +185,10 @@
         <item name="boxStrokeWidthFocused">0dp</item>
         <item name="startIconDrawable">@drawable/ic_search</item>
         <item name="errorEnabled">false</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -174,18 +205,28 @@
         <item name="endIconMode">clear_text</item>
         <item name="hintAnimationEnabled">false</item>
         <item name="hintEnabled">false</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="TextInputEditTextStyle">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/size_medium</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="TextInputEditTextSearchStyle">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">@dimen/size_medium</item>
-        <item name="fontFamily">@font/product_sans_regular</item>
+        <item name="fontFamily">@font/noto_kufi_arabic</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:lineSpacingExtra">0sp</item>
+        <item name="android:lineSpacingMultiplier">0.8</item>
     </style>
 
     <style name="ToolbarStyle">

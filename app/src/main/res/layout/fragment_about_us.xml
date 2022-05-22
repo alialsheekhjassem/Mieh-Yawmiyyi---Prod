@@ -50,7 +50,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/spacing_large"
-                android:fontFamily="@font/product_sans_bold"
                 android:paddingVertical="@dimen/spacing_large"
                 android:text="@string/about_us_text"
                 android:textSize="@dimen/size_title"

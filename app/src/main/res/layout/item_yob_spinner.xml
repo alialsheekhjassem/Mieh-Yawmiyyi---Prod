@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/orange_1"
-    android:fontFamily="@font/product_sans_regular"
+    android:fontFamily="@font/noto_kufi_arabic"
     android:paddingHorizontal="@dimen/spacing_large"
     android:paddingVertical="@dimen/spacing_default"
     android:gravity="center"

@@ -19,6 +19,7 @@ import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.MarkAsDoneTasksRequest
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.GroupedTasksResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.TasksResponse
 import com.magma.miyyiyawmiyyi.android.databinding.DialogDisableTasksBinding
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentTasksBinding
@@ -48,6 +49,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
     private var quizzesTasks: ArrayList<TaskObj> = arrayListOf()
     private var adTasks: ArrayList<TaskObj> = arrayListOf()
+
+    private var currentTask: TaskObj? = null
 
     private var isTaskOpened = false
     private var taskId: String? = null
@@ -86,12 +89,10 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                     override fun onEventUnhandledContent(t: TasksActions) {
                         when (t) {
                             TasksActions.QUIZZES_CLICKED -> {
-                                if (tasksAdapter.currentList.isNotEmpty()) {
-                                    findNavController().navigate(
-                                        TasksFragmentDirections
-                                            .actionTasksToQuizzes()
-                                    )
-                                }
+                                findNavController().navigate(
+                                    TasksFragmentDirections
+                                        .actionTasksToQuizzes()
+                                )
                             }
                         }
                     }
@@ -114,13 +115,22 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
                     when (type) {
                         Const.TYPE_SOCIAL_MEDIA -> {
+                            if (t.isEmpty()){
+                                viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_SOCIAL_MEDIA)
+                            }
                             tasksAdapter.submitList(t)
                         }
                         Const.TYPE_AD -> {
+                            if (t.isEmpty()){
+                                viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_AD)
+                            }
                             adTasks.clear()
                             adTasks.addAll(t)
                         }
                         Const.TYPE_QUIZ -> {
+                            if (t.isEmpty()){
+                                viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_QUIZ)
+                            }
                             quizzesTasks.clear()
                             quizzesTasks.addAll(t)
                         }
@@ -166,6 +176,85 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                                 quizzesTasks =
                                     response.items.filter { taskObj -> taskObj.type == Const.TYPE_QUIZ }
                             }*/
+                        }
+                        is Resource.DataError -> {
+                            binding.progress.visibility = View.GONE
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d(TAG, "response: DataError $response")
+                            binding.recyclerTasks.visibility = View.GONE
+                            if (response.status == 400) {
+                                binding.txtEmpty.text = getString(R.string.no_active_round)
+                                binding.txtEmpty.visibility = View.VISIBLE
+                            } else if (response.status == 409) {
+                                viewModel.deleteAllTasks()
+                            }
+                            //showErrorToast(response.failureMessage)
+                        }
+                        is Resource.Exception -> {
+                            binding.progress.visibility = View.GONE
+                            binding.recyclerTasks.visibility = View.GONE
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d(TAG, "response: $response")
+                            showErrorToast(response.toString())
+                        }
+                    }
+                }
+            })
+        )
+        // listen to api result
+        viewModel.responseGroupedTasks.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<ArrayList<GroupedTasksResponse>>> {
+                override fun onEventUnhandledContent(t: Resource<ArrayList<GroupedTasksResponse>>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            // show progress bar and remove no data layout while loading
+                            binding.progress.visibility = View.VISIBLE
+                            binding.txtEmpty.visibility = View.GONE
+                        }
+                        is Resource.Success -> {
+                            // response is ok get the data and display it in the list
+                            binding.progress.visibility = View.GONE
+                            val response = t.response as ArrayList<GroupedTasksResponse>
+                            Log.d(TAG, "response: $response")
+
+                            if (response.isNotEmpty() && response.first().socialMedias.isNotEmpty()) {
+                                binding.txtEmpty.text = getString(R.string.no_items)
+                                binding.txtEmpty.visibility = View.VISIBLE
+                            }
+
+                            val groupedTasks = arrayListOf<TaskObj>()
+                            response.first().socialMedias.forEach {
+                                val taskObj = TaskObj(
+                                    it._id ?: "",
+                                    Const.TYPE_SOCIAL_MEDIA, null, it,
+                                    null, null, null, false, null, null
+                                )
+                                groupedTasks.add(taskObj)
+                            }
+                            response.first().quizzes.forEach {
+                                val taskObj = TaskObj(
+                                    it._id ?: "",
+                                    Const.TYPE_QUIZ, null, null,
+                                    it, null, null, false, null, null
+                                )
+                                groupedTasks.add(taskObj)
+                            }
+                            response.first().ads.forEach {
+                                val taskObj = TaskObj(
+                                    it._id ?: "",
+                                    Const.TYPE_AD, null, null,
+                                    null, it, null, false, null, null
+                                )
+                                groupedTasks.add(taskObj)
+                            }
+
+                            viewModel.deleteAndSaveTasks(groupedTasks)
+
                         }
                         is Resource.DataError -> {
                             binding.progress.visibility = View.GONE
@@ -259,6 +348,14 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             hideLoadingDialog()
                             val response = t.response
                             Log.d(TAG, "responseGenerate: $response")
+                            when (currentTask?.type) {
+                                Const.TYPE_AD -> {
+                                    adTasks.remove(currentTask)
+                                }
+                                Const.TYPE_QUIZ -> {
+                                    quizzesTasks.remove(currentTask)
+                                }
+                            }
                             taskId?.let {
                                 viewModel.deleteTask(it)
                             }
@@ -317,15 +414,35 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
         refreshTasksBar()
 
+        //Set Settings
+        if (!viewModel.isShowAdTask()) {
+            binding.include1.btnWatchNow.visibility = View.INVISIBLE
+        } else {
+            binding.include1.btnWatchNow.visibility = View.VISIBLE
+        }
+        if (!viewModel.isShowQuizTask()) {
+            binding.include2.btnWatchNow.visibility = View.INVISIBLE
+        } else {
+            binding.include2.btnWatchNow.visibility = View.VISIBLE
+        }
+        if (!viewModel.isShowSocialMediaTask()) {
+            binding.recyclerTasks.visibility = View.GONE
+        } else {
+            binding.recyclerTasks.visibility = View.VISIBLE
+        }
+
         binding.include1.btnWatchNow.setOnClickListener {
             //val activity = requireActivity() as HomeActivity
             //activity.startGame()
             Log.d(TAG, "MPL setup: adTasks $adTasks")
             Log.d(TAG, "MPL setup: quizzesTasks $quizzesTasks")
             if (adTasks.isNotEmpty()) {
-                showAd()
+                if (viewModel.isEnableAds())
+                    showAd()
+                else requestMarkAsDoneAdTask()
             } else {
-                showErrorToast(getString(R.string.reach_max_tickets))
+                refreshTasksBar()
+                //showErrorToast(getString(R.string.reach_max_tickets))
             }
         }
     }
@@ -403,11 +520,16 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
             requireActivity()
         ) {
             //Mark As Done
-            if (adTasks.isNotEmpty()) {
-                val request = MarkAsDoneTasksRequest()
-                request.tasks.add(adTasks.first()._id)
-                viewModel.doServerMarkAsDone(request)
-            }
+            requestMarkAsDoneAdTask()
+        }
+    }
+
+    private fun requestMarkAsDoneAdTask() {
+        if (adTasks.isNotEmpty()) {
+            val request = MarkAsDoneTasksRequest()
+            request.tasks.add(adTasks.first()._id)
+            currentTask = adTasks.first()
+            viewModel.doServerMarkAsDone(request)
         }
     }
 
@@ -474,9 +596,10 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
 
-        viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_SOCIAL_MEDIA)
+        viewModel.getGroupedTasks(limit = 20)
+        /*viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_SOCIAL_MEDIA)
         viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_AD)
-        viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_QUIZ)
+        viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_QUIZ)*/
     }
 
     override fun onItemClicked(item: TaskObj, index: Int) {

@@ -20,17 +20,18 @@ import com.magma.miyyiyawmiyyi.android.databinding.DialogGiftCardBinding
 import com.magma.miyyiyawmiyyi.android.databinding.DialogPurchaseCardBinding
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentOurStoreBinding
 import com.magma.miyyiyawmiyyi.android.model.GiftCard
+import com.magma.miyyiyawmiyyi.android.model.GiftCardGroup
 import com.magma.miyyiyawmiyyi.android.model.PurchaseCard
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemCardListener
-import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemListener
+import com.magma.miyyiyawmiyyi.android.utils.listeners.RecyclerItemGiftCardListener
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import javax.inject.Inject
 
-class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
+class OurStoreFragment : ProgressBarFragments(), RecyclerItemGiftCardListener<GiftCard>,
     RecyclerItemCardListener<PurchaseCard> {
 
     lateinit var binding: FragmentOurStoreBinding
@@ -39,10 +40,10 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
     lateinit var viewModelFactory: ViewModelFactory
 
     @Inject
-    lateinit var giftCardsAdapter: GiftCardsAdapter
+    lateinit var giftCardsGroupAdapter: GiftCardsGroupAdapter
 
-    @Inject
-    lateinit var purchaseCardsAdapter: PurchaseCardsAdapter
+    /*@Inject
+    lateinit var purchaseCardsAdapter: PurchaseCardsAdapter*/
 
     private val viewModel: OurStoreViewModel by lazy {
         ViewModelProvider(this, viewModelFactory)[OurStoreViewModel::class.java]
@@ -63,15 +64,11 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
 
     @SuppressLint("SetTextI18n")
     private fun setUp() {
-        giftCardsAdapter.setListener(this)
-        giftCardsAdapter.submitList(arrayListOf())
-        binding.recyclerGoogleCards.adapter = giftCardsAdapter
+        giftCardsGroupAdapter.setListener(this)
+        giftCardsGroupAdapter.submitList(arrayListOf())
+        binding.recyclerGoogleCards.adapter = giftCardsGroupAdapter
 
-        purchaseCardsAdapter.setListener(this)
-        purchaseCardsAdapter.submitList(arrayListOf())
-        binding.recycler100YawCards.adapter = purchaseCardsAdapter
-
-        viewModel.loadAllGiftStoreCards()
+        //viewModel.loadAllGiftStoreCards()
         //viewModel.loadAllPurchaseCards()
 
         val info = ContactManager.getCurrentInfo()
@@ -88,7 +85,17 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
                 (object :
                 EventObserver.EventUnhandledContent<List<GiftCard>> {
                 override fun onEventUnhandledContent(t: List<GiftCard>) {
-                    giftCardsAdapter.submitList(t)
+                    val listGiftGroups = arrayListOf<GiftCardGroup>()
+                    val map = t.groupBy { it.cardName?.en }
+                    map.forEach {
+                        Log.d(TAG, "giftStoreCardsDb groupBy: ${it.key}")
+                        if (it.value.isNotEmpty()) {
+                            val groupGift = GiftCardGroup(it.value.first().cardName, it.value)
+                            listGiftGroups.add(groupGift)
+                        }
+                    }
+                    Log.d(TAG, "giftStoreCardsDb: listGiftGroups:\n $listGiftGroups")
+                    giftCardsGroupAdapter.submitList(listGiftGroups)
                     if (t.isNotEmpty()) {
                         binding.progress.visibility = View.GONE
                         binding.txtEmpty.visibility = View.GONE
@@ -98,7 +105,7 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
                 }
             })
         )
-        viewModel.purchasesCardsDb.observe(
+        /*viewModel.purchasesCardsDb.observe(
             viewLifecycleOwner,
             EventObserver
                 (object :
@@ -113,7 +120,7 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
                     }
                 }
             })
-        )
+        )*/
         // listen to api result
         viewModel.response.observe(
             viewLifecycleOwner,
@@ -133,7 +140,26 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
                             val response = t.response as GiftStoreResponse
                             Log.d(TAG, "response: $response")
 
-                            viewModel.deleteAndSaveGiftStoreCards(response)
+                            //viewModel.deleteAndSaveGiftStoreCards(response.items)
+                            val listGiftGroups = arrayListOf<GiftCardGroup>()
+                            /*val groupGift = GiftCardGroup(response.items.first().cardName, response.items)
+                            listGiftGroups.add(groupGift)*/
+                            val map = response.items.groupBy { it.cardName?.en }
+                            map.forEach {
+                                Log.d(TAG, "giftStoreCardsDb groupBy: ${it.key}")
+                                if (it.value.isNotEmpty()) {
+                                    val groupGift = GiftCardGroup(it.value.first().cardName, it.value)
+                                    listGiftGroups.add(groupGift)
+                                }
+                            }
+                            Log.d(TAG, "giftStoreCardsDb: listGiftGroups:\n $listGiftGroups")
+                            giftCardsGroupAdapter.submitList(listGiftGroups)
+                            if (response.items.isNotEmpty()) {
+                                binding.progress.visibility = View.GONE
+                                binding.txtEmpty.visibility = View.GONE
+                            } else {
+                                binding.txtEmpty.visibility = View.VISIBLE
+                            }
                             //setupData(response.items)
                         }
                         is Resource.DataError -> {
@@ -243,10 +269,6 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
         //viewModel.getPurchaseCards(limit = 20, offset = 0)
     }
 
-    override fun onItemClicked(item: GiftCard, index: Int) {
-        showGiftDialog(item)
-    }
-
     private fun showGiftDialog(item: GiftCard) {
         val builder = AlertDialog.Builder(requireActivity())
         val dialogBinding: DialogGiftCardBinding = DataBindingUtil.inflate(
@@ -257,17 +279,13 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
         alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialogBinding.item = item
         dialogBinding.btnContinue.setOnClickListener {
-            if (item._id.isNotEmpty()){
+            if (item._id.isNotEmpty()) {
                 viewModel.doServerCreatePurchase(item._id)
             }
             alertDialog.dismiss()
         }
         dialogBinding.btnClose.setOnClickListener { alertDialog.dismiss() }
         alertDialog.show()
-    }
-
-    override fun onItemCardClicked(item: PurchaseCard, index: Int) {
-        showPurchaseDialog(item)
     }
 
     private fun showPurchaseDialog(item: PurchaseCard) {
@@ -282,7 +300,7 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
         dialogBinding.btnContinue.setOnClickListener {
             //showSuccessToast(item._id)
             //Do your logic
-            if (item._id.isNotEmpty()){
+            if (item._id.isNotEmpty()) {
                 viewModel.doServerCreatePurchase(item._id)
             }
             alertDialog.dismiss()
@@ -293,5 +311,17 @@ class OurStoreFragment : ProgressBarFragments(), RecyclerItemListener<GiftCard>,
 
     companion object {
         private const val TAG = "OurStoreFragment"
+    }
+
+    override fun onItemCardClicked(item: PurchaseCard, index: Int) {
+        showPurchaseDialog(item)
+    }
+
+    override fun onItemClicked(item: GiftCard, index: Int) {
+        showGiftDialog(item)
+    }
+
+    override fun onGroupClicked(item: GiftCardGroup, index: Int) {
+
     }
 }

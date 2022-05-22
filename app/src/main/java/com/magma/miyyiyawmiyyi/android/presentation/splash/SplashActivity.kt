@@ -212,15 +212,15 @@ class SplashActivity : BaseActivity() {
             viewModel.setIsEnableAds(it.toBoolean())
         }
         itemIsShowQuizTask?.value?.let {
-            Log.d(TAG, "QQQ itemAds onEventUnhandledContent: $it")
+            Log.d(TAG, "QQQ itemIsShowQuizTask onEventUnhandledContent: $it")
             viewModel.setIsShowQuizTask(it.toBoolean())
         }
         itemIsShowSocialMediaTask?.value?.let {
-            Log.d(TAG, "QQQ itemAds onEventUnhandledContent: $it")
+            Log.d(TAG, "QQQ itemIsShowSocialMediaTask onEventUnhandledContent: $it")
             viewModel.setIsShowSocialMediaTask(it.toBoolean())
         }
         itemIsShowAdTask?.value?.let {
-            Log.d(TAG, "QQQ itemAds onEventUnhandledContent: $it")
+            Log.d(TAG, "QQQ itemIsShowAdTask onEventUnhandledContent: $it")
             viewModel.setIsShowAdTask(it.toBoolean())
         }
 

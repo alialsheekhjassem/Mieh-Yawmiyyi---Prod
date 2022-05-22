@@ -187,13 +187,14 @@ class HomeActivity : BaseActivity() {
         //subscribe topics
         subscribeTopic(Const.TOPIC_ROUNDS)
         subscribeTopic(Const.TOPIC_GRAND_PRIZE)
-        if (viewModel.getLang() == "ar") {
+        subscribeTopic(Const.TOPIC_GENERAL_AR)
+        /*if (viewModel.getLang() == "ar") {
             unSubscribeTopic(Const.TOPIC_GENERAL_EN)
             subscribeTopic(Const.TOPIC_GENERAL_AR)
         } else {
             unSubscribeTopic(Const.TOPIC_GENERAL_AR)
             subscribeTopic(Const.TOPIC_GENERAL_EN)
-        }
+        }*/
     }
 
     private fun notificationClicked() {
@@ -230,7 +231,7 @@ class HomeActivity : BaseActivity() {
     }
 
     private fun ticketsNotification() {
-        navController.navigate(HomeFragmentDirections.actionHomeToTickets())
+        navController.navigate(HomeFragmentDirections.actionHomeToTickets(true))
     }
 
     private fun ordersNotification() {

@@ -58,7 +58,7 @@
             app:icon="@drawable/ic_arrow_circle_right"
             app:iconGravity="end"
             app:iconTint="@color/white"
-            android:fontFamily="@font/product_sans_bold"
+            android:fontFamily="@font/lalezar_regular"
             android:textSize="@dimen/size_medium"
             app:cornerRadius="50dp"
             android:textAllCaps="false"

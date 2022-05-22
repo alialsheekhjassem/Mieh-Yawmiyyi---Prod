@@ -173,14 +173,18 @@ class QuizzesFragment : ProgressBarFragments() {
 
             val correctIndex = tasksQuizzes[currentQuestionIndex].quizTask?.correctIndex
             if (solvedIndex == correctIndex) {
-                Toast.makeText(requireActivity(), "True", Toast.LENGTH_SHORT).show()
-                showAd()
+                showSuccessToast(getString(R.string.question_true))
+                if (viewModel.isEnableAds())
+                    showAd()
+                else requestMarkAsDoneQuizTask()
             } else {
-                Toast.makeText(requireActivity(), "False", Toast.LENGTH_SHORT).show()
+                showErrorToast(getString(R.string.question_false))
                 /*val activity = requireActivity() as HomeActivity
                 activity.startGame()
                 request.tasks.add(tasksQuizzes[currentQuestionIndex]._id)*/
-                showAd()
+                if (viewModel.isEnableAds())
+                    showAd()
+                else requestMarkAsDoneQuizTask()
             }
         }
     }
@@ -223,29 +227,32 @@ class QuizzesFragment : ProgressBarFragments() {
             requireActivity()
         ) {
             //Mark As Done
-            request.tasks.add(tasksQuizzes[currentQuestionIndex]._id)
-            //Next Question
-            currentQuestionIndex++
+            requestMarkAsDoneQuizTask()
+        }
+    }
 
+    private fun requestMarkAsDoneQuizTask() {
+        request.tasks.add(tasksQuizzes[currentQuestionIndex]._id)
+        //Next Question
+        currentQuestionIndex++
 
-            if (tasksQuizzes.size > currentQuestionIndex) {
-                val level = String.format(
-                    getString(R.string.question_1_of_10),
-                    currentQuestionIndex + 1,
-                    tasksQuizzes.size
-                )
-                binding.txtLevel.text = level
-                binding.progressRemainingTickets.progress += 1
-                binding.txtQuestion.text = tasksQuizzes[currentQuestionIndex].quizTask?.question
-                binding.txtAnswer1.text =
-                    tasksQuizzes[currentQuestionIndex].quizTask?.options?.get(0)
-                binding.txtAnswer2.text =
-                    tasksQuizzes[currentQuestionIndex].quizTask?.options?.get(1)
-                binding.txtAnswer3.text =
-                    tasksQuizzes[currentQuestionIndex].quizTask?.options?.get(2)
-            } else {
-                viewModel.doServerMarkAsDone(request)
-            }
+        if (tasksQuizzes.size > currentQuestionIndex) {
+            val level = String.format(
+                getString(R.string.question_1_of_10),
+                currentQuestionIndex + 1,
+                tasksQuizzes.size
+            )
+            binding.txtLevel.text = level
+            binding.progressRemainingTickets.progress += 1
+            binding.txtQuestion.text = tasksQuizzes[currentQuestionIndex].quizTask?.question
+            binding.txtAnswer1.text =
+                tasksQuizzes[currentQuestionIndex].quizTask?.options?.get(0)
+            binding.txtAnswer2.text =
+                tasksQuizzes[currentQuestionIndex].quizTask?.options?.get(1)
+            binding.txtAnswer3.text =
+                tasksQuizzes[currentQuestionIndex].quizTask?.options?.get(2)
+        } else {
+            viewModel.doServerMarkAsDone(request)
         }
     }
 

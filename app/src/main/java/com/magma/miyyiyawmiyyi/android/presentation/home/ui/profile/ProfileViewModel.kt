@@ -42,6 +42,23 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
+    fun onDoneUpdatePhone(accountRequest: AccountRequest) {
+        //validate phone number
+        when {
+            accountRequest.phone.isNullOrEmpty() -> {
+                validation.value = Event(ProfileValidation.PHONE_EMPTY)
+                return
+            }
+            accountRequest.token.isNullOrEmpty() -> {
+                validation.value = Event(ProfileValidation.TOKEN_EMPTY)
+                return
+            }
+            else -> {
+                doServerUpdateMyAccount(accountRequest)
+            }
+        }
+    }
+
     val updateResponse = MutableLiveData<Event<Resource<Account>>>()
 
     private fun doServerUpdateMyAccount(

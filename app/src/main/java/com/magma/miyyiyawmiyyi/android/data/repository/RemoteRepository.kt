@@ -533,6 +533,37 @@ class RemoteRepository
         }
     }
 
+    override suspend fun getGroupedTasks(limit: Int): Resource<ArrayList<GroupedTasksResponse>> {
+        val authService = serviceGenerator.createService(IFoodService::class.java)
+        try {
+            val response = authService.getGroupedTasks(limit)
+
+            return if (response.isSuccessful) {
+                //Do something with response e.g show to the UI.
+                val tasksResponse = response.body()?.successResult as ArrayList<GroupedTasksResponse>
+                Log.d(TAG, "getTasks: isSuccessful " + response.code())
+                Log.d(TAG, "getTasks: isSuccessful $tasksResponse")
+                Resource.Success(tasksResponse)
+            } else {
+                Log.d(TAG, "getTasks: isSuccessful no " + response.code())
+                Log.d(TAG, "getTasks: isSuccessful no " + response.message())
+                val errorBody = gson.fromJson(
+                    response.errorBody()?.stringSuspending(),
+                    ErrorManager::class.java
+                )
+                Resource.DataError(errorBody)
+            }
+        } catch (e: HttpException) {
+            return Resource.Exception(e.message() as String)
+        } catch (e: Throwable) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: SocketTimeoutException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        } catch (e: IOException) {
+            return Resource.Exception(errorMessage = e.message as String)
+        }
+    }
+
     override suspend fun getRoundStatistics(isActiveRound: Boolean): Resource<RoundStatisticsResponse> {
         val authService = serviceGenerator.createService(IFoodService::class.java)
         try {

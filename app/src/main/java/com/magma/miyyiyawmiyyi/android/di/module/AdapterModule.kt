@@ -6,6 +6,7 @@ import com.magma.miyyiyawmiyyi.android.presentation.home.ui.home.WinnersAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.notifications.NotificationsAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.orders.OrdersAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store.GiftCardsAdapter
+import com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store.GiftCardsGroupAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.our_store.PurchaseCardsAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.tasks.TasksAdapter
 import com.magma.miyyiyawmiyyi.android.presentation.home.ui.tickets.TicketsAdapter
@@ -37,6 +38,11 @@ class AdapterModule {
     @Provides
     fun provideGiftCardsAdapter(): GiftCardsAdapter {
         return GiftCardsAdapter()
+    }
+
+    @Provides
+    fun provideGiftCardsGroupAdapter(): GiftCardsGroupAdapter {
+        return GiftCardsGroupAdapter()
     }
 
     @Provides

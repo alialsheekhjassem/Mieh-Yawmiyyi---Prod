@@ -5,11 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.MarkAsDoneTasksRequest
-import com.magma.miyyiyawmiyyi.android.data.remote.responses.RoundsResponse
 import kotlinx.coroutines.CoroutineScope
 import com.magma.miyyiyawmiyyi.android.data.repository.DataRepository
 import com.magma.miyyiyawmiyyi.android.model.TaskObj
-import com.magma.miyyiyawmiyyi.android.presentation.registration.check_code.CheckCodeActions
 import com.magma.miyyiyawmiyyi.android.utils.Event
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -66,6 +64,10 @@ class QuizzesViewModel @Inject constructor(
 
     fun onBackToTasks() {
         actions.value = Event(QuizzesActions.BACK_TO_TASKS_CLICKED)
+    }
+
+    fun isEnableAds(): Boolean {
+        return dataRepository.isEnableAds()
     }
 
 }

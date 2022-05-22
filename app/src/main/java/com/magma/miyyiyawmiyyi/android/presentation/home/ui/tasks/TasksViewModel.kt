@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.MarkAsDoneTasksRequest
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.GroupedTasksResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.TasksResponse
 import kotlinx.coroutines.CoroutineScope
 import com.magma.miyyiyawmiyyi.android.data.repository.DataRepository
@@ -26,6 +27,7 @@ class TasksViewModel @Inject constructor(
      * Live data of requests list response.
      * */
     internal var response = MutableLiveData<Event<Resource<TasksResponse>>>()
+    internal var responseGroupedTasks = MutableLiveData<Event<Resource<ArrayList<GroupedTasksResponse>>>>()
     internal var responseGenerate = MutableLiveData<Event<Resource<Any?>>>()
     val tasksDb = MutableLiveData<Event<List<TaskObj>>>()
     val actions = MutableLiveData<Event<TasksActions>>()
@@ -36,6 +38,22 @@ class TasksViewModel @Inject constructor(
 
     fun getTasksCount(): Int {
         return dataRepository.getTasksCount()
+    }
+
+    fun isEnableAds(): Boolean {
+        return dataRepository.isEnableAds()
+    }
+
+    fun isShowAdTask(): Boolean {
+        return dataRepository.isShowAdTask()
+    }
+
+    fun isShowQuizTask(): Boolean {
+        return dataRepository.isShowQuizTask()
+    }
+
+    fun isShowSocialMediaTask(): Boolean {
+        return dataRepository.isShowSocialMediaTask()
     }
 
     fun setTasksCount(count: Int) {
@@ -64,11 +82,33 @@ class TasksViewModel @Inject constructor(
         }
     }
 
+    fun getGroupedTasks(limit: Int) {
+        launch {
+            //val token = dataRepository.getApiToken()
+            responseGroupedTasks.value = Event(Resource.Loading())
+            val result: Resource<ArrayList<GroupedTasksResponse>> =
+                dataRepository.getGroupedTasks(limit)
+            Log.d("TAG", "responseGroupedTasks: $result")
+            responseGroupedTasks.value = Event(result)
+        }
+    }
+
     fun loadAllTasks(type: String) {
         // save feed list into database
         launch {
             val list = withContext(Dispatchers.IO) {
                 dataRepository.loadAllTasks(type)
+            }
+            Log.d("TAG", "loadAllTasks: $list")
+            tasksDb.value = Event(list)
+        }
+    }
+
+    fun loadAllTasks() {
+        // save feed list into database
+        launch {
+            val list = withContext(Dispatchers.IO) {
+                dataRepository.loadAllTasks()
             }
             Log.d("TAG", "loadAllTasks: $list")
             tasksDb.value = Event(list)
@@ -102,6 +142,17 @@ class TasksViewModel @Inject constructor(
         }
     }
 
+    fun deleteAndSaveTasks(tasksResponse: ArrayList<TaskObj>) {
+        // save feed list into database
+        launch {
+            withContext(Dispatchers.IO)
+            {
+                dataRepository.deleteAllTasks()
+                saveTasks(tasksResponse)
+            }
+        }
+    }
+
     fun deleteAllTasks() {
         // save feed list into database
         launch {
@@ -122,6 +173,18 @@ class TasksViewModel @Inject constructor(
             {
                 val ids = dataRepository.insertTaskList(tasksResponse)
                 type?.let { loadAllTasks(it) }
+                Log.d("TAG", "saveTasks: $ids")
+            }
+        }
+    }
+
+    private fun saveTasks(tasksResponse: ArrayList<TaskObj>) {
+        // save feed list into database
+        launch {
+            withContext(Dispatchers.IO)
+            {
+                val ids = dataRepository.insertTaskList(tasksResponse)
+                loadAllTasks()
                 Log.d("TAG", "saveTasks: $ids")
             }
         }
