@@ -118,7 +118,7 @@ class ProfileViewModel @Inject constructor(
         launch {
             withContext(Dispatchers.IO)
             {
-                val ids = dataRepository.deleteAllPurchaseCards()
+                val ids = dataRepository.deleteAllCountries()
                 saveCountries(countryList)
                 Log.d("TAG", "deleteAndSaveCountries: $ids")
             }

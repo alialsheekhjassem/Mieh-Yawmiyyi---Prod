@@ -56,6 +56,7 @@ class Const {
         //Extras
         const val EXTRA_REGISTER_REQUEST = "register_request"
         const val EXTRA_PHONE_NUMBER = "PHONE_NUMBER"
+        const val EXTRA_COUNTRY_CODE = "COUNTRY_CODE"
         const val EXTRA_DEEP_LINK = "DEEP_LINK"
 
         //TYPES

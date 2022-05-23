@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.FullScreenContentCallback
 import com.magma.miyyiyawmiyyi.android.MAGMA
@@ -35,7 +36,7 @@ import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
 import dagger.android.support.AndroidSupportInjection
 import java.util.*
 import javax.inject.Inject
-import kotlin.collections.ArrayList
+
 
 class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
@@ -49,6 +50,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
     private var quizzesTasks: ArrayList<TaskObj> = arrayListOf()
     private var adTasks: ArrayList<TaskObj> = arrayListOf()
+    private var smTasks: ArrayList<TaskObj> = arrayListOf()
+    private var isLoading = false
 
     private var currentTask: TaskObj? = null
 
@@ -165,6 +168,10 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                             var type: String? = null
                             if (response.items.isNotEmpty())
                                 type = response.items.first().type
+
+                            if (type == Const.TYPE_SOCIAL_MEDIA) {
+                                isLoading = false
+                            }
 
                             if (type == Const.TYPE_SOCIAL_MEDIA && response.items.isEmpty()) {
                                 binding.txtEmpty.text = getString(R.string.no_items)
@@ -367,6 +374,10 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
                                 Const.TYPE_QUIZ -> {
                                     quizzesTasks.remove(currentTask)
                                 }
+                                Const.TYPE_SOCIAL_MEDIA -> {
+                                    smTasks.remove(currentTask)
+                                    tasksAdapter.submitList(smTasks)
+                                }
                             }
                             taskId?.let {
                                 viewModel.deleteTask(it)
@@ -408,18 +419,18 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
 
     private fun setGroupedTasks(t: ArrayList<TaskObj>) {
         if (t.none { it.type == Const.TYPE_SOCIAL_MEDIA }) {
-            viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_SOCIAL_MEDIA)
+            viewModel.getTasks(limit = 20, offset = smTasks.size, false, Const.TYPE_SOCIAL_MEDIA)
         }
         tasksAdapter.submitList(t.filter { it.type == Const.TYPE_SOCIAL_MEDIA })
 
         if (t.none { it.type == Const.TYPE_AD }) {
-            viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_AD)
+            viewModel.getTasks(limit = 20, offset = adTasks.size, false, Const.TYPE_AD)
         }
         adTasks.clear()
         adTasks.addAll(t.filter { it.type == Const.TYPE_AD })
 
         if (t.none { it.type == Const.TYPE_QUIZ }) {
-            viewModel.getTasks(limit = 20, offset = 0, false, Const.TYPE_QUIZ)
+            viewModel.getTasks(limit = 20, offset = quizzesTasks.size, false, Const.TYPE_QUIZ)
         }
         quizzesTasks.clear()
         quizzesTasks.addAll(t.filter { it.type == Const.TYPE_QUIZ })
@@ -428,6 +439,8 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
     private fun setTasks(t: ArrayList<TaskObj>, type: String?) {
         when (type) {
             Const.TYPE_SOCIAL_MEDIA -> {
+                //smTasks.clear()
+                smTasks.addAll(t)
                 tasksAdapter.submitList(t)
             }
             Const.TYPE_AD -> {
@@ -452,6 +465,15 @@ class TasksFragment : ProgressBarFragments(), RecyclerItemListener<TaskObj> {
         tasksAdapter.setListener(this)
         //tasksAdapter.submitList(arrayListOf())
         binding.recyclerTasks.adapter = tasksAdapter
+        binding.recyclerTasks.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (!isLoading && !recyclerView.canScrollHorizontally(2)) { //1 for down
+                    isLoading = true
+                    viewModel.getTasks(limit = 20, offset = smTasks.size, false, Const.TYPE_SOCIAL_MEDIA)
+                }
+            }
+        })
 
         binding.include2.btnWatchNow.setOnClickListener {
             if (quizzesTasks.isNotEmpty())

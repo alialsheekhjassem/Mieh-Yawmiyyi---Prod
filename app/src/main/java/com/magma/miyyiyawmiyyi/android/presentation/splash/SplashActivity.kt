@@ -180,6 +180,7 @@ class SplashActivity : BaseActivity() {
                 }
             })
         )
+
     }
 
     private fun setSettings(t: List<Setting>) {

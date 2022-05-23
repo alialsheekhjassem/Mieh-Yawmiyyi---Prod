@@ -129,10 +129,11 @@ class LoginFragment : ProgressBarFragments() {
                             }
                             LoginActions.CHECK_CODE_CLICKED -> {
                                 val fullNumber = binding.countryPicker.fullNumberWithPlus
+                                val countryCode = binding.countryPicker.selectedCountryNameCode.lowercase()
                                 Log.d(TAG, "QQQ onCreateView: phoneNumber: $fullNumber")
                                 findNavController().navigate(
                                     LoginFragmentDirections.actionLoginToCheckCode(
-                                        fullNumber
+                                        fullNumber, countryCode
                                     )
                                 )
                             }

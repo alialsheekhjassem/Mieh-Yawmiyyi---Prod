@@ -33,7 +33,6 @@ import com.magma.miyyiyawmiyyi.android.databinding.FragmentCheckCodeBinding
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
 import com.magma.miyyiyawmiyyi.android.utils.Const
 import com.magma.miyyiyawmiyyi.android.utils.EventObserver
-import com.magma.miyyiyawmiyyi.android.utils.LocalHelper
 import com.magma.miyyiyawmiyyi.android.utils.ViewModelFactory
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
@@ -42,6 +41,7 @@ import javax.inject.Inject
 class CheckCodeFragment : ProgressBarFragments() {
     lateinit var binding: FragmentCheckCodeBinding
     private var phoneNumber: String? = null
+    private var countryCode: String? = null
     private var mAuth: FirebaseAuth? = null
     private var mCallbacks: OnVerificationStateChangedCallbacks? = null
     private var countDownTimer: CountDownTimer? = null
@@ -71,6 +71,10 @@ class CheckCodeFragment : ProgressBarFragments() {
             phoneNumber?.let { phone ->
                 startPhoneNumberVerification(phone)
             }
+        }
+        arguments?.getString(Const.EXTRA_COUNTRY_CODE).let {
+            Log.d(TAG, "QQQ onCreateView: countryCode: $it")
+            countryCode = it
         }
 
         binding.lytPoweredBy.root.setOnClickListener {
@@ -150,7 +154,8 @@ class CheckCodeFragment : ProgressBarFragments() {
                             }*/
 
                             Navigation.findNavController(binding.root)
-                                .navigate(CheckCodeFragmentDirections.actionCheckCodeFinishAccountSetup())
+                                .navigate(CheckCodeFragmentDirections
+                                    .actionCheckCodeFinishAccountSetup(countryCode?:"us"))
                         }
                         is Resource.DataError -> {
                             hideLoadingDialog()

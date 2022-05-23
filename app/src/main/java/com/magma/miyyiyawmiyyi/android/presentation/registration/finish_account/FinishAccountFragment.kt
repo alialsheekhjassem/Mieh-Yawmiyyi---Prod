@@ -21,12 +21,14 @@ import com.magma.miyyiyawmiyyi.android.R
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.ErrorManager
 import com.magma.miyyiyawmiyyi.android.data.remote.controller.Resource
 import com.magma.miyyiyawmiyyi.android.data.remote.requests.AccountRequest
+import com.magma.miyyiyawmiyyi.android.data.remote.responses.CountriesResponse
 import com.magma.miyyiyawmiyyi.android.data.remote.responses.MyAccountResponse
 import dagger.android.support.AndroidSupportInjection
 import com.magma.miyyiyawmiyyi.android.utils.BindingUtils.hideKeyboard
 import javax.inject.Inject
 import com.magma.miyyiyawmiyyi.android.databinding.FragmentFinishAccountBinding
 import com.magma.miyyiyawmiyyi.android.model.Account
+import com.magma.miyyiyawmiyyi.android.model.Country
 import com.magma.miyyiyawmiyyi.android.presentation.base.ProgressBarFragments
 import com.magma.miyyiyawmiyyi.android.utils.*
 import com.magma.miyyiyawmiyyi.android.utils.user_management.ContactManager
@@ -39,7 +41,9 @@ class FinishAccountFragment : ProgressBarFragments() {
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
-    var listYear : Array<String> = arrayOf()
+    var listYear: Array<String> = arrayOf()
+    var countryList: Array<Country> = arrayOf()
+    private var countryCode: String? = null
 
     private val accountRequest = AccountRequest()
 
@@ -66,6 +70,12 @@ class FinishAccountFragment : ProgressBarFragments() {
 
     private fun setUp() {
         accountRequest.locale = Locale.getDefault().language.lowercase()
+
+        arguments?.getString(Const.EXTRA_COUNTRY_CODE).let {
+            Log.d(TAG, "QQQ onCreateView: countryCode: $it")
+            countryCode = it
+            viewModel.loadAllCountries()
+        }
 
         val list = arrayListOf<String>()
         for (i in 2022 downTo 1922)
@@ -129,10 +139,64 @@ class FinishAccountFragment : ProgressBarFragments() {
                 override fun onEventUnhandledContent(t: FinishAccountValidation) {
                     when (t) {
                         FinishAccountValidation.NAME_REQUIRED -> {
-                            binding.txtInputNameLyt.error = getString(R.string.name_can_not_be_empty)
+                            binding.txtInputNameLyt.error =
+                                getString(R.string.name_can_not_be_empty)
                         }
                         FinishAccountValidation.BIRTH_DATE_REQUIRED -> {
                             showErrorToast(getString(R.string.date_of_birth_is_required))
+                        }
+                    }
+                }
+            })
+        )
+
+        /**Country Api*/
+        viewModel.countriesDb.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<List<Country>> {
+                override fun onEventUnhandledContent(t: List<Country>) {
+                    if (t.isNotEmpty()) {
+                        countryList = t.toTypedArray()
+                        val country = t.first { it.alpha2 == countryCode }
+                        accountRequest.country = country._id
+                    } else {
+                        viewModel.getCountries(limit = 0, offset = 0)
+                    }
+                }
+            })
+        )
+        // listen to api result
+        viewModel.responseCountries.observe(
+            viewLifecycleOwner,
+            EventObserver
+                (object :
+                EventObserver.EventUnhandledContent<Resource<CountriesResponse>> {
+                override fun onEventUnhandledContent(t: Resource<CountriesResponse>) {
+                    when (t) {
+                        is Resource.Loading -> {
+                            showLoadingDialog()
+                        }
+                        is Resource.Success -> {
+                            hideLoadingDialog()
+                            // response is ok get the data and display it in the list
+                            val response = t.response as CountriesResponse
+                            Log.d("TAG", "QAQ responseCountries: $response")
+
+                            viewModel.deleteAndSaveCountries(response.items)
+                        }
+                        is Resource.DataError -> {
+                            hideLoadingDialog()
+                            // usually this happening when there is server error
+                            val response = t.response as ErrorManager
+                            Log.d("TAG", "QAQ response: DataError $response")
+                        }
+                        is Resource.Exception -> {
+                            hideLoadingDialog()
+                            // usually this happening when there is no internet
+                            val response = t.response
+                            Log.d("TAG", "QAQ response: $response")
                         }
                     }
                 }

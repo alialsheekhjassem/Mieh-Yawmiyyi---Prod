@@ -240,7 +240,7 @@ class ProfileFragment : ProgressBarFragments() {
                             binding.spnLocation.setSelection(index)
                         }
                     } else {
-                        viewModel.getCountries(limit = 20, offset = 0)
+                        viewModel.getCountries(limit = 0, offset = 0)
                     }
                 }
             })
